@@ -1,0 +1,32 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+	compileSdkVersion 23
+	buildToolsVersion '23.0.2'
+
+	defaultConfig {
+		applicationId 'io.kolumbus.demo'
+		minSdkVersion 8
+		targetSdkVersion 23
+		versionCode 1
+		versionName '1.0'
+	}
+
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+
+	sourceSets {
+		main.java.srcDirs += 'src/main/kotlin'
+	}
+}
+
+dependencies {
+	compile 'com.android.support:appcompat-v7:23.1.1'
+	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
+	compile 'io.realm:realm-android:0.87.4'
+}
