@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<string name="kolumbus_entries_count"><xliff:g example="42" id="count">%1$s</xliff:g> entries</string>
+</resources>

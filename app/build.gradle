@@ -7,7 +7,7 @@ android {
 
 	defaultConfig {
 		applicationId 'io.kolumbus.demo'
-		minSdkVersion 8
+		minSdkVersion 9
 		targetSdkVersion 23
 		versionCode 1
 		versionName '1.0'
@@ -15,7 +15,7 @@ android {
 
 	buildTypes {
 		release {
-			minifyEnabled false
+			minifyEnabled true
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
@@ -26,7 +26,13 @@ android {
 }
 
 dependencies {
+	compile project(':lib')
 	compile 'com.android.support:appcompat-v7:23.1.1'
+	compile 'org.jetbrains.kotlin:kotlin-reflect:1.0.0'
 	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
-	compile 'io.realm:realm-android:0.87.4'
+	compile 'io.realm:realm-android-library:0.87.4@aar'
+	compile 'io.realm:realm-annotations:0.87.4'
+
+	kapt 'io.realm:realm-annotations:0.87.4'
+	kapt 'io.realm:realm-annotations-processor:0.87.4'
 }
