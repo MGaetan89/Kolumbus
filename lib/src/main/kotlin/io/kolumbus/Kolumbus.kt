@@ -3,17 +3,12 @@ package io.kolumbus
 import android.content.Context
 import io.kolumbus.activity.TablesListActivity
 import io.realm.RealmObject
-import kotlin.reflect.KClass
 
-class Kolumbus private constructor() {
-    companion object {
-        val INSTANCE: Kolumbus by lazy { Kolumbus() }
-    }
+object Kolumbus {
+    internal val tables = mutableMapOf<String, Class<out RealmObject>>()
 
-    internal val tables = mutableMapOf<String, KClass<out RealmObject>>()
-
-    fun register(table: KClass<out RealmObject>): Kolumbus {
-        this.tables.put(table.simpleName ?: "", table)
+    fun register(table: Class<out RealmObject>): Kolumbus {
+        this.tables.put(table.simpleName, table)
 
         return this
     }
@@ -22,8 +17,8 @@ class Kolumbus private constructor() {
         TablesListActivity.start(context)
     }
 
-    fun unregister(table: KClass<out RealmObject>): Kolumbus {
-        this.tables.remove(table.simpleName ?: "")
+    fun unregister(table: Class<out RealmObject>): Kolumbus {
+        this.tables.remove(table.simpleName)
 
         return this
     }

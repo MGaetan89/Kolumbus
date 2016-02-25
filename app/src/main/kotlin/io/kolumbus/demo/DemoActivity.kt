@@ -30,8 +30,8 @@ class DemoActivity : AppCompatActivity() {
             close()
         }
 
-        with(Kolumbus.INSTANCE) {
-            register(Category::class)
+        with(Kolumbus) {
+            register(Category::class.java)
             start(this@DemoActivity)
         }
     }

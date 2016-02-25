@@ -35,8 +35,8 @@ class TablesListActivity : AppCompatActivity() {
         val realm = Realm.getDefaultInstance()
         val tablesAndCounts = mutableMapOf<String, Long>()
 
-        for ((tableName, tableClass) in Kolumbus.INSTANCE.tables) {
-            tablesAndCounts.put(tableName, realm.where(tableClass.java).count())
+        for ((tableName, tableClass) in Kolumbus.tables) {
+            tablesAndCounts.put(tableName, realm.where(tableClass).count())
         }
 
         realm.close()
