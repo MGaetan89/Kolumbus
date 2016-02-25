@@ -28,6 +28,9 @@ class TablesListActivity : AppCompatActivity() {
 
         if (listView != null) {
             listView.adapter = this.getAdapter()
+            listView.setOnItemClickListener { adapterView, view, i, l ->
+                TableActivity.start(this, Kolumbus.tables[adapterView.getItemAtPosition(i)])
+            }
         }
     }
 

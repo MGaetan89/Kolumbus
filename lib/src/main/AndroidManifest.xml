@@ -4,6 +4,12 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<application>
-		<activity android:name=".activity.TablesListActivity"/>
+		<activity
+			android:name=".activity.TableActivity"
+			android:theme="@style/kolumbus_Theme"/>
+
+		<activity
+			android:name=".activity.TablesListActivity"
+			android:theme="@style/kolumbus_Theme"/>
 	</application>
 </manifest>
