@@ -9,5 +9,6 @@
 	<string name="kolumbus_clear">Clear</string>
 	<string name="kolumbus_clear_database">Clear Database</string>
 	<string name="kolumbus_clear_database_confirm">Are you sure you want to clear your database?\nThis can not be undone.</string>
+	<string name="kolumbus_no_tables">No tables</string>
 	<string name="kolumbus_tables_list">Tables List</string>
 </resources>

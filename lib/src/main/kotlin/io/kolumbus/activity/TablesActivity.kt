@@ -7,7 +7,9 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ListView
+import android.widget.TextView
 import io.kolumbus.Kolumbus
 import io.kolumbus.R
 import io.kolumbus.adapter.TablesAdapter
@@ -29,20 +31,26 @@ class TablesActivity : AppCompatActivity() {
 
         this.setContentView(R.layout.kolumbus_activity_tables)
 
+        val empty = this.findViewById(android.R.id.empty) as TextView?
         this.listView = this.findViewById(android.R.id.list) as ListView?
+
+        if (empty != null) {
+            empty.visibility = if (Kolumbus.tables.isEmpty()) View.VISIBLE else View.GONE
+        }
 
         if (this.listView != null) {
             (this.listView as ListView).adapter = this.getAdapter()
             (this.listView as ListView).setOnItemClickListener { adapterView, view, i, l ->
                 TableActivity.start(this, Kolumbus.tables[adapterView.getItemAtPosition(i)])
             }
+            (this.listView as ListView).visibility = if (Kolumbus.tables.isEmpty()) View.GONE else View.VISIBLE
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menuInflater.inflate(R.menu.kolumbus_tables, menu)
 
-        return true
+        return Kolumbus.tables.isNotEmpty()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
