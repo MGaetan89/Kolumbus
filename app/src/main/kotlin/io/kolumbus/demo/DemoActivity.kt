@@ -25,14 +25,17 @@ class DemoActivity : AppCompatActivity() {
             executeTransaction {
                 // Create some categories
                 val book = createObject(Category::class.java)
+                book.color = "green"
                 book.id = 1
                 book.name = "Book"
 
                 val dvd = createObject(Category::class.java)
+                dvd.color = "#0000ff"
                 dvd.id = 2
                 dvd.name = "DVD"
 
                 val game = createObject(Category::class.java)
+                game.color = "#FFFF00"
                 game.id = 3
                 game.name = "Game"
 

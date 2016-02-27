@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="kolumbus_color_preview_border">@android:color/white</color>
+</resources>

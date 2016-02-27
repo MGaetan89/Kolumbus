@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<dimen name="kolumbus_color_preview_border">1dp</dimen>
+	<dimen name="kolumbus_color_preview_radius">4dp</dimen>
+	<dimen name="kolumbus_color_preview_size">18dp</dimen>
 	<dimen name="kolumbus_padding">16dp</dimen>
+	<dimen name="kolumbus_padding_small">8dp</dimen>
 </resources>
