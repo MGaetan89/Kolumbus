@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string name="kolumbus_entries_count"><xliff:g example="42" id="count">%1$s</xliff:g> entries</string>
+	<plurals name="kolumbus_entries_count">
+		<item quantity="zero">No entries</item>
+		<item quantity="one">1 entry</item>
+		<item quantity="other"><xliff:g example="42" id="count">%1$s</xliff:g> entries</item>
+	</plurals>
+
+	<string name="kolumbus_tables_list">Tables List</string>
 </resources>

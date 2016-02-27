@@ -24,6 +24,8 @@ class TableActivity : AppCompatActivity() {
 
         val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
 
+        this.title = tableClass.simpleName
+
         // TODO List table content
     }
 }

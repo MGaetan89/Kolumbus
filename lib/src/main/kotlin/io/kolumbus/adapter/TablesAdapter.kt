@@ -37,9 +37,10 @@ class TablesAdapter(context: Context, tablesAndCounts: Map<String, Long>) : Arra
         }
 
         val item = this.getItem(position)
-        val count = this.counts[position].format()
+        val count = this.counts[position]
+        val countString = count.format()
 
-        holder.entriesCount?.text = this.context.getString(R.string.kolumbus_entries_count, count)
+        holder.entriesCount?.text = this.context.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
         holder.tableName?.text = item.prettify()
 
         return view

@@ -10,6 +10,7 @@
 
 		<activity
 			android:name=".activity.TablesListActivity"
+			android:label="@string/kolumbus_tables_list"
 			android:theme="@style/kolumbus_Theme"/>
 	</application>
 </manifest>
