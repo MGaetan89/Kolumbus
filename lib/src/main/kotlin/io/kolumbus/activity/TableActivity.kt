@@ -44,7 +44,7 @@ class TableActivity : AppCompatActivity() {
         this.title = tableClass.simpleName.prettify()
 
         val methods = tableClass.declaredMethods.filter {
-            !Modifier.isStatic(it.modifiers) && it.parameterTypes.size == 0
+            Modifier.isPublic(it.modifiers) && !Modifier.isStatic(it.modifiers) && it.parameterTypes.size == 0
         }
         val table = this.findViewById(R.id.table) as TableLayout?
         var tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, table, false) as TableRow
