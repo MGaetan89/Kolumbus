@@ -13,12 +13,12 @@ import io.kolumbus.R
 import io.kolumbus.adapter.TablesAdapter
 import io.realm.Realm
 
-class TablesListActivity : AppCompatActivity() {
+class TablesActivity : AppCompatActivity() {
     private var listView: ListView? = null
 
     companion object {
         fun start(context: Context) {
-            val intent = Intent(context, TablesListActivity::class.java)
+            val intent = Intent(context, TablesActivity::class.java)
 
             context.startActivity(intent)
         }
@@ -27,7 +27,7 @@ class TablesListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        this.setContentView(R.layout.kolumbus_activity_tables_list)
+        this.setContentView(R.layout.kolumbus_activity_tables)
 
         this.listView = this.findViewById(android.R.id.list) as ListView?
 

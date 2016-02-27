@@ -1,7 +1,7 @@
 package io.kolumbus
 
 import android.content.Context
-import io.kolumbus.activity.TablesListActivity
+import io.kolumbus.activity.TablesActivity
 import io.realm.RealmObject
 
 object Kolumbus {
@@ -14,7 +14,7 @@ object Kolumbus {
     }
 
     fun start(context: Context) {
-        TablesListActivity.start(context)
+        TablesActivity.start(context)
     }
 
     fun unregister(table: Class<out RealmObject>): Kolumbus {

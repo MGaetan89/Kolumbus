@@ -9,7 +9,7 @@
 			android:theme="@style/kolumbus_Theme"/>
 
 		<activity
-			android:name=".activity.TablesListActivity"
+			android:name=".activity.TablesActivity"
 			android:label="@string/kolumbus_tables_list"
 			android:theme="@style/kolumbus_Theme"/>
 	</application>
