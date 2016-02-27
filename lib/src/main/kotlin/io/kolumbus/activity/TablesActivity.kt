@@ -5,10 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ListView
 import android.widget.TextView
 import io.kolumbus.Kolumbus
 import io.kolumbus.R
@@ -16,7 +17,7 @@ import io.kolumbus.adapter.TablesAdapter
 import io.realm.Realm
 
 class TablesActivity : AppCompatActivity() {
-    private var listView: ListView? = null
+    private var recyclerView: RecyclerView? = null
 
     companion object {
         fun start(context: Context) {
@@ -32,18 +33,16 @@ class TablesActivity : AppCompatActivity() {
         this.setContentView(R.layout.kolumbus_activity_tables)
 
         val empty = this.findViewById(android.R.id.empty) as TextView?
-        this.listView = this.findViewById(android.R.id.list) as ListView?
+        this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
 
         if (empty != null) {
             empty.visibility = if (Kolumbus.tables.isEmpty()) View.VISIBLE else View.GONE
         }
 
-        if (this.listView != null) {
-            (this.listView as ListView).adapter = this.getAdapter()
-            (this.listView as ListView).setOnItemClickListener { adapterView, view, i, l ->
-                TableActivity.start(this, Kolumbus.tables[adapterView.getItemAtPosition(i)])
-            }
-            (this.listView as ListView).visibility = if (Kolumbus.tables.isEmpty()) View.GONE else View.VISIBLE
+        if (this.recyclerView != null) {
+            (this.recyclerView as RecyclerView).adapter = this.getAdapter()
+            (this.recyclerView as RecyclerView).layoutManager = LinearLayoutManager(this)
+            (this.recyclerView as RecyclerView).visibility = if (Kolumbus.tables.isEmpty()) View.GONE else View.VISIBLE
         }
     }
 
@@ -64,8 +63,8 @@ class TablesActivity : AppCompatActivity() {
 
                         Realm.deleteRealm(configuration)
 
-                        if (this.listView != null) {
-                            (this.listView as ListView).adapter = this.getAdapter()
+                        if (this.recyclerView != null) {
+                            (this.recyclerView as RecyclerView).adapter = this.getAdapter()
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, null)
@@ -79,14 +78,10 @@ class TablesActivity : AppCompatActivity() {
 
     private fun getAdapter(): TablesAdapter {
         val realm = Realm.getDefaultInstance()
-        val tablesAndCounts = mutableMapOf<String, Long>()
-
-        for ((tableName, tableClass) in Kolumbus.tables) {
-            tablesAndCounts.put(tableName, realm.where(tableClass).count())
-        }
+        val counts = Kolumbus.tables.values.map { realm.where(it).count() }
 
         realm.close()
 
-        return TablesAdapter(this, tablesAndCounts)
+        return TablesAdapter(Kolumbus.tables.keys.toList(), counts)
     }
 }

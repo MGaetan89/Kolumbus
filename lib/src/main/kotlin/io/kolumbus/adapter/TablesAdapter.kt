@@ -1,53 +1,49 @@
 package io.kolumbus.adapter
 
-import android.content.Context
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.TextView
+import io.kolumbus.Kolumbus
 import io.kolumbus.R
+import io.kolumbus.activity.TableActivity
 import io.kolumbus.extension.format
 import io.kolumbus.extension.prettify
 
-class TablesAdapter(context: Context, tablesAndCounts: Map<String, Long>) : ArrayAdapter<String>(context, 0, tablesAndCounts.keys.toList()) {
-    private val counts: List<Long>
+class TablesAdapter(val tables: List<String>, val counts: List<Long>) : RecyclerView.Adapter<TablesAdapter.ViewHolder>() {
+    override fun getItemCount() = this.tables.size
 
-    init {
-        this.counts = tablesAndCounts.values.toList()
-    }
+    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        if (holder?.entriesCount != null) {
+            val count = this.counts[position]
+            val countString = count.format()
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        val holder: ViewHolder
-        val view: View
-
-        if (convertView == null) {
-            holder = ViewHolder()
-            view = LayoutInflater.from(this.context).inflate(R.layout.kolumbus_adapter_tables, parent, false)
-
-            if (view != null) {
-                holder.entriesCount = view.findViewById(android.R.id.text2) as TextView?
-                holder.tableName = view.findViewById(android.R.id.text1) as TextView?
-
-                view.tag = holder
-            }
-        } else {
-            view = convertView
-            holder = view.tag as ViewHolder
+            holder?.entriesCount.text = holder?.entriesCount.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
         }
 
-        val item = this.getItem(position)
-        val count = this.counts[position]
-        val countString = count.format()
-
-        holder.entriesCount?.text = this.context.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
-        holder.tableName?.text = item.prettify()
-
-        return view
+        if (holder?.tableName != null) {
+            holder?.tableName.text = this.tables[position].prettify()
+        }
     }
 
-    private class ViewHolder {
-        var entriesCount: TextView? = null
-        var tableName: TextView? = null
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
+        val view = LayoutInflater.from(parent?.context).inflate(R.layout.kolumbus_adapter_tables, parent, false)
+
+        return ViewHolder(view)
+    }
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val entriesCount: TextView?
+        val tableName: TextView?
+
+        init {
+            this.entriesCount = view.findViewById(android.R.id.text2) as TextView?
+            this.tableName = view.findViewById(android.R.id.text1) as TextView?
+
+            view.setOnClickListener {
+                TableActivity.start(it.context!!, Kolumbus.tables[tables[this.adapterPosition]])
+            }
+        }
     }
 }
