@@ -9,8 +9,13 @@ import io.kolumbus.demo.model.Product
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
+import java.util.*
 
 class DemoActivity : AppCompatActivity() {
+    private val CATEGORIES_COUNT = 25
+    private val MAX_LINKED_CATEGORIES = 10
+    private val PRODUCTS_COUNT = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,39 +26,7 @@ class DemoActivity : AppCompatActivity() {
         Realm.deleteRealm(realmConfiguration)
         Realm.setDefaultConfiguration(realmConfiguration)
 
-        with(Realm.getDefaultInstance()) {
-            executeTransaction {
-                // Create some categories
-                val book = createObject(Category::class.java)
-                book.color = "green"
-                book.id = 1
-                book.name = "Book"
-
-                val dvd = createObject(Category::class.java)
-                dvd.color = "#0000ff"
-                dvd.id = 2
-                dvd.name = "DVD"
-
-                val game = createObject(Category::class.java)
-                game.color = "#FFFF00"
-                game.id = 3
-                game.name = "Game"
-
-                // Create some products
-                with(createObject(Product::class.java)) {
-                    id = 1
-                    name = "The Hitchhiker's Guide to the Galaxy"
-                    categories = RealmList(book, dvd)
-                }
-                with(createObject(Product::class.java)) {
-                    id = 2
-                    name = "Harry Potter and the Order of the Phoenix"
-                    categories = RealmList(book, dvd, game)
-                }
-            }
-
-            close()
-        }
+        this.fillDatabase()
 
         with(Kolumbus) {
             register(Category::class.java)
@@ -61,4 +34,46 @@ class DemoActivity : AppCompatActivity() {
             start(this@DemoActivity)
         }
     }
+
+    private fun fillDatabase() {
+        with(Realm.getDefaultInstance()) {
+            executeTransaction {
+                val random = Random()
+
+                for (i in 1..CATEGORIES_COUNT) {
+                    with(createObject(Category::class.java)) {
+                        color = random.nextColor()
+                        id = i
+                        name = "Category $i"
+                    }
+                }
+
+                for (i in 1..PRODUCTS_COUNT) {
+                    with(createObject(Product::class.java)) {
+                        categories = RealmList<Category>()
+
+                        for (j in 0..(random.nextInt(MAX_LINKED_CATEGORIES) - 1)) {
+                            val category = where(Category::class.java).equalTo("id", random.nextInt(CATEGORIES_COUNT - 1) + 1).findFirst()
+
+                            (categories as RealmList<Category>).add(category)
+                        }
+
+                        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas mollis eget nibh et condimentum."
+                        id = i
+                        name = "Product $i"
+                    }
+                }
+            }
+
+            close()
+        }
+    }
+}
+
+fun Random.nextColor(): String {
+    fun Random.nextColorHex(): String {
+        return Integer.toHexString(this.nextInt(256)).padStart(2, '0')
+    }
+
+    return "#${this.nextColorHex()}${this.nextColorHex()}${this.nextColorHex()}"
 }
