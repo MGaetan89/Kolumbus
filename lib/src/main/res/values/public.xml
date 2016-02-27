@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Drawables -->
+	<public name="kolumbus_color_preview" type="drawable"/>
+	<public name="kolumbus_delete" type="drawable"/>
+
+	<!-- Layouts -->
+	<public name="kolumbus_adapter_tables" type="layout"/>
+	<public name="kolumbus_table_row" type="layout"/>
+	<public name="kolumbus_table_header" type="layout"/>
+	<public name="kolumbus_table_text" type="layout"/>
+
+	<!-- Colors -->
+	<public name="kolumbus_color_preview_border" type="color"/>
+
+	<!-- Dimensions -->
+	<public name="kolumbus_color_preview_border" type="dimen"/>
+	<public name="kolumbus_color_preview_radius" type="dimen"/>
+	<public name="kolumbus_color_preview_size" type="dimen"/>
+
+	<!-- Strings -->
+	<public name="kolumbus_empty" type="string"/>
+	<public name="kolumbus_no" type="string"/>
+	<public name="kolumbus_null" type="string"/>
+	<public name="kolumbus_yes" type="string"/>
+</resources>
