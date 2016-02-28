@@ -55,7 +55,9 @@ class DemoActivity : AppCompatActivity() {
                         for (j in 0..(random.nextInt(MAX_LINKED_CATEGORIES) - 1)) {
                             val category = where(Category::class.java).equalTo("id", random.nextInt(CATEGORIES_COUNT - 1) + 1).findFirst()
 
-                            (categories as RealmList<Category>).add(category)
+                            if (!(categories as RealmList<Category>).contains(category)) {
+                                (categories as RealmList<Category>).add(category)
+                            }
                         }
 
                         description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas mollis eget nibh et condimentum."
