@@ -40,17 +40,31 @@ The following example assumes that you have two classes named `Category` and `Pr
 
 ```kotlin
 // Usage in a Kotlin project
-Kolumbus.register(Category::class.java)
-    .register(Product::class.java)
-    .start(context)
+// Register the Kolumbus module when defining your Realm configuration
+val realmConfiguration = RealmConfiguration.Builder(context)
+    .setModules(KolumbusModule())
+    .build()
+Realm.setDefaultConfiguration(realmConfiguration)
+
+// Configure Kolumbus
+Kolumbus.explore(Category::class.java)
+    .explore(Product::class.java)
+    .navigate(context)
 ```
 
 ```java
 // Usage in a Java project
+// Register the Kolumbus module when defining your Realm configuration
+RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context)
+    .setModules(new KolumbusModule())
+    .build();
+Realm.setDefaultConfiguration(realmConfiguration);
+
+// Configure Kolumbus
 Kolumbus.INSTANCE
-    .register(Category.class)
-    .register(Product.class)
-    .start(context);
+    .explore(Category.class)
+    .explore(Product.class)
+    .navigate(context);
 ```
 
 ## TODO
