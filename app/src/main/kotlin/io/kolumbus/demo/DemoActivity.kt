@@ -60,7 +60,7 @@ class DemoActivity : AppCompatActivity() {
                             }
                         }
 
-                        description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas mollis eget nibh et condimentum."
+                        description = "<b>Lorem ipsum</b> dolor sit amet, <i>consectetur adipiscing</i> elit. <b><u>Maecenas mollis</u></b> eget nibh et condimentum."
                         id = i
                         name = "Product $i"
                     }
