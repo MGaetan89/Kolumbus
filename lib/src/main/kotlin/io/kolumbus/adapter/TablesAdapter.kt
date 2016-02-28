@@ -22,9 +22,7 @@ class TablesAdapter(val tables: List<String>, val counts: List<Long>) : Recycler
             holder?.entriesCount.text = holder?.entriesCount.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
         }
 
-        if (holder?.tableName != null) {
-            holder?.tableName.text = this.tables[position].prettify()
-        }
+        holder?.tableName?.text = this.tables[position].prettify()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {

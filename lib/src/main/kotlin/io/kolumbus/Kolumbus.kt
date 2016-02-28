@@ -19,5 +19,7 @@ object Kolumbus {
         return this
     }
 
+    fun forgetAll() = this.tables.clear()
+
     fun navigate(context: Context) = TablesActivity.start(context)
 }

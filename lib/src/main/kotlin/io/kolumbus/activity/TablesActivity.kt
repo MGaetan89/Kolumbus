@@ -86,7 +86,6 @@ class TablesActivity : AppCompatActivity() {
     private fun getAdapter(): TablesAdapter {
         val realm = Realm.getDefaultInstance()
         val counts = Kolumbus.tables.values.map { realm.where(it).count() }
-
         realm.close()
 
         return TablesAdapter(Kolumbus.tables.keys.toList(), counts)
