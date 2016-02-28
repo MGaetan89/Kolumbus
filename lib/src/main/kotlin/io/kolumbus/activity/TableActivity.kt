@@ -77,7 +77,20 @@ class TableActivity : AppCompatActivity() {
                     val returnType = it.genericReturnType as ParameterizedType
                     val genericType = returnType.actualTypeArguments[0] as Class<*>
 
-                    // TODO Add click event to display linked data
+                    if (result.isNotEmpty()) {
+                        val resultStringArray = result.map {
+                            it.toString()
+                        }.toTypedArray()
+
+                        value.setOnClickListener {
+                            // TODO Display the result in the table
+                            AlertDialog.Builder(this)
+                                    .setItems(resultStringArray, null)
+                                    .setPositiveButton(android.R.string.ok, null)
+                                    .show()
+                        }
+                    }
+
                     value.text = Html.fromHtml(this.getString(R.string.kolumbus_linked_entries, result.size, genericType.simpleName.prettify()))
                 } else if (result is String) {
                     if (result.isEmpty()) {
