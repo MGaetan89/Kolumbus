@@ -19,6 +19,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import io.kolumbus.BuildConfig
+import io.kolumbus.Kolumbus
 import io.kolumbus.R
 import io.kolumbus.extension.prettify
 import io.realm.Realm
@@ -37,8 +38,16 @@ class TableActivity : AppCompatActivity() {
         private val EXTRA_TABLE_CLASS = BuildConfig.APPLICATION_ID + ".extra.TABLE_CLASS"
 
         fun start(context: Context, table: Class<out RealmObject>?) {
+            this.start(context, table, null)
+        }
+
+        fun <T : RealmObject> start(context: Context, table: Class<out T>?, items: Array<out T>?) {
             val intent = Intent(context, TableActivity::class.java)
             intent.putExtra(EXTRA_TABLE_CLASS, table)
+
+            if (items != null) {
+                Kolumbus.items.addAll(items)
+            }
 
             context.startActivity(intent)
         }
@@ -130,7 +139,15 @@ class TableActivity : AppCompatActivity() {
             tableRow.addView(header)
         }
 
-        val entries = realm.where(this.tableClass).findAll()
+        val entries: List<RealmObject>
+
+        if (Kolumbus.items.isNotEmpty()) {
+            entries = Kolumbus.items.toList()
+
+            Kolumbus.items.clear()
+        } else {
+            entries = realm.where(this.tableClass).findAll()
+        }
 
         entries.forEach { entry ->
             tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
@@ -145,19 +162,13 @@ class TableActivity : AppCompatActivity() {
                     value.text = this.getString(if (result) R.string.kolumbus_yes else R.string.kolumbus_no)
                 } else if (result is RealmList<*>) {
                     val returnType = it.genericReturnType as ParameterizedType
-                    val genericType = returnType.actualTypeArguments[0] as Class<*>
+                    val genericType = returnType.actualTypeArguments[0] as Class<RealmObject>
 
                     if (result.isNotEmpty()) {
-                        val resultStringArray = result.map {
-                            it.toString()
-                        }.toTypedArray()
+                        val resultArray = realm.copyFromRealm(result).toTypedArray()
 
                         value.setOnClickListener {
-                            // TODO Display the result in the table
-                            AlertDialog.Builder(this)
-                                    .setItems(resultStringArray, null)
-                                    .setPositiveButton(android.R.string.ok, null)
-                                    .show()
+                            start(this, genericType, resultArray)
                         }
                     }
 

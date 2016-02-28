@@ -5,6 +5,7 @@ import io.kolumbus.activity.TablesActivity
 import io.realm.RealmObject
 
 object Kolumbus {
+    internal val items = mutableListOf<RealmObject>()
     internal val tables = mutableMapOf<String, Class<out RealmObject>>()
 
     fun explore(table: Class<out RealmObject>): Kolumbus {
