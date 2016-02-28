@@ -13,6 +13,8 @@ import android.text.method.LinkMovementMethod
 import android.util.Patterns
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ScrollView
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -26,6 +28,9 @@ import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
 
 class TableActivity : AppCompatActivity() {
+    private var empty: TextView? = null
+    private var scroll: ScrollView? = null
+    private var table: TableLayout? = null
     private var tableClass: Class<out RealmObject>? = null
 
     companion object {
@@ -44,6 +49,9 @@ class TableActivity : AppCompatActivity() {
 
         this.setContentView(R.layout.kolumbus_activity_table)
 
+        this.empty = this.findViewById(android.R.id.empty) as TextView?
+        this.scroll = this.findViewById(R.id.scroll) as ScrollView?
+        this.table = this.findViewById(R.id.table) as TableLayout?
         this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
         this.title = (this.tableClass as Class<out RealmObject>).simpleName.prettify()
     }
@@ -93,11 +101,27 @@ class TableActivity : AppCompatActivity() {
         val methods = (this.tableClass as Class<out RealmObject>).declaredMethods.filter {
             Modifier.isPublic(it.modifiers) && !Modifier.isStatic(it.modifiers) && it.parameterTypes.size == 0
         }
-        val table = this.findViewById(R.id.table) as TableLayout?
-        var tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, table, false) as TableRow
 
-        table?.removeAllViews()
-        table?.addView(tableRow)
+        val realm = Realm.getDefaultInstance()
+        val count = realm.where(this.tableClass).count()
+
+        this.table?.removeAllViews()
+
+        if (count == 0L) {
+            this.empty?.visibility = View.VISIBLE
+            this.scroll?.visibility = View.GONE
+
+            realm.close()
+
+            return;
+        }
+
+        this.empty?.visibility = View.GONE
+        this.scroll?.visibility = View.VISIBLE
+
+        var tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
+
+        this.table?.addView(tableRow)
 
         methods.forEach {
             val header = this.layoutInflater.inflate(R.layout.kolumbus_table_row_header, tableRow, false) as TextView
@@ -106,13 +130,12 @@ class TableActivity : AppCompatActivity() {
             tableRow.addView(header)
         }
 
-        val realm = Realm.getDefaultInstance()
         val entries = realm.where(this.tableClass).findAll()
 
         entries.forEach { entry ->
-            tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, table, false) as TableRow
+            tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
 
-            table?.addView(tableRow)
+            this.table?.addView(tableRow)
 
             methods.forEach {
                 val value = this.layoutInflater.inflate(R.layout.kolumbus_table_row_text, tableRow, false) as TextView
