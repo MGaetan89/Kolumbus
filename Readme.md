@@ -28,7 +28,7 @@ In your module `build.gradle` file, add the Kolumbus dependency:
 
 ```gradle
 dependencies {
-    compile 'com.github.MGaetan89:Kolumbus:v0.1'
+    compile 'com.github.MGaetan89:Kolumbus:v0.2'
 }
 ```
 
