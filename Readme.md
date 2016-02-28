@@ -2,13 +2,35 @@
 
 Kolumbus allows you to explore your [Realm](https://realm.io/) database from within your Android application.
 
-[![Tables List](screenshots/Tables.png)](screenshots/Tables.png)
-[![Category Table](screenshots/Table_Category.png)](screenshots/Table_Category.png)
-[![Product Table](screenshots/Table_Product.png)](screenshots/Table_Product.png)
+**Note:** This library is still under heavy development and a lot of improvements has to done. It was made available to collect feedbacks and feature requests.
+
+## Screenshots
+
+- [List of tables](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Tables.png)
+- [Content of the Category table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Category.png)
+- [Content of the Product table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Product.png)
 
 ## Installation
 
-*Coming soon...*
+In your root `build.gradle` file, add the Jitpack url to the list of repositories:
+
+```gradle
+allprojects {
+    repositories {
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
+```
+
+In your module `build.gradle` file, add the Kolumbus dependency:
+
+```gradle
+dependencies {
+    compile 'com.github.MGaetan89:Kolumbus:v0.1'
+}
+```
 
 ## Usage
 
