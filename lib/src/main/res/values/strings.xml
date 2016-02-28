@@ -9,6 +9,8 @@
 	<string name="kolumbus_clear">Clear</string>
 	<string name="kolumbus_clear_database">Clear Database</string>
 	<string name="kolumbus_clear_database_confirm">Are you sure you want to clear your database?\nThis can not be undone.</string>
+	<string name="kolumbus_clear_table">Clear Table</string>
+	<string name="kolumbus_clear_table_confirm">Are you sure you want to clear the table \"<xliff:g example="Category" id="table">%1$s</xliff:g>\"?\nThis can not be undone.</string>
 	<string name="kolumbus_empty">(empty)</string>
 	<string name="kolumbus_link"><![CDATA[
 		<a href="<xliff:g example="http://www.google.com/" id="url">%1$s</xliff:g>"><xliff:g example="text" id="text">%2$s</xliff:g></a>

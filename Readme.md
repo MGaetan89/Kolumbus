@@ -61,7 +61,6 @@ In no particular order:
 - Sort the content of the displayed table
 - Filter the fields that are displayed
 - Filter the data that are displayed
-- Clear a single table
 
 ## License
 

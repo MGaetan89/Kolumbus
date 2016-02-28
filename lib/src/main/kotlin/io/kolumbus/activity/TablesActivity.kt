@@ -40,7 +40,6 @@ class TablesActivity : AppCompatActivity() {
         }
 
         if (this.recyclerView != null) {
-            (this.recyclerView as RecyclerView).adapter = this.getAdapter()
             (this.recyclerView as RecyclerView).layoutManager = LinearLayoutManager(this)
             (this.recyclerView as RecyclerView).visibility = if (Kolumbus.tables.isEmpty()) View.GONE else View.VISIBLE
         }
@@ -74,6 +73,14 @@ class TablesActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (this.recyclerView != null) {
+            (this.recyclerView as RecyclerView).adapter = this.getAdapter()
+        }
     }
 
     private fun getAdapter(): TablesAdapter {

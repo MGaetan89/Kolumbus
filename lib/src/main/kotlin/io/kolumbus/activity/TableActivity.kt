@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.Patterns
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -24,6 +26,8 @@ import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
 
 class TableActivity : AppCompatActivity() {
+    private var tableClass: Class<out RealmObject>? = null
+
     companion object {
         private val EXTRA_TABLE_CLASS = BuildConfig.APPLICATION_ID + ".extra.TABLE_CLASS"
 
@@ -40,16 +44,59 @@ class TableActivity : AppCompatActivity() {
 
         this.setContentView(R.layout.kolumbus_activity_table)
 
-        val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
+        this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
+        this.title = (this.tableClass as Class<out RealmObject>).simpleName.prettify()
+    }
 
-        this.title = tableClass.simpleName.prettify()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menuInflater.inflate(R.menu.kolumbus_table, menu)
 
-        val methods = tableClass.declaredMethods.filter {
+        val realm = Realm.getDefaultInstance()
+        val count = realm.where(this.tableClass).count()
+        realm.close()
+
+        return count > 0
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.menu_clear_table) {
+            AlertDialog.Builder(this)
+                    .setMessage(this.getString(R.string.kolumbus_clear_table_confirm, this.tableClass?.simpleName))
+                    .setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
+                        with(Realm.getDefaultInstance()) {
+                            executeTransaction {
+                                it.getTable(tableClass).clear()
+                            }
+
+                            close()
+                        }
+
+                        this.displayTableContent()
+                        this.invalidateOptionsMenu()
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show()
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        this.displayTableContent()
+    }
+
+    private fun displayTableContent() {
+        val methods = (this.tableClass as Class<out RealmObject>).declaredMethods.filter {
             Modifier.isPublic(it.modifiers) && !Modifier.isStatic(it.modifiers) && it.parameterTypes.size == 0
         }
         val table = this.findViewById(R.id.table) as TableLayout?
         var tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, table, false) as TableRow
 
+        table?.removeAllViews()
         table?.addView(tableRow)
 
         methods.forEach {
@@ -60,7 +107,7 @@ class TableActivity : AppCompatActivity() {
         }
 
         val realm = Realm.getDefaultInstance()
-        val entries = realm.where(tableClass).findAll()
+        val entries = realm.where(this.tableClass).findAll()
 
         entries.forEach { entry ->
             tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, table, false) as TableRow
