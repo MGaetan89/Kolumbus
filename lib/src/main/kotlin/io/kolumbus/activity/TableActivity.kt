@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.text.method.LinkMovementMethod
@@ -94,11 +95,20 @@ class TableActivity : AppCompatActivity() {
                                 value.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
                                 value.text = result
                             } catch (exception: IllegalArgumentException) {
-                                if (result.length > 50) {
-                                    // TODO Add click event to display the whole text
-                                    value.text = "${result.subSequence(0, 47)}..."
+                                val htmlString = Html.fromHtml(result)
+
+                                if (htmlString.length > 50) {
+                                    value.setOnClickListener {
+                                        AlertDialog.Builder(this)
+                                                .setMessage(htmlString)
+                                                .setPositiveButton(android.R.string.ok, null)
+                                                .show()
+                                    }
+
+                                    value.text = htmlString.subSequence(0, 47)
+                                    value.append("...")
                                 } else {
-                                    value.text = result
+                                    value.text = htmlString
                                 }
                             }
                         }
