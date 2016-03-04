@@ -28,9 +28,9 @@ android {
 dependencies {
 	compile project(':lib')
 	compile 'com.android.support:appcompat-v7:23.2.0'
-	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
-	compile 'io.realm:realm-android-library:0.87.5@aar'
+	compile 'io.realm:realm-android-library:0.87.5'
 	compile 'io.realm:realm-annotations:0.87.5'
+	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
 
 	kapt 'io.realm:realm-annotations:0.87.5'
 	kapt 'io.realm:realm-annotations-processor:0.87.5'
