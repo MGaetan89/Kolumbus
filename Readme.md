@@ -28,7 +28,16 @@ In your module `build.gradle` file, add the Kolumbus dependency:
 
 ```gradle
 dependencies {
-    compile 'com.github.MGaetan89:Kolumbus:v0.2'
+    compile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.3'
+}
+```
+
+If you only want to use Kolumbus in your debug build, you can use the following configuration instead:
+
+```gradle
+dependencies {
+    debugCompile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.3'
+    releaseCompile 'com.github.MGaetan89.Kolumbus:kolumbus-no-op:v0.3'
 }
 ```
 

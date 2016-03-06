@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kolumbus.iml" filepath="$PROJECT_DIR$/Kolumbus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kolumbus/lib.iml" filepath="$PROJECT_DIR$/kolumbus/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kolumbus/kolumbus.iml" filepath="$PROJECT_DIR$/kolumbus/kolumbus.iml" />
       <module fileurl="file://$PROJECT_DIR$/kolumbus-no-op/kolumbus-no-op.iml" filepath="$PROJECT_DIR$/kolumbus-no-op/kolumbus-no-op.iml" />
     </modules>
   </component>
