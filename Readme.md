@@ -1,5 +1,7 @@
 # Kolumbus
 
+[![Latest version](https://jitpack.io/v/MGaetan89/Kolumbus.svg)](https://jitpack.io/#MGaetan89/Kolumbus) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/LICENSE) [![Minimum API](https://img.shields.io/badge/API-9%2B-green.svg)](https://android-arsenal.com/api?level=9)
+
 Kolumbus allows you to explore your [Realm](https://realm.io/) database from within your Android application.
 
 **Note:** This library is still under heavy development and a lot of improvements has to done. It was made available to collect feedbacks and feature requests.
