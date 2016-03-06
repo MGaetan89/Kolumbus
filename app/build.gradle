@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-	compileSdkVersion 23
-	buildToolsVersion '23.0.2'
+	compileSdkVersion rootProject.ext.compileSdkVersion
+	buildToolsVersion rootProject.ext.buildToolsVersion
 
 	defaultConfig {
 		applicationId 'io.kolumbus.demo'
-		minSdkVersion 9
-		targetSdkVersion 23
+		minSdkVersion rootProject.ext.minSdkVersion
+		targetSdkVersion rootProject.ext.targetSdkVersion
 		versionCode 1
 		versionName '1.0'
 	}
@@ -27,11 +27,11 @@ android {
 
 dependencies {
 	compile project(':kolumbus')
-	compile 'com.android.support:appcompat-v7:23.2.0'
-	compile 'io.realm:realm-android-library:0.87.5'
-	compile 'io.realm:realm-annotations:0.87.5'
-	compile 'org.jetbrains.kotlin:kotlin-stdlib:1.0.0'
+	compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
+	compile "io.realm:realm-android-library:${rootProject.ext.realmVersion}"
+	compile "io.realm:realm-annotations:${rootProject.ext.realmVersion}"
+	compile "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}"
 
-	kapt 'io.realm:realm-annotations:0.87.5'
-	kapt 'io.realm:realm-annotations-processor:0.87.5'
+	kapt "io.realm:realm-annotations:${rootProject.ext.realmVersion}"
+	kapt "io.realm:realm-annotations-processor:${rootProject.ext.realmVersion}"
 }

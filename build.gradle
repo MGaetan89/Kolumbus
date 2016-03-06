@@ -21,3 +21,18 @@ allprojects {
 task clean(type: Delete) {
 	delete rootProject.buildDir
 }
+
+ext {
+	buildToolsVersion = '23.0.2'
+	compileSdkVersion = 23
+	minSdkVersion = 9
+	targetSdkVersion = 23
+
+	// Dependencies version
+	jUnitVersion = '4.12'
+	kolumbusVersionCode = 2
+	kolumbusVersionName = '0.2'
+	kotlinVersion = '1.0.0'
+	realmVersion = '0.87.5'
+	supportLibraryVersion = '23.2.0'
+}
