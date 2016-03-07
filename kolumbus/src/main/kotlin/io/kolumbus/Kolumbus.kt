@@ -22,7 +22,7 @@ import io.realm.RealmObject
 
 object Kolumbus {
     internal val items = mutableListOf<RealmObject>()
-    internal val tables = mutableMapOf<String, Class<out RealmObject>>()
+    internal val tables = mutableMapOf<String, Class<out RealmObject>>().toSortedMap()
 
     fun explore(table: Class<out RealmObject>): Kolumbus {
         this.tables.put(table.simpleName, table)

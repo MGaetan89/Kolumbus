@@ -29,8 +29,8 @@ class DemoActivity : AppCompatActivity() {
         this.fillDatabase()
 
         with(Kolumbus) {
-            explore(Category::class.java)
             explore(Product::class.java)
+            explore(Category::class.java)
             navigate(this@DemoActivity)
         }
     }
