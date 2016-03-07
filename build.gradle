@@ -30,8 +30,8 @@ ext {
 
 	// Dependencies version
 	jUnitVersion = '4.12'
-	kolumbusVersionCode = 3
-	kolumbusVersionName = '0.3'
+	kolumbusVersionCode = 4
+	kolumbusVersionName = '0.4'
 	kotlinVersion = '1.0.0'
 	realmVersion = '0.87.5'
 	supportLibraryVersion = '23.2.0'
