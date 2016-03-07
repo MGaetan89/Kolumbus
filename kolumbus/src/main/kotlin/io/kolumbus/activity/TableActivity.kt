@@ -113,6 +113,12 @@ class TableActivity : AppCompatActivity() {
             return true
         }
 
+        if (item?.itemId == R.id.menu_table_info) {
+            TableInfoActivity.start(this, this.tableClass)
+
+            return true
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

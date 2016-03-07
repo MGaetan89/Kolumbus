@@ -14,17 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<menu
+<android.support.v7.widget.RecyclerView
+	android:id="@android:id/list"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
-	<item
-		android:id="@+id/menu_table_info"
-		android:icon="@drawable/kolumbus_info"
-		android:title="@string/kolumbus_table_info"
-		app:showAsAction="ifRoom"/>
-	<item
-		android:id="@+id/menu_clear_table"
-		android:icon="@drawable/kolumbus_delete"
-		android:title="@string/kolumbus_clear_table"
-		app:showAsAction="ifRoom"/>
-</menu>
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:listitem="@layout/kolumbus_adapter_table_info"/>
