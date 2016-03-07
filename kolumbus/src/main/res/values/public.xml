@@ -22,8 +22,8 @@
 	<!-- Layouts -->
 	<public name="kolumbus_adapter_tables" type="layout"/>
 	<public name="kolumbus_table_row" type="layout"/>
-	<public name="kolumbus_table_header" type="layout"/>
-	<public name="kolumbus_table_text" type="layout"/>
+	<public name="kolumbus_table_row_header" type="layout"/>
+	<public name="kolumbus_table_row_text" type="layout"/>
 
 	<!-- Colors -->
 	<public name="kolumbus_color_preview_border" type="color"/>
