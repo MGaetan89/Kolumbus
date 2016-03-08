@@ -88,7 +88,9 @@ class TableActivity : AppCompatActivity() {
         val count = realm.where(this.tableClass).count()
         realm.close()
 
-        return count > 0
+        menu?.findItem(R.id.menu_clear_table)?.isVisible = count > 0
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
