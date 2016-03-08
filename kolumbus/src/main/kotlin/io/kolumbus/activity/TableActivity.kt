@@ -38,9 +38,12 @@ import io.kolumbus.BuildConfig
 import io.kolumbus.Kolumbus
 import io.kolumbus.R
 import io.kolumbus.extension.prettify
+import io.kolumbus.extension.toCamelCase
 import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
+import io.realm.annotations.Ignore
+import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
 
@@ -131,8 +134,8 @@ class TableActivity : AppCompatActivity() {
     }
 
     private fun displayTableContent() {
-        val methods = (this.tableClass as Class<out RealmObject>).declaredMethods.filter {
-            Modifier.isPublic(it.modifiers) && !Modifier.isStatic(it.modifiers) && it.parameterTypes.size == 0
+        val fields = this.tableClass?.declaredFields?.filter {
+            !Modifier.isStatic(it.modifiers) && !it.isAnnotationPresent(Ignore::class.java)
         }
 
         val realm = Realm.getDefaultInstance()
@@ -156,7 +159,7 @@ class TableActivity : AppCompatActivity() {
 
         this.table?.addView(tableRow)
 
-        methods.forEach {
+        fields?.forEach {
             val header = this.layoutInflater.inflate(R.layout.kolumbus_table_row_header, tableRow, false) as TextView
             header.text = it.name.prettify()
 
@@ -173,19 +176,23 @@ class TableActivity : AppCompatActivity() {
             entries = realm.where(this.tableClass).findAll()
         }
 
+        val methods = fields?.associate {
+            it.name to this.tableClass?.getMethod("get${it.name.capitalize().toCamelCase().replace(" ", "")}")
+        } ?: emptyMap<String, Method?>()
+
         entries.forEach { entry ->
             tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
 
             this.table?.addView(tableRow)
 
-            methods.forEach {
+            fields?.forEach {
                 val value = this.layoutInflater.inflate(R.layout.kolumbus_table_row_text, tableRow, false) as TextView
-                val result = it.invoke(entry)
+                val result = methods[it.name]?.invoke(entry)
 
                 if (result is Boolean) {
                     value.text = this.getString(if (result) R.string.kolumbus_yes else R.string.kolumbus_no)
                 } else if (result is RealmList<*>) {
-                    val returnType = it.genericReturnType as ParameterizedType
+                    val returnType = it.genericType as ParameterizedType
                     val genericType = returnType.actualTypeArguments[0] as Class<RealmObject>
 
                     if (result.isNotEmpty()) {

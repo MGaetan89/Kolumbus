@@ -35,29 +35,29 @@ class StringExtensions_PrettifyTest(val entry: String, val result: String) {
             return listOf(
                     // StringExtensions_RemoveAccessorPrefixesTest
                     arrayOf("", ""),
-                    arrayOf("some text", "some text"),
+                    arrayOf("some text", "Some text"),
                     arrayOf("get text", " text"),
                     arrayOf("Get text", "Get text"),
                     arrayOf("getText", "Text"),
-                    arrayOf("text getter", "text getter"),
+                    arrayOf("text getter", "Text getter"),
                     arrayOf("is text", " text"),
                     arrayOf("Is text", "Is text"),
                     arrayOf("isText", "Text"),
-                    arrayOf("text is", "text is"),
+                    arrayOf("text is", "Text is"),
 
                     // StringExtensions_ToCamelCaseTest
-                    arrayOf("helloworld", "helloworld"),
-                    arrayOf("helloWorld", "hello World"),
+                    arrayOf("helloworld", "Helloworld"),
+                    arrayOf("helloWorld", "Hello World"),
                     arrayOf("Helloworld", "Helloworld"),
                     arrayOf("HelloWorld", "Hello World"),
-                    arrayOf("helloWorldMyNameIsJack", "hello World My Name Is Jack"),
+                    arrayOf("helloWorldMyNameIsJack", "Hello World My Name Is Jack"),
                     arrayOf("HelloWorldMyNameIsJack", "Hello World My Name Is Jack"),
 
                     // Extras
-                    arrayOf("gethelloworld", "helloworld"),
+                    arrayOf("gethelloworld", "Helloworld"),
                     arrayOf("getHelloworld", "Helloworld"),
                     arrayOf("getHelloWorld", "Hello World"),
-                    arrayOf("ishelloworld", "helloworld"),
+                    arrayOf("ishelloworld", "Helloworld"),
                     arrayOf("isHelloworld", "Helloworld"),
                     arrayOf("isHelloWorld", "Hello World")
             )

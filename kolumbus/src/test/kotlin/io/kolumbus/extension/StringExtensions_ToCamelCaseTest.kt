@@ -34,11 +34,11 @@ class StringExtensions_ToCamelCaseTest(val entry: String, val result: String) {
         fun data(): Collection<Array<String>> {
             return listOf(
                     arrayOf("", ""),
-                    arrayOf("helloworld", "helloworld"),
-                    arrayOf("helloWorld", "hello World"),
+                    arrayOf("helloworld", "Helloworld"),
+                    arrayOf("helloWorld", "Hello World"),
                     arrayOf("Helloworld", "Helloworld"),
                     arrayOf("HelloWorld", "Hello World"),
-                    arrayOf("helloWorldMyNameIsJack", "hello World My Name Is Jack"),
+                    arrayOf("helloWorldMyNameIsJack", "Hello World My Name Is Jack"),
                     arrayOf("HelloWorldMyNameIsJack", "Hello World My Name Is Jack")
             )
         }
