@@ -48,7 +48,7 @@ class TableInfoAdapter(val fields: List<Field>, val instance: RealmObject) : Rec
         }
 
         holder?.value?.text = when (field.type) {
-            String::class.java -> "\"$value\""
+            String::class.java -> if (value != null) "\"$value\"" else "null"
             else -> value?.toString() ?: "null"
         }
     }
