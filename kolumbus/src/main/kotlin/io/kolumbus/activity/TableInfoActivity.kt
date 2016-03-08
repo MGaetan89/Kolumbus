@@ -27,6 +27,7 @@ import io.kolumbus.R
 import io.kolumbus.adapter.TableInfoAdapter
 import io.kolumbus.extension.prettify
 import io.realm.RealmObject
+import io.realm.annotations.Ignore
 import java.lang.reflect.Modifier
 
 class TableInfoActivity : AppCompatActivity() {
@@ -53,7 +54,7 @@ class TableInfoActivity : AppCompatActivity() {
 
         if (recyclerView != null) {
             val fields = tableClass.declaredFields.filter {
-                !Modifier.isStatic(it.modifiers)
+                !Modifier.isStatic(it.modifiers) && !it.isAnnotationPresent(Ignore::class.java)
             }
 
             recyclerView.adapter = TableInfoAdapter(fields, tableClass.newInstance())
