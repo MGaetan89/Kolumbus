@@ -43,6 +43,7 @@ import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.Ignore
+import io.realm.annotations.PrimaryKey
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
@@ -161,7 +162,12 @@ class TableActivity : AppCompatActivity() {
 
         fields?.forEach {
             val header = this.layoutInflater.inflate(R.layout.kolumbus_table_row_header, tableRow, false) as TextView
-            header.text = it.name.prettify()
+
+            if (it.isAnnotationPresent(PrimaryKey::class.java)) {
+                header.text = "#${it.name.prettify()}"
+            } else {
+                header.text = it.name.prettify()
+            }
 
             tableRow.addView(header)
         }
