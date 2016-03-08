@@ -28,6 +28,17 @@
 	android:paddingRight="@dimen/kolumbus_padding"
 	android:paddingStart="@dimen/kolumbus_padding">
 
+	<ImageView
+		android:id="@+id/field_primary_key"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="@dimen/kolumbus_padding_small"
+		android:layout_marginRight="@dimen/kolumbus_padding_small"
+		android:contentDescription="@string/kolumbus_primary_key"
+		android:src="@drawable/kolumbus_key"
+		android:visibility="invisible"
+		tools:visibility="visible"/>
+
 	<TextView
 		android:id="@+id/field_name"
 		style="@style/TextAppearance.AppCompat.Subhead"
