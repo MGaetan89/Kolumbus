@@ -17,6 +17,7 @@
 <resources>
 	<!-- Drawables -->
 	<public name="kolumbus_color_preview" type="drawable"/>
+	<public name="kolumbus_key" type="drawable"/>
 
 	<!-- Layouts -->
 	<public name="kolumbus_adapter_table_info" type="layout"/>
