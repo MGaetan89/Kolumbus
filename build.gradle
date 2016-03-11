@@ -34,5 +34,5 @@ ext {
 	kolumbusVersionName = '0.4'
 	kotlinVersion = '1.0.0'
 	realmVersion = '0.87.5'
-	supportLibraryVersion = '23.2.0'
+	supportLibraryVersion = '23.2.1'
 }
