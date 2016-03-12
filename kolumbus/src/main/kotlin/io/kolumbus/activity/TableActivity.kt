@@ -47,6 +47,7 @@ import io.realm.annotations.PrimaryKey
 import java.lang.reflect.Method
 import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
+import java.util.*
 
 class TableActivity : AppCompatActivity() {
     private var empty: TextView? = null
@@ -137,7 +138,15 @@ class TableActivity : AppCompatActivity() {
     private fun displayTableContent() {
         val fields = this.tableClass?.declaredFields?.filter {
             !Modifier.isStatic(it.modifiers) && !it.isAnnotationPresent(Ignore::class.java)
-        }
+        }?.sortedWith(Comparator { first, second ->
+            if (first.isAnnotationPresent(PrimaryKey::class.java) && !second.isAnnotationPresent(PrimaryKey::class.java)) {
+                -1
+            } else if (!first.isAnnotationPresent(PrimaryKey::class.java) && second.isAnnotationPresent(PrimaryKey::class.java)) {
+                1
+            } else {
+                first.name.compareTo(second.name)
+            }
+        })
 
         val realm = Realm.getDefaultInstance()
         val count = realm.where(this.tableClass).count()

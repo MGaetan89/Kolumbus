@@ -28,7 +28,9 @@ import io.kolumbus.adapter.TableInfoAdapter
 import io.kolumbus.extension.prettify
 import io.realm.RealmObject
 import io.realm.annotations.Ignore
+import io.realm.annotations.PrimaryKey
 import java.lang.reflect.Modifier
+import java.util.*
 
 class TableInfoActivity : AppCompatActivity() {
     companion object {
@@ -55,7 +57,15 @@ class TableInfoActivity : AppCompatActivity() {
         if (recyclerView != null) {
             val fields = tableClass.declaredFields.filter {
                 !Modifier.isStatic(it.modifiers) && !it.isAnnotationPresent(Ignore::class.java)
-            }
+            }.sortedWith(Comparator { first, second ->
+                if (first.isAnnotationPresent(PrimaryKey::class.java) && !second.isAnnotationPresent(PrimaryKey::class.java)) {
+                    -1
+                } else if (!first.isAnnotationPresent(PrimaryKey::class.java) && second.isAnnotationPresent(PrimaryKey::class.java)) {
+                    1
+                } else {
+                    first.name.compareTo(second.name)
+                }
+            })
 
             recyclerView.adapter = TableInfoAdapter(fields, tableClass.newInstance())
             recyclerView.layoutManager = LinearLayoutManager(this)
