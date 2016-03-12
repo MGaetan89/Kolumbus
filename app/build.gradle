@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'realm-android'
 
 android {
 	compileSdkVersion rootProject.ext.compileSdkVersion
@@ -28,10 +29,5 @@ android {
 dependencies {
 	compile project(':kolumbus')
 	compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}"
-	compile "io.realm:realm-android-library:${rootProject.ext.realmVersion}"
-	compile "io.realm:realm-annotations:${rootProject.ext.realmVersion}"
 	compile "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}"
-
-	kapt "io.realm:realm-annotations:${rootProject.ext.realmVersion}"
-	kapt "io.realm:realm-annotations-processor:${rootProject.ext.realmVersion}"
 }

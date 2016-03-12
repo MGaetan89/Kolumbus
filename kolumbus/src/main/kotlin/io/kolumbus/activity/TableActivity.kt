@@ -104,7 +104,7 @@ class TableActivity : AppCompatActivity() {
                     .setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
                         with(Realm.getDefaultInstance()) {
                             executeTransaction {
-                                it.getTable(tableClass).clear()
+                                it.clear(tableClass)
                             }
 
                             close()

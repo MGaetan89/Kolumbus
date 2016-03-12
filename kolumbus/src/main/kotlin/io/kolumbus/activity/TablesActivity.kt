@@ -72,11 +72,13 @@ class TablesActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                     .setMessage(R.string.kolumbus_clear_database_confirm)
                     .setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
-                        val realm = Realm.getDefaultInstance()
-                        val configuration = realm.configuration
-                        realm.close()
+                        with (Realm.getDefaultInstance()) {
+                            executeTransaction {
+                                it.deleteAll()
+                            }
 
-                        Realm.deleteRealm(configuration)
+                            close()
+                        }
 
                         if (this.recyclerView != null) {
                             (this.recyclerView as RecyclerView).adapter = this.getAdapter()
