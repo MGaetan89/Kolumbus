@@ -39,14 +39,17 @@ import io.kolumbus.BuildConfig
 import io.kolumbus.Kolumbus
 import io.kolumbus.R
 import io.kolumbus.extension.prettify
-import io.realm.Realm
-import io.realm.RealmList
-import io.realm.RealmObject
+import io.realm.*
 import io.realm.annotations.PrimaryKey
 import java.lang.reflect.ParameterizedType
 
 class TableActivity : AppCompatActivity() {
     private var empty: TextView? = null
+    private var entries: List<RealmObject>? = null
+    private var entriesListener = RealmChangeListener {
+        displayTableContent()
+    }
+    private val realm = Realm.getDefaultInstance()
     private var scroll: ScrollView? = null
     private var table: TableLayout? = null
     private var tableClass: Class<out RealmObject>? = null
@@ -82,18 +85,38 @@ class TableActivity : AppCompatActivity() {
         this.table = this.findViewById(R.id.table) as TableLayout?
         this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
         this.title = (this.tableClass as Class<out RealmObject>).simpleName.prettify()
+
+        if (Kolumbus.items.isNotEmpty()) {
+            this.entries = Kolumbus.items.toList()
+
+            this.displayTableContent()
+
+            Kolumbus.items.clear()
+        } else {
+            this.entries = this.realm.where(this.tableClass).findAllAsync()
+
+            (this.entries as RealmResults).addChangeListener(this.entriesListener)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menuInflater.inflate(R.menu.kolumbus_table, menu)
 
-        val realm = Realm.getDefaultInstance()
-        val count = realm.where(this.tableClass).count()
-        realm.close()
+        val count = this.realm.where(this.tableClass).count()
 
         menu?.findItem(R.id.menu_clear_table)?.isVisible = count > 0
 
         return true
+    }
+
+    override fun onDestroy() {
+        if (this.entries is RealmResults<*>) {
+            (this.entries as RealmResults<*>).removeChangeListeners()
+        }
+
+        this.realm.close()
+
+        super.onDestroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -107,12 +130,8 @@ class TableActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                     .setMessage(this.getString(R.string.kolumbus_clear_table_confirm, this.tableClass?.simpleName))
                     .setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
-                        with(Realm.getDefaultInstance()) {
-                            executeTransaction {
-                                it.clear(tableClass)
-                            }
-
-                            close()
+                        realm.executeTransaction {
+                            it.clear(tableClass)
                         }
 
                         this.displayTableContent()
@@ -133,26 +152,15 @@ class TableActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        this.displayTableContent()
-    }
-
     private fun displayTableContent() {
         val fields = Analyzer.getRealmFields(this.tableClass)
         val methods = Analyzer.getAccessors(this.tableClass, fields)
 
-        val realm = Realm.getDefaultInstance()
-        val count = realm.where(this.tableClass).count()
-
         this.table?.removeAllViews()
 
-        if (count == 0L) {
+        if (this.entries?.size ?: 0 == 0) {
             this.empty?.visibility = View.VISIBLE
             this.scroll?.visibility = View.GONE
-
-            realm.close()
 
             return;
         }
@@ -176,17 +184,7 @@ class TableActivity : AppCompatActivity() {
             tableRow.addView(header)
         }
 
-        val entries: List<RealmObject>
-
-        if (Kolumbus.items.isNotEmpty()) {
-            entries = Kolumbus.items.toList()
-
-            Kolumbus.items.clear()
-        } else {
-            entries = realm.where(this.tableClass).findAll()
-        }
-
-        entries.forEach { entry ->
+        this.entries!!.forEach { entry ->
             tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
 
             this.table?.addView(tableRow)
@@ -202,7 +200,7 @@ class TableActivity : AppCompatActivity() {
                     val genericType = returnType.actualTypeArguments[0] as Class<RealmObject>
 
                     if (result.isNotEmpty()) {
-                        val resultArray = realm.copyFromRealm(result).toTypedArray()
+                        val resultArray = this.realm.copyFromRealm(result).toTypedArray()
 
                         value.setOnClickListener {
                             start(this, genericType, resultArray)
@@ -253,7 +251,5 @@ class TableActivity : AppCompatActivity() {
                 tableRow.addView(value)
             }
         }
-
-        realm.close()
     }
 }
