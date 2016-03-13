@@ -1,0 +1,46 @@
+language: android
+
+jdk:
+  - oraclejdk8
+
+android:
+  components:
+    - android-23
+    - build-tools-23.0.2
+    - extra-android-m2repository
+    - platform-tools
+    - tools
+
+env:
+  matrix:
+    - ANDROID_TARGET=android-9
+    - ANDROID_TARGET=android-10
+    - ANDROID_TARGET=android-11
+    - ANDROID_TARGET=android-12
+    - ANDROID_TARGET=android-13
+    - ANDROID_TARGET=android-14
+    - ANDROID_TARGET=android-15
+    - ANDROID_TARGET=android-16
+    - ANDROID_TARGET=android-17
+    - ANDROID_TARGET=android-18
+    - ANDROID_TARGET=android-19
+    - ANDROID_TARGET=android-20
+    - ANDROID_TARGET=android-21
+    - ANDROID_TARGET=android-22
+    - ANDROID_TARGET=android-23
+
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
+before_install:
+  - echo y | android update sdk --all --no-ui --force --filter build-tools-23.0.2
+
+script:
+  - ./gradlew build testDebug
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
