@@ -33,20 +33,25 @@ class Kolumbus_ExploreTest {
 
     @Test
     fun exploreDuplicatedModels() {
-        Kolumbus.explore(Book::class.java)
+        Kolumbus.explore(Library::class.java)
                 .explore(Book::class.java)
                 .explore(Library::class.java)
 
         assertEquals(2, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Test
     fun exploreMultipleModels() {
-        Kolumbus.explore(Book::class.java)
-                .explore(Genre::class.java)
+        Kolumbus.explore(Genre::class.java)
+                .explore(Book::class.java)
                 .explore(Library::class.java)
 
         assertEquals(3, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+        assertEquals(Genre::class.java, Kolumbus.tables["Genre"])
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Test
@@ -54,5 +59,6 @@ class Kolumbus_ExploreTest {
         Kolumbus.explore(Book::class.java)
 
         assertEquals(1, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
     }
 }

@@ -27,11 +27,14 @@ import kotlin.test.assertEquals
 class Kolumbus_ForgetTest {
     @Before
     fun before() {
-        Kolumbus.explore(Book::class.java)
-                .explore(Genre::class.java)
+        Kolumbus.explore(Genre::class.java)
+                .explore(Book::class.java)
                 .explore(Library::class.java)
 
         assertEquals(3, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+        assertEquals(Genre::class.java, Kolumbus.tables["Genre"])
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Test
@@ -47,6 +50,8 @@ class Kolumbus_ForgetTest {
                 .forget(Genre::class.java)
 
         assertEquals(2, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Test
@@ -54,10 +59,14 @@ class Kolumbus_ForgetTest {
         Kolumbus.forget(Genre::class.java)
 
         assertEquals(2, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
 
         Kolumbus.forget(Genre::class.java)
 
         assertEquals(2, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Test
@@ -66,6 +75,7 @@ class Kolumbus_ForgetTest {
                 .forget(Book::class.java)
 
         assertEquals(1, Kolumbus.tables.size)
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Test
@@ -73,6 +83,8 @@ class Kolumbus_ForgetTest {
         Kolumbus.forget(Genre::class.java)
 
         assertEquals(2, Kolumbus.tables.size)
+        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @After

@@ -36,7 +36,7 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}"
 
 	testCompile "junit:junit:${rootProject.ext.jUnitVersion}"
-	testCompile "org.jetbrains.kotlin:kotlin-test:${rootProject.ext.kotlinVersion}"
+	testCompile "org.jetbrains.kotlin:kotlin-test-junit:${rootProject.ext.kotlinVersion}"
 }
 
 task sourcesJar(type: Jar) {

@@ -34,20 +34,16 @@ import android.widget.ScrollView
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import io.kolumbus.Analyzer
 import io.kolumbus.BuildConfig
 import io.kolumbus.Kolumbus
 import io.kolumbus.R
 import io.kolumbus.extension.prettify
-import io.kolumbus.extension.toCamelCase
 import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
-import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
-import java.lang.reflect.Method
-import java.lang.reflect.Modifier
 import java.lang.reflect.ParameterizedType
-import java.util.*
 
 class TableActivity : AppCompatActivity() {
     private var empty: TextView? = null
@@ -144,17 +140,8 @@ class TableActivity : AppCompatActivity() {
     }
 
     private fun displayTableContent() {
-        val fields = this.tableClass?.declaredFields?.filter {
-            !Modifier.isStatic(it.modifiers) && !it.isAnnotationPresent(Ignore::class.java)
-        }?.sortedWith(Comparator { first, second ->
-            if (first.isAnnotationPresent(PrimaryKey::class.java) && !second.isAnnotationPresent(PrimaryKey::class.java)) {
-                -1
-            } else if (!first.isAnnotationPresent(PrimaryKey::class.java) && second.isAnnotationPresent(PrimaryKey::class.java)) {
-                1
-            } else {
-                first.name.compareTo(second.name)
-            }
-        })
+        val fields = Analyzer.getRealmFields(this.tableClass)
+        val methods = Analyzer.getAccessors(this.tableClass, fields)
 
         val realm = Realm.getDefaultInstance()
         val count = realm.where(this.tableClass).count()
@@ -177,7 +164,7 @@ class TableActivity : AppCompatActivity() {
 
         this.table?.addView(tableRow)
 
-        fields?.forEach {
+        fields.forEach {
             val header = this.layoutInflater.inflate(R.layout.kolumbus_table_row_header, tableRow, false) as TextView
 
             if (it.isAnnotationPresent(PrimaryKey::class.java)) {
@@ -199,16 +186,12 @@ class TableActivity : AppCompatActivity() {
             entries = realm.where(this.tableClass).findAll()
         }
 
-        val methods = fields?.associate {
-            it.name to this.tableClass?.getMethod("get${it.name.capitalize().toCamelCase().replace(" ", "")}")
-        } ?: emptyMap<String, Method?>()
-
         entries.forEach { entry ->
             tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
 
             this.table?.addView(tableRow)
 
-            fields?.forEach {
+            fields.forEach {
                 val value = this.layoutInflater.inflate(R.layout.kolumbus_table_row_text, tableRow, false) as TextView
                 val result = methods[it.name]?.invoke(entry)
 
