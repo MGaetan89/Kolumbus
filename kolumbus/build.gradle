@@ -55,7 +55,10 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['test']) {
 	jacocoClasspath = project.configurations['androidJacocoAnt']
 
 	// exclude auto-generated classes and tests
-	def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+	def fileFilter = [
+			'**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
+			'**/*Test*.*', 'android/**/*.*', '**/*$inlined$*.class'
+	]
 	def debugTree = fileTree(dir: "${project.buildDir}/intermediates/classes/debug", excludes: fileFilter)
 	def mainSrc = ["${project.projectDir}/src/main/kotlin"]
 
