@@ -8,13 +8,15 @@ Kolumbus allows you to explore your [Realm](https://realm.io/) database from wit
 
 ## Screenshots
 
-- [List of tables](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Tables.png)
-- [Content of the Category table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Category.png)
-- [Content of the Product table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Product.png)
+- [List of tables](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Tables_List.png)
+- [Content of the Category table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Category_Content.png)
+- [Info about the Category table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Category_Info.png)
+- [Content of the Product table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Product_Content.png)
+- [Info about the Product table](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/screenshots/Table_Product_Info.png)
 
 ## Installation
 
-In your root `build.gradle` file, add the Jitpack url to the list of repositories:
+In your root `build.gradle` file, add the [Jitpack](https://jitpack.io/) url to the list of repositories, if you don't have it yet:
 
 ```gradle
 allprojects {
