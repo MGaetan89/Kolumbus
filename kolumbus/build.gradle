@@ -1,5 +1,7 @@
+apply plugin: 'jacoco'
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'kotlin-android'
 apply plugin: 'realm-android'
 
@@ -15,9 +17,14 @@ android {
 		targetSdkVersion rootProject.ext.targetSdkVersion
 		versionCode rootProject.ext.kolumbusVersionCode
 		versionName rootProject.ext.kolumbusVersionName
+		resConfigs 'en'
 	}
 
 	buildTypes {
+		debug {
+			testCoverageEnabled true
+		}
+
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -31,6 +38,45 @@ android {
 	sourceSets {
 		main.java.srcDirs += 'src/main/kotlin'
 		test.java.srcDirs += 'src/test/kotlin'
+	}
+}
+
+jacoco {
+	toolVersion = '0.7.4.201502262128'
+}
+
+// From https://github.com/nenick/android-gradle-template/blob/master/App/build.gradle
+task jacocoTestReport(type: JacocoReport, dependsOn: ['test']) {
+	group = 'Reporting'
+	description = 'Generates Jacoco coverage reports: XML and HTML'
+	//outputs.upToDateWhen { false }
+
+	// use hidden configuration, for details look into JacocoPlugin.groovy
+	jacocoClasspath = project.configurations['androidJacocoAnt']
+
+	// exclude auto-generated classes and tests
+	def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+	def debugTree = fileTree(dir: "${project.buildDir}/intermediates/classes/debug", excludes: fileFilter)
+	def mainSrc = ["${project.projectDir}/src/main/kotlin"]
+
+	sourceDirectories = files(mainSrc)
+	classDirectories = files([debugTree])
+	executionData = fileTree(dir: project.projectDir, includes: ['**/*.exec', '**/*.ec'])
+
+	reports {
+		csv {
+			enabled = false
+		}
+
+		html {
+			enabled = true
+			destination = "${buildDir}/reports/jacoco"
+		}
+
+		xml {
+			enabled = true
+			destination = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+		}
 	}
 }
 

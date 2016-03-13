@@ -38,6 +38,9 @@ before_install:
 script:
   - ./gradlew build testDebug
 
+after_success:
+  - ./gradlew jacocoTestReport coveralls
+
 sudo: false
 
 cache:
