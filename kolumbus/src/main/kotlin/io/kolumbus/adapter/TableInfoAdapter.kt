@@ -20,7 +20,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import io.kolumbus.R
 import io.realm.RealmObject
@@ -39,8 +38,11 @@ class TableInfoAdapter(val fields: List<Field>, val instance: RealmObject) : Rec
         val genericType = field.genericType
         val value = field.get(this.instance)
 
-        holder?.key?.visibility = if (field.isAnnotationPresent(PrimaryKey::class.java)) View.VISIBLE else View.INVISIBLE
-        holder?.name?.text = field.name
+        if (field.isAnnotationPresent(PrimaryKey::class.java)) {
+            holder?.name?.text = "#${field.name}"
+        } else {
+            holder?.name?.text = field.name
+        }
 
         if (genericType is ParameterizedType) {
             val subType = genericType.actualTypeArguments[0] as Class<Any>
@@ -63,13 +65,11 @@ class TableInfoAdapter(val fields: List<Field>, val instance: RealmObject) : Rec
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val key: ImageView?
         val name: TextView?
         val type: TextView?
         val value: TextView?
 
         init {
-            this.key = view.findViewById(R.id.field_primary_key) as ImageView?
             this.name = view.findViewById(R.id.field_name) as TextView?
             this.type = view.findViewById(R.id.field_type) as TextView?
             this.value = view.findViewById(R.id.field_default_value) as TextView?
