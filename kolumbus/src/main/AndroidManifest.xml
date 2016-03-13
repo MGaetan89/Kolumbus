@@ -14,22 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<manifest
-	package="io.kolumbus"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="io.kolumbus">
 
 	<application>
 		<activity
 			android:name=".activity.TableActivity"
-			android:theme="@style/kolumbus_Theme"/>
+			android:parentActivityName=".activity.TablesActivity"
+			android:theme="@style/kolumbus_Theme">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".activity.TablesActivity" />
+		</activity>
 
 		<activity
 			android:name=".activity.TableInfoActivity"
-			android:theme="@style/kolumbus_Theme"/>
+			android:parentActivityName=".activity.TableActivity"
+			android:theme="@style/kolumbus_Theme">
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value=".activity.TableActivity" />
+		</activity>
 
 		<activity
 			android:name=".activity.TablesActivity"
 			android:label="@string/kolumbus_tables_list"
-			android:theme="@style/kolumbus_Theme"/>
+			android:theme="@style/kolumbus_Theme" />
 	</application>
 </manifest>

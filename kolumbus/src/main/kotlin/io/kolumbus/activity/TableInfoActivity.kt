@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import io.kolumbus.BuildConfig
 import io.kolumbus.R
 import io.kolumbus.adapter.TableInfoAdapter
@@ -49,6 +50,8 @@ class TableInfoActivity : AppCompatActivity() {
 
         this.setContentView(R.layout.kolumbus_activity_table_info)
 
+        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
         val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
 
@@ -70,5 +73,15 @@ class TableInfoActivity : AppCompatActivity() {
             recyclerView.adapter = TableInfoAdapter(fields, tableClass.newInstance())
             recyclerView.layoutManager = LinearLayoutManager(this)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            this.onBackPressed()
+
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

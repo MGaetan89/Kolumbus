@@ -79,6 +79,8 @@ class TableActivity : AppCompatActivity() {
 
         this.setContentView(R.layout.kolumbus_activity_table)
 
+        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         this.empty = this.findViewById(android.R.id.empty) as TextView?
         this.scroll = this.findViewById(R.id.scroll) as ScrollView?
         this.table = this.findViewById(R.id.table) as TableLayout?
@@ -99,6 +101,12 @@ class TableActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            this.onBackPressed()
+
+            return true
+        }
+
         if (item?.itemId == R.id.menu_clear_table) {
             AlertDialog.Builder(this)
                     .setMessage(this.getString(R.string.kolumbus_clear_table_confirm, this.tableClass?.simpleName))
