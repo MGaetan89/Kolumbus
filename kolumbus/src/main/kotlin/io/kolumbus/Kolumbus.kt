@@ -21,6 +21,8 @@ import io.kolumbus.activity.TablesActivity
 import io.realm.RealmObject
 
 object Kolumbus {
+    internal var architect = Architect()
+        private set
     internal val items = mutableListOf<RealmObject>()
     internal val tables = mutableMapOf<String, Class<out RealmObject>>().toSortedMap()
 
@@ -39,4 +41,10 @@ object Kolumbus {
     fun forgetAll() = this.tables.clear()
 
     fun navigate(context: Context) = TablesActivity.start(context)
+
+    fun withArchitect(architect: Architect): Kolumbus {
+        this.architect = architect
+
+        return this
+    }
 }

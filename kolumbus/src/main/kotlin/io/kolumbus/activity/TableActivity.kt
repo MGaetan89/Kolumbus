@@ -19,13 +19,9 @@ package io.kolumbus.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.util.Patterns
 import android.view.Menu
 import android.view.MenuItem
@@ -194,58 +190,38 @@ class TableActivity : AppCompatActivity() {
                 val result = methods[it.name]?.invoke(entry)
 
                 if (result is Boolean) {
-                    value.text = this.getString(if (result) R.string.kolumbus_yes else R.string.kolumbus_no)
+                    Kolumbus.architect.displayBoolean(value, result)
+                } else if (result is Float) {
+                    Kolumbus.architect.displayFloat(value, result)
+                } else if (result is Int) {
+                    Kolumbus.architect.displayInt(value, result)
                 } else if (result is RealmList<*>) {
                     val returnType = it.genericType as ParameterizedType
-                    val genericType = returnType.actualTypeArguments[0] as Class<RealmObject>
+                    val type = returnType.actualTypeArguments[0] as Class<RealmObject>
 
-                    if (result.isNotEmpty()) {
-                        val resultArray = this.realm.copyFromRealm(result).toTypedArray()
-
-                        value.setOnClickListener {
-                            start(this, genericType, resultArray)
-                        }
-                    }
-
-                    value.text = Html.fromHtml(this.getString(R.string.kolumbus_linked_entries, result.size, genericType.simpleName.prettify()))
+                    Kolumbus.architect.displayRealmList(value, result, type)
+                } else if (result is RealmObject) {
+                    Kolumbus.architect.displayRealmObject(value, result)
                 } else if (result is String) {
                     if (result.isEmpty()) {
-                        value.text = this.getString(R.string.kolumbus_empty)
+                        Kolumbus.architect.displayEmpty(value)
                     } else {
                         if (Patterns.WEB_URL.matcher(result).matches()) {
-                            value.text = Html.fromHtml(this.getString(R.string.kolumbus_link, result, result.replaceFirst("([^:/])/.*/".toRegex(), "$1/.../")))
-                            value.movementMethod = LinkMovementMethod.getInstance()
+                            Kolumbus.architect.displayUrl(value, result)
                         } else {
                             try {
                                 val color = Color.parseColor(result)
-                                val drawable = this.getDrawable(R.drawable.kolumbus_color_preview) as LayerDrawable
-                                drawable.getDrawable(1).setColorFilter(color, PorterDuff.Mode.SRC_IN)
 
-                                value.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-                                value.text = result
+                                Kolumbus.architect.displayColor(value, result, color)
                             } catch (exception: IllegalArgumentException) {
-                                val htmlString = Html.fromHtml(result)
-
-                                if (htmlString.length > 50) {
-                                    value.setOnClickListener {
-                                        AlertDialog.Builder(this)
-                                                .setMessage(htmlString)
-                                                .setPositiveButton(android.R.string.ok, null)
-                                                .show()
-                                    }
-
-                                    value.text = htmlString.subSequence(0, 47)
-                                    value.append("...")
-                                } else {
-                                    value.text = htmlString
-                                }
+                                Kolumbus.architect.displayString(value, result)
                             }
                         }
                     }
                 } else if (result != null) {
-                    value.text = result.toString()
+                    Kolumbus.architect.displayAny(value, result)
                 } else {
-                    value.text = this.getString(R.string.kolumbus_null)
+                    Kolumbus.architect.displayNull(value)
                 }
 
                 tableRow.addView(value)
