@@ -31,10 +31,12 @@ object Analyzer {
         return fields.associate {
             it.name to if (methods.contains("get${it.name.capitalize()}")) {
                 table?.getMethod("get${it.name.capitalize()}")
-            } else {
+            } else if (methods.contains("is${it.name.capitalize()}")) {
                 table?.getMethod("is${it.name.capitalize()}")
+            } else {
+                null
             }
-        }
+        }.filterValues { it != null }
     }
 
     fun getRealmFields(table: Class<out RealmObject>?): List<Field> {

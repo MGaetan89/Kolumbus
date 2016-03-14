@@ -18,7 +18,6 @@ package io.kolumbus
 
 import io.kolumbus.model.Book
 import io.kolumbus.model.Library
-import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertEquals
 
@@ -54,7 +53,6 @@ class Analyzer_GetAccessorsTest {
         assertEquals(0, methods.size)
     }
 
-    @Ignore
     @Test
     fun getAccessors_NotNullTableInvalidFields() {
         val table = Library::class.java
