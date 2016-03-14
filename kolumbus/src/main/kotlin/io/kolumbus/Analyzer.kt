@@ -26,8 +26,14 @@ import java.util.*
 
 object Analyzer {
     fun getAccessors(table: Class<out RealmObject>?, fields: List<Field>): Map<String, Method?> {
+        val methods = table?.declaredMethods?.map { it.name } ?: emptyList()
+
         return fields.associate {
-            it.name to table?.getMethod("get${it.name.capitalize()}")
+            it.name to if (methods.contains("get${it.name.capitalize()}")) {
+                table?.getMethod("get${it.name.capitalize()}")
+            } else {
+                table?.getMethod("is${it.name.capitalize()}")
+            }
         }
     }
 

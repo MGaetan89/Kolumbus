@@ -36,6 +36,18 @@ class Analyzer_GetAccessorsTest {
     }
 
     @Test
+    fun getAccessors_NotNullTableAllFieldsWithBoolean() {
+        val table = Book::class.java
+        val methods = Analyzer.getAccessors(table, Analyzer.getRealmFields(table))
+
+        assertEquals(5, methods.size) // TODO Should be 4
+        assertEquals(table.getMethod("getDescription"), methods["description"])
+        assertEquals(table.getMethod("getGenre"), methods["genre"])
+        assertEquals(table.getMethod("getName"), methods["name"])
+        assertEquals(table.getMethod("isAvailable"), methods["available"])
+    }
+
+    @Test
     fun getAccessors_NotNullTableEmptyFields() {
         val methods = Analyzer.getAccessors(Library::class.java, emptyList())
 
