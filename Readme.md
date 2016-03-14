@@ -80,6 +80,13 @@ Kolumbus.INSTANCE
     .navigate(context);
 ```
 
+## Compatibility
+
+| Kolumbus version | Realm version |
+| ----- | ----- |
+| 0.1 - 0.4 | ? - 0.87.5 |
+| 0.5 | 0.88.0 |
+
 ## TODO
 
 In no particular order:
