@@ -52,7 +52,7 @@ Check the [demo application](app/src/main/kotlin/io/kolumbus/demo/DemoActivity.k
 The following example assumes that you have two classes named `Category` and `Product` in your project, which both extends from `io.realm.RealmObject`.
 
 ```kotlin
-// Usage in a Kotlin project
+// Kotlin
 // Register the Kolumbus module when defining your Realm configuration
 val realmConfiguration = RealmConfiguration.Builder(context)
     .setModules(KolumbusModule())
@@ -66,7 +66,7 @@ Kolumbus.explore(Category::class.java)
 ```
 
 ```java
-// Usage in a Java project
+// Java
 // Register the Kolumbus module when defining your Realm configuration
 RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context)
     .setModules(new KolumbusModule())
@@ -78,6 +78,48 @@ Kolumbus.INSTANCE
     .explore(Category.class)
     .explore(Product.class)
     .navigate(context);
+```
+
+## Customization
+
+Kolumbus provides a basic way to customize how the content of a table is displayed.
+To use this feature, you have to extends from `io.kolumbus.Architect` and override the desired methods.
+
+```kotlin
+// Kotlin
+class MyArchitect: Architect() {
+    override fun displayEmpty(textView: TextView) {
+        textView.text = "Field is empty"
+    }
+}
+```
+
+```java
+// Java
+public class MyArchitect extends Architect {
+    @Override
+    public void displayEmpty(@NonNull TextView textView) {
+        textView.setText("Field is empty")
+    }
+}
+```
+
+Then, you need to pass an instance of your `Architect` to `Kolumbus`, as follow:
+
+```kotlin
+// Kotlin
+Kolumbus
+    // All `explore()` calls you might need
+    .withArchitect(MyArchitect())
+    .navigate(context)
+```
+
+```java
+// Java
+Kolumbus.INSTANCE
+    // All `explore()` calls you might need
+    .withArchitect(new MyArchitect())
+    .navigate(context)
 ```
 
 ## Compatibility
@@ -93,7 +135,6 @@ The following table presents the compatibility matrix between Kolumbus versions 
 
 In no particular order:
 - Find a better and more efficient way to display a table content than `TableLayout`
-- Allow customizing the way the data are displayed
 - Sort the content of the displayed table
 - Filter the fields that are displayed
 - Filter the data that are displayed
