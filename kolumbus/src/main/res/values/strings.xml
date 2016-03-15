@@ -29,7 +29,7 @@
 	<string name="kolumbus_empty">(empty)</string>
 	<string name="kolumbus_empty_table">Empty table</string>
 	<string name="kolumbus_link"><![CDATA[
-		<a href="<xliff:g example="http://www.google.com/" id="url">%1$s</xliff:g>"><xliff:g example="text" id="text">%2$s</xliff:g></a>
+		<a href="%1$s"><xliff:g example="text" id="text">%2$s</xliff:g></a>
 	]]></string>
 	<string name="kolumbus_linked_entries"><![CDATA[
 		<b><xliff:g example="42" id="count">%1$s</xliff:g></b> <xliff:g example="Tables" id="table">%2$s</xliff:g>
