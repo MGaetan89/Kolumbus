@@ -93,6 +93,8 @@ class TableActivity : AppCompatActivity() {
 
             (this.entries as RealmResults).addChangeListener(this.entriesListener)
         }
+
+        this.invalidateOptionsMenu()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -101,6 +103,7 @@ class TableActivity : AppCompatActivity() {
         val count = this.realm.where(this.tableClass).count()
 
         menu?.findItem(R.id.menu_clear_table)?.isVisible = count > 0
+        menu?.findItem(R.id.menu_view_all)?.isVisible = count - (this.entries?.size ?: 0) > 0
 
         return true
     }
@@ -141,6 +144,12 @@ class TableActivity : AppCompatActivity() {
 
         if (item?.itemId == R.id.menu_table_info) {
             TableInfoActivity.start(this, this.tableClass)
+
+            return true
+        }
+
+        if (item?.itemId == R.id.menu_view_all) {
+            TableActivity.start(this, this.tableClass)
 
             return true
         }
