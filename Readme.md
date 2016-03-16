@@ -129,7 +129,7 @@ The following table presents the compatibility matrix between Kolumbus versions 
 | Kolumbus version | Realm version |
 | ----- | ----- |
 | 0.1 - 0.4 | ? - 0.87.5 |
-| 0.5 - 0.6 | 0.88.0 - 0.88.1 |
+| 0.5 - 0.6 | 0.88.0 - 0.88.2 |
 
 ## TODO
 
