@@ -18,26 +18,25 @@ package io.kolumbus.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Patterns
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
-import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import io.kolumbus.Analyzer
 import io.kolumbus.BuildConfig
 import io.kolumbus.Kolumbus
 import io.kolumbus.R
+import io.kolumbus.adapter.TableAdapter
 import io.kolumbus.extension.prettify
-import io.realm.*
-import io.realm.annotations.PrimaryKey
-import java.lang.reflect.ParameterizedType
+import io.kolumbus.layout.TableLayoutManager
+import io.realm.Realm
+import io.realm.RealmChangeListener
+import io.realm.RealmObject
+import io.realm.RealmResults
 
 class TableActivity : AppCompatActivity() {
     private var empty: TextView? = null
@@ -46,8 +45,7 @@ class TableActivity : AppCompatActivity() {
         displayTableContent()
     }
     private val realm = Realm.getDefaultInstance()
-    private var scroll: ScrollView? = null
-    private var table: TableLayout? = null
+    private var recyclerView: RecyclerView? = null
     private var tableClass: Class<out RealmObject>? = null
 
     companion object {
@@ -77,10 +75,11 @@ class TableActivity : AppCompatActivity() {
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         this.empty = this.findViewById(android.R.id.empty) as TextView?
-        this.scroll = this.findViewById(R.id.scroll) as ScrollView?
-        this.table = this.findViewById(R.id.table) as TableLayout?
+        this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
         this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
         this.title = (this.tableClass as Class<out RealmObject>).simpleName.prettify()
+
+        this.recyclerView?.layoutManager = TableLayoutManager(this)
 
         if (Kolumbus.items.isNotEmpty()) {
             this.entries = Kolumbus.items.toList()
@@ -158,83 +157,18 @@ class TableActivity : AppCompatActivity() {
     }
 
     private fun displayTableContent() {
-        val fields = Analyzer.getRealmFields(this.tableClass)
-        val methods = Analyzer.getAccessors(this.tableClass, fields)
-
-        this.table?.removeAllViews()
-
         if (this.entries?.size ?: 0 == 0) {
             this.empty?.visibility = View.VISIBLE
-            this.scroll?.visibility = View.GONE
+            this.recyclerView?.visibility = View.GONE
 
             return;
         }
 
+        val fields = Analyzer.getRealmFields(this.tableClass)
+        val methods = Analyzer.getAccessors(this.tableClass, fields)
+
         this.empty?.visibility = View.GONE
-        this.scroll?.visibility = View.VISIBLE
-
-        var tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
-
-        this.table?.addView(tableRow)
-
-        fields.forEach {
-            val header = this.layoutInflater.inflate(R.layout.kolumbus_table_row_header, tableRow, false) as TextView
-
-            header.text = if (it.isAnnotationPresent(PrimaryKey::class.java)) {
-                "#${it.name.prettify()}"
-            } else {
-                it.name.prettify()
-            }
-
-            tableRow.addView(header)
-        }
-
-        this.entries!!.forEach { entry ->
-            tableRow = this.layoutInflater.inflate(R.layout.kolumbus_table_row, this.table, false) as TableRow
-
-            this.table?.addView(tableRow)
-
-            fields.forEach {
-                val value = this.layoutInflater.inflate(R.layout.kolumbus_table_row_text, tableRow, false) as TextView
-                val result = methods[it.name]?.invoke(entry)
-
-                if (result is Boolean) {
-                    Kolumbus.architect.displayBoolean(value, result)
-                } else if (result is Float) {
-                    Kolumbus.architect.displayFloat(value, result)
-                } else if (result is Int) {
-                    Kolumbus.architect.displayInt(value, result)
-                } else if (result is RealmList<*>) {
-                    val returnType = it.genericType as ParameterizedType
-                    val type = returnType.actualTypeArguments[0] as Class<RealmObject>
-
-                    Kolumbus.architect.displayRealmList(value, result, type)
-                } else if (result is RealmObject) {
-                    Kolumbus.architect.displayRealmObject(value, result)
-                } else if (result is String) {
-                    if (result.isEmpty()) {
-                        Kolumbus.architect.displayEmpty(value)
-                    } else {
-                        if (Patterns.WEB_URL.matcher(result).matches()) {
-                            Kolumbus.architect.displayUrl(value, result)
-                        } else {
-                            try {
-                                val color = Color.parseColor(result)
-
-                                Kolumbus.architect.displayColor(value, result, color)
-                            } catch (exception: IllegalArgumentException) {
-                                Kolumbus.architect.displayString(value, result)
-                            }
-                        }
-                    }
-                } else if (result != null) {
-                    Kolumbus.architect.displayAny(value, result)
-                } else {
-                    Kolumbus.architect.displayNull(value)
-                }
-
-                tableRow.addView(value)
-            }
-        }
+        this.recyclerView?.adapter = TableAdapter(this.entries ?: emptyList(), fields, methods)
+        this.recyclerView?.visibility = View.VISIBLE
     }
 }

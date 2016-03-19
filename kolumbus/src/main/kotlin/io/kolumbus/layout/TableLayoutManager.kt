@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+/*
  * Copyright (C) 2016 MGaetan89
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,12 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- -->
-<TextView
-	style="@style/TextAppearance.AppCompat.Body2"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:padding="@dimen/kolumbus_padding_small"
-	tools:text="Field Name"/>
+ */
+
+package io.kolumbus.layout
+
+import android.content.Context
+import android.support.v7.widget.LinearLayoutManager
+import android.util.AttributeSet
+
+class TableLayoutManager : LinearLayoutManager {
+    constructor(context: Context) : super(context)
+
+    constructor(context: Context, orientation: Int, reverseLayout: Boolean) : super(context, orientation, reverseLayout)
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
+}

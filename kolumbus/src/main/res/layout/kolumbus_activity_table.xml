@@ -14,33 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<FrameLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".activity.TableActivity">
 
-	<ScrollView
-		android:id="@+id/scroll"
+	<android.support.v7.widget.RecyclerView
+		android:id="@android:id/list"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:scrollbarStyle="outsideOverlay"
-		android:scrollbars="horizontal|vertical"
 		android:visibility="gone"
-		tools:visibility="visible">
-
-		<HorizontalScrollView
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:scrollbars="horizontal|vertical">
-
-			<TableLayout
-				android:id="@+id/table"
-				android:layout_width="wrap_content"
-				android:layout_height="match_parent"/>
-		</HorizontalScrollView>
-	</ScrollView>
+		tools:visibility="visible" />
 
 	<TextView
 		android:id="@android:id/empty"
@@ -50,5 +35,5 @@
 		android:layout_gravity="center"
 		android:text="@string/kolumbus_empty_table"
 		android:visibility="gone"
-		tools:visibility="visible"/>
+		tools:visibility="visible" />
 </FrameLayout>

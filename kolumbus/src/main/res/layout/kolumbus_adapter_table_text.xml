@@ -14,10 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<TextView
-	style="@style/TextAppearance.AppCompat.Body1"
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
+	style="@style/TextAppearance.AppCompat.Body1"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:drawablePadding="@dimen/kolumbus_padding_small"
@@ -25,4 +24,4 @@
 	android:maxLines="1"
 	android:padding="@dimen/kolumbus_padding_small"
 	tools:drawableLeft="@drawable/kolumbus_color_preview"
-	tools:text="Field Value"/>
+	tools:text="Field Value" />

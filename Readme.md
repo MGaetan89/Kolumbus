@@ -32,7 +32,7 @@ In your module `build.gradle` file, add the Kolumbus dependency:
 
 ```gradle
 dependencies {
-    compile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.5'
+    compile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.6'
 }
 ```
 
@@ -40,8 +40,8 @@ If you only want to use Kolumbus in your debug build, you can use the following 
 
 ```gradle
 dependencies {
-    debugCompile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.5'
-    releaseCompile 'com.github.MGaetan89.Kolumbus:kolumbus-no-op:v0.5'
+    debugCompile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.6'
+    releaseCompile 'com.github.MGaetan89.Kolumbus:kolumbus-no-op:v0.6'
 }
 ```
 
@@ -53,6 +53,11 @@ The following example assumes that you have two classes named `Category` and `Pr
 
 ```kotlin
 // Kotlin
+import io.kolumbus.Kolumbus
+import io.kolumbus.KolumbusModule
+import io.realm.Realm
+import io.realm.RealmConfiguration
+
 // Register the Kolumbus module when defining your Realm configuration
 val realmConfiguration = RealmConfiguration.Builder(context)
     .setModules(KolumbusModule())
@@ -67,6 +72,11 @@ Kolumbus.explore(Category::class.java)
 
 ```java
 // Java
+import io.kolumbus.Kolumbus;
+import io.kolumbus.KolumbusModule;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 // Register the Kolumbus module when defining your Realm configuration
 RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context)
     .setModules(new KolumbusModule())
@@ -83,10 +93,13 @@ Kolumbus.INSTANCE
 ## Customization
 
 Kolumbus provides a basic way to customize how the content of a table is displayed.
-To use this feature, you have to extends from `io.kolumbus.Architect` and override the desired methods.
+To use this feature, you have to extends from `Architect` and override the desired methods.
 
 ```kotlin
 // Kotlin
+import android.widget.TextView
+import io.kolumbus.Architect
+
 class MyArchitect: Architect() {
     override fun displayEmpty(textView: TextView) {
         textView.text = "Field is empty"
@@ -96,6 +109,9 @@ class MyArchitect: Architect() {
 
 ```java
 // Java
+import android.widget.TextView;
+import io.kolumbus.Architect;
+
 public class MyArchitect extends Architect {
     @Override
     public void displayEmpty(@NonNull TextView textView) {
@@ -108,6 +124,8 @@ Then, you need to pass an instance of your `Architect` to `Kolumbus`, as follow:
 
 ```kotlin
 // Kotlin
+import io.kolumbus.Kolumbus
+
 Kolumbus
     // All `explore()` calls you might need
     .withArchitect(MyArchitect())
@@ -116,6 +134,8 @@ Kolumbus
 
 ```java
 // Java
+import io.kolumbus.Kolumbus;
+
 Kolumbus.INSTANCE
     // All `explore()` calls you might need
     .withArchitect(new MyArchitect())
@@ -134,7 +154,6 @@ The following table presents the compatibility matrix between Kolumbus versions 
 ## TODO
 
 In no particular order:
-- Find a better and more efficient way to display a table content than `TableLayout`
 - Sort the content of the displayed table
 - Filter the fields that are displayed
 - Filter the data that are displayed
