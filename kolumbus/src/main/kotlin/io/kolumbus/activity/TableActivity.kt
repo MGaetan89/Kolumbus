@@ -180,10 +180,10 @@ class TableActivity : AppCompatActivity() {
         fields.forEach {
             val header = this.layoutInflater.inflate(R.layout.kolumbus_table_row_header, tableRow, false) as TextView
 
-            if (it.isAnnotationPresent(PrimaryKey::class.java)) {
-                header.text = "#${it.name.prettify()}"
+            header.text = if (it.isAnnotationPresent(PrimaryKey::class.java)) {
+                "#${it.name.prettify()}"
             } else {
-                header.text = it.name.prettify()
+                it.name.prettify()
             }
 
             tableRow.addView(header)

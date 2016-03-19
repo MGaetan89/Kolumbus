@@ -31,17 +31,14 @@ class TableInfoAdapter(val fields: List<Field>, val instance: RealmObject) : Rec
     override fun getItemCount() = this.fields.size
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val field = this.fields[position]
-
-        field.isAccessible = true
-
+        val field = this.fields[position].apply { this.isAccessible = true }
         val genericType = field.genericType
         val value = field.get(this.instance)
 
-        if (field.isAnnotationPresent(PrimaryKey::class.java)) {
-            holder?.name?.text = "#${field.name}"
+        holder?.name?.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
+            "#${field.name}"
         } else {
-            holder?.name?.text = field.name
+            field.name
         }
 
         if (genericType is ParameterizedType) {
