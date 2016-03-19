@@ -37,7 +37,7 @@ class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val 
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_FIELD = 1
 
-    override fun getItemCount() = this.entries.size
+    override fun getItemCount() = this.entries.size + 1
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_FIELD
@@ -45,7 +45,7 @@ class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is FieldViewHolder) {
-            this.bindFieldRow(this.entries[position], holder)
+            this.bindFieldRow(this.entries[position - 1], holder)
         } else if ( holder is HeaderViewHolder) {
             this.bindHeaderRow(holder)
         }
@@ -68,8 +68,7 @@ class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val 
     }
 
     private fun bindFieldRow(entry: RealmObject, holder: FieldViewHolder) {
-        this.fields.forEachIndexed { i, field ->
-            val fieldView = (holder.itemView as ViewGroup).getChildAt(i) as TextView
+        this.processField(holder) { fieldView, field ->
             val result = this.methods[field.name]?.invoke(entry)
 
             if (result is Boolean) {
@@ -110,9 +109,7 @@ class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val 
     }
 
     private fun bindHeaderRow(holder: HeaderViewHolder) {
-        this.fields.forEachIndexed { i, field ->
-            val fieldView = (holder.itemView as ViewGroup).getChildAt(i) as TextView
-
+        this.processField(holder) { fieldView, field ->
             fieldView.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
                 "#${field.name.prettify()}"
             } else {
@@ -127,6 +124,14 @@ class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val 
         }
 
         return R.layout.kolumbus_adapter_table_text
+    }
+
+    private fun processField(holder: RecyclerView.ViewHolder, callback: (fieldView: TextView, field: Field) -> Unit) {
+        this.fields.forEachIndexed { index, field ->
+            val fieldView = (holder.itemView as ViewGroup).getChildAt(index) as TextView
+
+            callback(fieldView, field)
+        }
     }
 
     class FieldViewHolder(view: View) : RecyclerView.ViewHolder(view)
