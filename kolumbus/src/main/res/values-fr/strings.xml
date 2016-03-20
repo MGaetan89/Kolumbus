@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2016 MGaetan89
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+	<plurals name="kolumbus_entries_count">
+		<item quantity="one"><xliff:g example="42" id="count">%1$s</xliff:g> entrée</item>
+		<item quantity="other"><xliff:g example="42" id="count">%1$s</xliff:g> entrées</item>
+	</plurals>
+
+	<string name="kolumbus_clear">Effacer</string>
+	<string name="kolumbus_clear_database">Vider la base de données</string>
+	<string name="kolumbus_clear_database_confirm">Êtes-vous sûr de vouloir vider la base de données ?\nCette opération ne peut pas être annulée.</string>
+	<string name="kolumbus_clear_table">Vider la table</string>
+	<string name="kolumbus_clear_table_confirm">Êtes-vous sûr de vouloir vider la table \"<xliff:g example="Catégorie" id="table">%1$s</xliff:g>\"?\nCette opération ne peut pas être annulée.</string>
+	<string name="kolumbus_empty">(vide)</string>
+	<string name="kolumbus_empty_table">Table vide</string>
+	<string name="kolumbus_link"><![CDATA[
+		<a href="%1$s"><xliff:g example="texte" id="text">%2$s</xliff:g></a>
+	]]></string>
+	<string name="kolumbus_linked_entries"><![CDATA[
+		<b><xliff:g example="42" id="count">%1$s</xliff:g></b> <xliff:g example="Tables" id="table">%2$s</xliff:g>
+	]]></string>
+	<string name="kolumbus_no">Non</string>
+	<string name="kolumbus_no_tables">Pas de tables</string>
+	<string name="kolumbus_null">(null)</string>
+	<string name="kolumbus_table_info">Informations sur la table</string>
+	<string name="kolumbus_tables_list">Liste des tables</string>
+	<string name="kolumbus_view_all">Voir tout</string>
+	<string name="kolumbus_yes">Oui</string>
+</resources>
