@@ -90,6 +90,7 @@ dependencies {
 
 	testCompile "junit:junit:${rootProject.ext.jUnitVersion}"
 	testCompile "org.jetbrains.kotlin:kotlin-test-junit:${rootProject.ext.kotlinVersion}"
+	testCompile "org.mockito:mockito-core:${rootProject.ext.mockitoVersion}"
 }
 
 task sourcesJar(type: Jar) {

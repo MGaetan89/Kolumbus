@@ -12,9 +12,9 @@ import io.realm.RealmList
 import java.util.*
 
 class DemoActivity : AppCompatActivity() {
-    private val CATEGORIES_COUNT = 25
-    private val MAX_LINKED_CATEGORIES = 10
-    private val PRODUCTS_COUNT = 100
+    private val CATEGORIES_COUNT = 100
+    private val MAX_LINKED_CATEGORIES = 50
+    private val PRODUCTS_COUNT = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,6 @@ class DemoActivity : AppCompatActivity() {
                 .deleteRealmIfMigrationNeeded()
                 .setModules(AppModule(), KolumbusModule())
                 .build()
-        Realm.deleteRealm(realmConfiguration)
         Realm.setDefaultConfiguration(realmConfiguration)
 
         this.fillDatabase()
@@ -39,12 +38,14 @@ class DemoActivity : AppCompatActivity() {
         with(Realm.getDefaultInstance()) {
             executeTransaction {
                 val random = Random()
+                val categoriesCount = this.where(Category::class.java).count()
+                val productsCount = this.where(Product::class.java).count()
 
                 for (i in 1..CATEGORIES_COUNT) {
                     with(createObject(Category::class.java)) {
                         color = random.nextColor()
-                        id = i
-                        name = "Category $i"
+                        id = (categoriesCount + i).toInt()
+                        name = "Category $id"
                     }
                 }
 
@@ -61,8 +62,8 @@ class DemoActivity : AppCompatActivity() {
                         }
 
                         description = "<b>Lorem ipsum</b> dolor sit amet, <i>consectetur adipiscing</i> elit. <b><u>Maecenas mollis</u></b> eget nibh et condimentum."
-                        id = i
-                        name = "Product $i"
+                        id = (productsCount + i).toInt()
+                        name = "Product $id"
                     }
                 }
             }

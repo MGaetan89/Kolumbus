@@ -26,6 +26,10 @@ import android.view.ViewGroup
 class TableLayoutManager : LinearLayoutManager {
     constructor(context: Context) : super(context)
 
+    override fun canScrollHorizontally() = true
+
+    override fun canScrollVertically() = true
+
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
         super.onLayoutChildren(recycler, state)
 
