@@ -36,5 +36,5 @@ ext {
 	kolumbusVersionName = '0.6'
 	kotlinVersion = '1.0.1'
 	mockitoVersion = '2.0.44-beta'
-	supportLibraryVersion = '23.2.1'
+	supportLibraryVersion = '23.3.0'
 }
