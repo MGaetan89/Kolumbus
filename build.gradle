@@ -35,6 +35,6 @@ ext {
 	kolumbusVersionCode = 6
 	kolumbusVersionName = '0.6'
 	kotlinVersion = '1.0.1'
-	mockitoVersion = '2.0.44-beta'
+	mockitoVersion = '2.0.52-beta'
 	supportLibraryVersion = '23.3.0'
 }
