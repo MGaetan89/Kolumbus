@@ -16,10 +16,10 @@
 
 package io.kolumbus.model
 
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.annotations.Ignore
 
-open class Ignored : RealmObject() {
+open class Ignored : RealmModel {
     @Ignore
     open var field = ""
 }

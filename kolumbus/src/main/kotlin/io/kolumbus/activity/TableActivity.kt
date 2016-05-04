@@ -35,27 +35,24 @@ import io.kolumbus.extension.prettify
 import io.kolumbus.layout.TableLayoutManager
 import io.realm.Realm
 import io.realm.RealmChangeListener
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.RealmResults
 
-class TableActivity : AppCompatActivity() {
+class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<RealmModel>> {
     private var empty: TextView? = null
-    private var entries: List<RealmObject>? = null
-    private var entriesListener = RealmChangeListener {
-        displayTableContent()
-    }
+    private var entries: List<RealmModel>? = null
     private val realm = Realm.getDefaultInstance()
     private var recyclerView: RecyclerView? = null
-    private var tableClass: Class<out RealmObject>? = null
+    private var tableClass: Class<out RealmModel>? = null
 
     companion object {
         private val EXTRA_TABLE_CLASS = BuildConfig.APPLICATION_ID + ".extra.TABLE_CLASS"
 
-        fun start(context: Context, table: Class<out RealmObject>?) {
+        fun start(context: Context, table: Class<out RealmModel>?) {
             this.start(context, table, null)
         }
 
-        fun <T : RealmObject> start(context: Context, table: Class<out T>?, items: Array<out T>?) {
+        fun <T : RealmModel> start(context: Context, table: Class<out T>?, items: Array<out T>?) {
             val intent = Intent(context, TableActivity::class.java)
             intent.putExtra(EXTRA_TABLE_CLASS, table)
 
@@ -67,6 +64,10 @@ class TableActivity : AppCompatActivity() {
         }
     }
 
+    override fun onChange(objects: RealmResults<RealmModel>) {
+        this.displayTableContent()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -76,8 +77,8 @@ class TableActivity : AppCompatActivity() {
 
         this.empty = this.findViewById(android.R.id.empty) as TextView?
         this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
-        this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
-        this.title = (this.tableClass as Class<out RealmObject>).simpleName.prettify()
+        this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>
+        this.title = (this.tableClass as Class<out RealmModel>).simpleName.prettify()
 
         this.recyclerView?.layoutManager = TableLayoutManager(this)
 
@@ -90,7 +91,7 @@ class TableActivity : AppCompatActivity() {
         } else {
             this.entries = this.realm.where(this.tableClass).findAllAsync()
 
-            (this.entries as RealmResults).addChangeListener(this.entriesListener)
+            (this.entries as RealmResults).addChangeListener(this)
         }
 
         this.invalidateOptionsMenu()
@@ -129,7 +130,7 @@ class TableActivity : AppCompatActivity() {
                     .setMessage(this.getString(R.string.kolumbus_clear_table_confirm, this.tableClass?.simpleName))
                     .setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
                         realm.executeTransaction {
-                            it.clear(tableClass)
+                            it.delete(tableClass)
                         }
 
                         this.displayTableContent()

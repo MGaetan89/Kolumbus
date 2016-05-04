@@ -18,21 +18,21 @@ package io.kolumbus
 
 import android.content.Context
 import io.kolumbus.activity.TablesActivity
-import io.realm.RealmObject
+import io.realm.RealmModel
 
 object Kolumbus {
     internal var architect = Architect()
         private set
-    internal val items = mutableListOf<RealmObject>()
-    internal val tables = mutableMapOf<String, Class<out RealmObject>>().toSortedMap()
+    internal val items = mutableListOf<RealmModel>()
+    internal val tables = mutableMapOf<String, Class<out RealmModel>>().toSortedMap()
 
-    fun explore(table: Class<out RealmObject>): Kolumbus {
+    fun explore(table: Class<out RealmModel>): Kolumbus {
         this.tables.put(table.simpleName, table)
 
         return this
     }
 
-    fun forget(table: Class<out RealmObject>): Kolumbus {
+    fun forget(table: Class<out RealmModel>): Kolumbus {
         this.tables.remove(table.simpleName)
 
         return this

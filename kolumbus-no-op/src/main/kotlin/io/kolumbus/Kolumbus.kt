@@ -17,12 +17,12 @@
 package io.kolumbus
 
 import android.content.Context
-import io.realm.RealmObject
+import io.realm.RealmModel
 
 object Kolumbus {
-    fun explore(table: Class<out RealmObject>) = this
+    fun explore(table: Class<out RealmModel>) = this
 
-    fun forget(table: Class<out RealmObject>) = this
+    fun forget(table: Class<out RealmModel>) = this
 
     fun forgetAll() = Unit
 

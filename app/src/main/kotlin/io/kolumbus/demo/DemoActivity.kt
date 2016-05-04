@@ -21,7 +21,7 @@ class DemoActivity : AppCompatActivity() {
 
         val realmConfiguration = RealmConfiguration.Builder(this)
                 .deleteRealmIfMigrationNeeded()
-                .setModules(AppModule(), KolumbusModule())
+                .modules(AppModule(), KolumbusModule())
                 .build()
         Realm.setDefaultConfiguration(realmConfiguration)
 

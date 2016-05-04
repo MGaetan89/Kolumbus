@@ -49,7 +49,7 @@ dependencies {
 
 Check the [demo application](app/src/main/kotlin/io/kolumbus/demo/DemoActivity.kt) to see how to use Kolumbus.
 
-The following example assumes that you have two classes named `Category` and `Product` in your project, which both extends from `io.realm.RealmObject`.
+The following example assumes that you have two classes named `Category` and `Product` in your project, which both inherits from `io.realm.RealmModel`.
 
 ```kotlin
 // Kotlin
@@ -60,7 +60,7 @@ import io.realm.RealmConfiguration
 
 // Register the Kolumbus module when defining your Realm configuration
 val realmConfiguration = RealmConfiguration.Builder(context)
-    .setModules(KolumbusModule())
+    .modules(KolumbusModule())
     .build()
 Realm.setDefaultConfiguration(realmConfiguration)
 
@@ -79,7 +79,7 @@ import io.realm.RealmConfiguration;
 
 // Register the Kolumbus module when defining your Realm configuration
 RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context)
-    .setModules(new KolumbusModule())
+    .modules(new KolumbusModule())
     .build();
 Realm.setDefaultConfiguration(realmConfiguration);
 

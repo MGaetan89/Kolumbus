@@ -148,10 +148,10 @@ class ArchitectTest {
     }
 
     @Test
-    fun displayRealmObject() {
+    fun displayRealmModel() {
         val book = Book()
 
-        this.architect.displayRealmObject(this.textView, book)
+        this.architect.displayRealmModel(this.textView, book)
 
         verify(this.textView).text = book.toString()
     }

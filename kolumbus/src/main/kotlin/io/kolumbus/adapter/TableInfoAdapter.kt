@@ -22,12 +22,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import io.kolumbus.R
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.annotations.PrimaryKey
 import java.lang.reflect.Field
 import java.lang.reflect.ParameterizedType
 
-class TableInfoAdapter(val fields: List<Field>, val instance: RealmObject) : RecyclerView.Adapter<TableInfoAdapter.ViewHolder>() {
+class TableInfoAdapter(val fields: List<Field>, val instance: RealmModel) : RecyclerView.Adapter<TableInfoAdapter.ViewHolder>() {
     override fun getItemCount() = this.fields.size
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

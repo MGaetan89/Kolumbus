@@ -28,13 +28,13 @@ import io.kolumbus.BuildConfig
 import io.kolumbus.R
 import io.kolumbus.adapter.TableInfoAdapter
 import io.kolumbus.extension.prettify
-import io.realm.RealmObject
+import io.realm.RealmModel
 
 class TableInfoActivity : AppCompatActivity() {
     companion object {
         private val EXTRA_TABLE_CLASS = BuildConfig.APPLICATION_ID + ".extra.TABLE_CLASS"
 
-        fun start(context: Context, table: Class<out RealmObject>?) {
+        fun start(context: Context, table: Class<out RealmModel>?) {
             val intent = Intent(context, TableInfoActivity::class.java)
             intent.putExtra(EXTRA_TABLE_CLASS, table)
 
@@ -50,7 +50,7 @@ class TableInfoActivity : AppCompatActivity() {
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
-        val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmObject>
+        val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>
 
         this.title = tableClass.simpleName.prettify()
 

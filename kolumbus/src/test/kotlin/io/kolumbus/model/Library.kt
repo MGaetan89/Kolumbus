@@ -17,10 +17,10 @@
 package io.kolumbus.model
 
 import io.realm.RealmList
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.annotations.PrimaryKey
 
-open class Library : RealmObject() {
+open class Library : RealmModel {
     open var books: RealmList<Book>? = null
     @PrimaryKey
     open var phoneNumber = ""

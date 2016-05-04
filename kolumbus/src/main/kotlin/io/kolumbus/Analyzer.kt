@@ -16,7 +16,7 @@
 
 package io.kolumbus
 
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 import java.lang.reflect.Field
@@ -25,7 +25,7 @@ import java.lang.reflect.Modifier
 import java.util.*
 
 object Analyzer {
-    fun getAccessors(table: Class<out RealmObject>?, fields: List<Field>): Map<String, Method?> {
+    fun getAccessors(table: Class<out RealmModel>?, fields: List<Field>): Map<String, Method?> {
         val methods = table?.declaredMethods?.map { it.name } ?: emptyList()
 
         return fields.associate {
@@ -39,7 +39,7 @@ object Analyzer {
         }.filterValues { it != null }
     }
 
-    fun getRealmFields(table: Class<out RealmObject>?): List<Field> {
+    fun getRealmFields(table: Class<out RealmModel>?): List<Field> {
         return table?.declaredFields?.filter {
             !Modifier.isStatic(it.modifiers) && !it.isAnnotationPresent(Ignore::class.java)
         }?.sortedWith(Comparator { first, second ->

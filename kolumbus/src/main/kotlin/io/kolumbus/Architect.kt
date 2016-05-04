@@ -27,7 +27,7 @@ import io.kolumbus.activity.TableActivity
 import io.kolumbus.extension.prettify
 import io.realm.Realm
 import io.realm.RealmList
-import io.realm.RealmObject
+import io.realm.RealmModel
 
 open class Architect {
     open fun displayAny(textView: TextView, value: Any) {
@@ -62,10 +62,10 @@ open class Architect {
         textView.setText(R.string.kolumbus_null)
     }
 
-    open fun <T : RealmObject> displayRealmList(textView: TextView, value: RealmList<T>, type: Class<out RealmObject>) {
+    open fun <T : RealmModel> displayRealmList(textView: TextView, value: RealmList<T>, type: Class<out RealmModel>) {
         if (value.isNotEmpty()) {
             val realm = Realm.getDefaultInstance()
-            val resultArray = realm.copyFromRealm(value).toTypedArray<RealmObject>()
+            val resultArray = realm.copyFromRealm(value).toTypedArray<RealmModel>()
             realm.close()
 
             textView.setOnClickListener {
@@ -76,7 +76,7 @@ open class Architect {
         textView.text = Html.fromHtml(textView.resources.getString(R.string.kolumbus_linked_entries, value.size, type.simpleName.prettify()))
     }
 
-    open fun <T : RealmObject> displayRealmObject(textView: TextView, value: T) {
+    open fun <T : RealmModel> displayRealmModel(textView: TextView, value: T) {
         this.displayAny(textView, value)
     }
 

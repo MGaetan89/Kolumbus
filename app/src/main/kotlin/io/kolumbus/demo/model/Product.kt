@@ -1,10 +1,10 @@
 package io.kolumbus.demo.model
 
 import io.realm.RealmList
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.annotations.PrimaryKey
 
-open class Product : RealmObject() {
+open class Product : RealmModel {
     open var description = ""
     @PrimaryKey
     open var id = 0

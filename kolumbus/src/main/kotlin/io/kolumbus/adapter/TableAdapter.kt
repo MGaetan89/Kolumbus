@@ -27,13 +27,13 @@ import io.kolumbus.Kolumbus
 import io.kolumbus.R
 import io.kolumbus.extension.prettify
 import io.realm.RealmList
-import io.realm.RealmObject
+import io.realm.RealmModel
 import io.realm.annotations.PrimaryKey
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
-class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val methods: Map<String, Method?>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val methods: Map<String, Method?>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_FIELD = 1
 
@@ -67,7 +67,7 @@ class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val 
         }
     }
 
-    private fun bindFieldRow(entry: RealmObject, holder: FieldViewHolder) {
+    private fun bindFieldRow(entry: RealmModel, holder: FieldViewHolder) {
         this.processField(holder) { fieldView, field ->
             val result = this.methods[field.name]?.invoke(entry)
 
@@ -78,12 +78,13 @@ class TableAdapter(val entries: List<RealmObject>, val fields: List<Field>, val 
             } else if (result is Int) {
                 Kolumbus.architect.displayInt(fieldView, result)
             } else if (result is RealmList<*>) {
+                val resultCasted = result as RealmList<RealmModel>
                 val returnType = field.genericType as ParameterizedType
-                val type = returnType.actualTypeArguments[0] as Class<RealmObject>
+                val type = returnType.actualTypeArguments[0] as Class<RealmModel>
 
-                Kolumbus.architect.displayRealmList(fieldView, result, type)
-            } else if (result is RealmObject) {
-                Kolumbus.architect.displayRealmObject(fieldView, result)
+                Kolumbus.architect.displayRealmList(fieldView, resultCasted, type)
+            } else if (result is RealmModel) {
+                Kolumbus.architect.displayRealmModel(fieldView, result)
             } else if (result is String) {
                 if (result.isEmpty()) {
                     Kolumbus.architect.displayEmpty(fieldView)
