@@ -82,8 +82,11 @@ open class Architect {
 
     open fun displayString(textView: TextView, value: String) {
         val htmlString = Html.fromHtml(value)
+        val maxSize = textView.resources.getInteger(R.integer.kolumbus_string_max_size)
 
-        if (htmlString.length > 50) {
+        if (htmlString.length > maxSize) {
+            val overflow = textView.resources.getString(R.string.kolumbus_string_overflow)
+
             textView.setOnClickListener {
                 AlertDialog.Builder(textView.context)
                         .setMessage(htmlString)
@@ -91,8 +94,8 @@ open class Architect {
                         .show()
             }
 
-            textView.text = htmlString.subSequence(0, 47)
-            textView.append("...")
+            textView.text = htmlString.subSequence(0, maxSize - overflow.length)
+            textView.append(overflow)
         } else {
             textView.text = htmlString
         }

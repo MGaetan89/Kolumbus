@@ -36,6 +36,7 @@
 	<string name="kolumbus_no">Non</string>
 	<string name="kolumbus_no_tables">Pas de tables</string>
 	<string name="kolumbus_null">(null)</string>
+	<string name="kolumbus_string_overflow">…</string>
 	<string name="kolumbus_table_info">Informations sur la table</string>
 	<string name="kolumbus_tables_list">Liste des tables</string>
 	<string name="kolumbus_view_all">Voir tout</string>

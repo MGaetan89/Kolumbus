@@ -33,10 +33,15 @@
 	<public name="kolumbus_color_preview_radius" type="dimen" />
 	<public name="kolumbus_color_preview_size" type="dimen" />
 
+	<!-- Integers -->
+	<public name="kolumbus_string_max_size" type="integer" />
+
 	<!-- Strings -->
 	<public name="kolumbus_empty" type="string" />
 	<public name="kolumbus_link" type="string" />
+	<public name="kolumbus_linked_entries" type="string" />
 	<public name="kolumbus_no" type="string" />
 	<public name="kolumbus_null" type="string" />
+	<public name="kolumbus_string_overflow" type="string" />
 	<public name="kolumbus_yes" type="string" />
 </resources>
