@@ -20,13 +20,18 @@
 	android:layout_height="match_parent"
 	tools:context=".activity.TableActivity">
 
-	<android.support.v7.widget.RecyclerView
-		android:id="@android:id/list"
+	<HorizontalScrollView
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:visibility="gone"
-		tools:listitem="@layout/kolumbus_adapter_table"
-		tools:visibility="visible" />
+		android:layout_height="match_parent">
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@android:id/list"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:visibility="gone"
+			tools:listitem="@layout/kolumbus_adapter_table"
+			tools:visibility="visible" />
+	</HorizontalScrollView>
 
 	<TextView
 		android:id="@android:id/empty"

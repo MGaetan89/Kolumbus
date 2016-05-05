@@ -17,11 +17,11 @@
 package io.kolumbus.model
 
 import io.realm.RealmList
-import io.realm.RealmModel
+import io.realm.RealmObject
 import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 
-open class Book : RealmModel {
+open class Book : RealmObject() {
     private var available = true
     @Ignore
     open var author = ""

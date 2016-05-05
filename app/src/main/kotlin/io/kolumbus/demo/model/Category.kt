@@ -1,9 +1,9 @@
 package io.kolumbus.demo.model
 
-import io.realm.RealmModel
+import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
-open class Category : RealmModel {
+open class Category : RealmObject() {
     open var color = ""
     @PrimaryKey
     open var id = 0

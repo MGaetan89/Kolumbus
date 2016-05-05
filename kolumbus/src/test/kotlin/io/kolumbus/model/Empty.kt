@@ -16,6 +16,6 @@
 
 package io.kolumbus.model
 
-import io.realm.RealmModel
+import io.realm.RealmObject
 
-open class Empty : RealmModel
+open class Empty : RealmObject()

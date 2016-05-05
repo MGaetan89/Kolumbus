@@ -16,10 +16,10 @@
 
 package io.kolumbus.model
 
-import io.realm.RealmModel
+import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
-open class Genre : RealmModel {
+open class Genre : RealmObject() {
     @PrimaryKey
     open var name: String = ""
 }

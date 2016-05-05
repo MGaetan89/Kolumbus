@@ -33,7 +33,7 @@ import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
-class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val methods: Map<String, Method?>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val methods: Map<String, Method?>) : RecyclerView.Adapter<TableAdapter.ViewHolder>() {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_FIELD = 1
 
@@ -43,15 +43,14 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
         return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_FIELD
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is FieldViewHolder) {
-            this.bindFieldRow(this.entries[position - 1], holder)
-        } else if ( holder is HeaderViewHolder) {
-            this.bindHeaderRow(holder)
+    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        when (this.getItemViewType(position)) {
+            VIEW_TYPE_FIELD -> this.bindFieldRow(this.entries[position - 1], holder)
+            VIEW_TYPE_HEADER -> this.bindHeaderRow(holder)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
         val childLayoutRes = this.getLayoutForViewType(viewType)
         val layoutInflater = LayoutInflater.from(parent?.context)
         val view = layoutInflater.inflate(R.layout.kolumbus_adapter_table, parent, false) as ViewGroup
@@ -60,14 +59,10 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
             layoutInflater.inflate(childLayoutRes, view, true)
         }
 
-        return if (viewType == VIEW_TYPE_HEADER) {
-            HeaderViewHolder(view)
-        } else {
-            FieldViewHolder(view)
-        }
+        return ViewHolder(view)
     }
 
-    private fun bindFieldRow(entry: RealmModel, holder: FieldViewHolder) {
+    private fun bindFieldRow(entry: RealmModel, holder: ViewHolder?) {
         this.processField(holder) { fieldView, field ->
             val result = this.methods[field.name]?.invoke(entry)
 
@@ -109,7 +104,7 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
         }
     }
 
-    private fun bindHeaderRow(holder: HeaderViewHolder) {
+    private fun bindHeaderRow(holder: ViewHolder?) {
         this.processField(holder) { fieldView, field ->
             fieldView.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
                 "#${field.name.prettify()}"
@@ -127,15 +122,16 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
         return R.layout.kolumbus_adapter_table_text
     }
 
-    private fun processField(holder: RecyclerView.ViewHolder, callback: (fieldView: TextView, field: Field) -> Unit) {
+    private fun processField(holder: ViewHolder?, callback: (fieldView: TextView, field: Field) -> Unit) {
+        val parent = holder?.itemView as ViewGroup? ?: return
+
         this.fields.forEachIndexed { index, field ->
-            val fieldView = (holder.itemView as ViewGroup).getChildAt(index) as TextView
+            val fieldView = parent.getChildAt(index) as TextView
 
             callback(fieldView, field)
         }
     }
 
-    class FieldViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
-    class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    }
 }
