@@ -32,7 +32,7 @@ In your module `build.gradle` file, add the Kolumbus dependency:
 
 ```gradle
 dependencies {
-    compile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.6'
+    compile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.7'
 }
 ```
 
@@ -40,8 +40,8 @@ If you only want to use Kolumbus in your debug build, you can use the following 
 
 ```gradle
 dependencies {
-    debugCompile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.6'
-    releaseCompile 'com.github.MGaetan89.Kolumbus:kolumbus-no-op:v0.6'
+    debugCompile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.7'
+    releaseCompile 'com.github.MGaetan89.Kolumbus:kolumbus-no-op:v0.7'
 }
 ```
 
@@ -91,6 +91,12 @@ Kolumbus.INSTANCE
 ```
 
 ## Customization
+
+### Override resources
+
+One way to customize the  behavior/display of Kolumbus is to override the [public resources](https://github.com/MGaetan89/Kolumbus/blob/master/kolumbus/src/main/res/values/public.xml) in your application.
+
+### Create a custom `Architect`
 
 Kolumbus provides a basic way to customize how the content of a table is displayed.
 To use this feature, you have to extends from `Architect` and override the desired methods.
@@ -148,7 +154,7 @@ The following table presents the compatibility matrix between Kolumbus versions 
 
 | Kolumbus version | Realm version |
 | ----- | ----- |
-| SNAPSHOT | 0.89.0 - 0.90.0 |
+| 0.7 | 0.89.0 - 0.90.0 |
 | 0.5 - 0.6 | 0.88.0 - 0.88.3 |
 | 0.1 - 0.4 | ? - 0.87.5 |
 
