@@ -52,7 +52,9 @@ class TableLayoutManager : LinearLayoutManager {
 
             child.layoutParams.height = size?.y ?: 0
             child.layoutParams.width = size?.x ?: 0
-            child.requestLayout()
+            child.post {
+                child.requestLayout()
+            }
         }
     }
 
