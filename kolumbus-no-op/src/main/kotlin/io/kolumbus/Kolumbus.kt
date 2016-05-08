@@ -27,4 +27,6 @@ object Kolumbus {
     fun forgetAll() = Unit
 
     fun navigate(context: Context) = Unit
+
+    fun withArchitect(architect: Architect) = this
 }
