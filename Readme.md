@@ -1,6 +1,6 @@
 # Kolumbus
 
-[![Build Status](https://travis-ci.org/MGaetan89/Kolumbus.svg?branch=master)](https://travis-ci.org/MGaetan89/Kolumbus) [![Coverage Status](https://coveralls.io/repos/github/MGaetan89/Kolumbus/badge.svg?branch=master)](https://coveralls.io/github/MGaetan89/Kolumbus?branch=master) [![Latest version](https://jitpack.io/v/MGaetan89/Kolumbus.svg)](https://jitpack.io/#MGaetan89/Kolumbus) [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/LICENSE) [![Minimum API](https://img.shields.io/badge/API-9%2B-green.svg)](https://android-arsenal.com/api?level=9)
+[![Build Status](https://travis-ci.org/MGaetan89/Kolumbus.svg?branch=master)](https://travis-ci.org/MGaetan89/Kolumbus) [![Coverage Status](https://coveralls.io/repos/github/MGaetan89/Kolumbus/badge.svg?branch=master)](https://coveralls.io/github/MGaetan89/Kolumbus?branch=master) [![Latest version](https://jitpack.io/v/MGaetan89/Kolumbus.svg)](https://jitpack.io/#MGaetan89/Kolumbus) [![License](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/MGaetan89/Kolumbus/master/LICENSE) [![Minimum API](https://img.shields.io/badge/API-9%2B-green.svg)](https://android-arsenal.com/api?level=9) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Kolumbus-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/3560)
 
 Kolumbus allows you to explore your [Realm](https://realm.io/) database from within your Android application.
 
