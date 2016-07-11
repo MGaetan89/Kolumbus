@@ -72,7 +72,7 @@ class TablesActivity : AppCompatActivity() {
             AlertDialog.Builder(this)
                     .setMessage(R.string.kolumbus_clear_database_confirm)
                     .setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
-                        with (Realm.getDefaultInstance()) {
+                        with(Realm.getDefaultInstance()) {
                             executeTransaction {
                                 it.deleteAll()
                             }

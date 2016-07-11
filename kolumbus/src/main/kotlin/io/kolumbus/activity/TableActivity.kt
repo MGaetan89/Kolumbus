@@ -162,7 +162,7 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
             this.empty?.visibility = View.VISIBLE
             this.recyclerView?.visibility = View.GONE
 
-            return;
+            return
         }
 
         val fields = Analyzer.getRealmFields(this.tableClass)
