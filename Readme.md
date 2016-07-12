@@ -84,7 +84,8 @@ RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(context)
 Realm.setDefaultConfiguration(realmConfiguration);
 
 // Configure Kolumbus
-Kolumbus.explore(Category.class)
+Kolumbus.build()
+    .explore(Category.class)
     .explore(Product.class)
     .navigate(context);
 ```
@@ -141,7 +142,7 @@ Kolumbus
 // Java
 import io.kolumbus.Kolumbus;
 
-Kolumbus
+Kolumbus.build()
     // All `explore()` calls you might need
     .withArchitect(new MyArchitect())
     .navigate(context)

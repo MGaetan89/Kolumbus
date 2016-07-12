@@ -27,26 +27,24 @@ object Kolumbus {
     internal val tables = mutableMapOf<String, Class<out RealmModel>>().toSortedMap()
 
     @JvmStatic
+    fun build() = this
+
     fun explore(table: Class<out RealmModel>): Kolumbus {
         this.tables.put(table.simpleName, table)
 
         return this
     }
 
-    @JvmStatic
     fun forget(table: Class<out RealmModel>): Kolumbus {
         this.tables.remove(table.simpleName)
 
         return this
     }
 
-    @JvmStatic
     fun forgetAll() = this.tables.clear()
 
-    @JvmStatic
     fun navigate(context: Context) = TablesActivity.start(context)
 
-    @JvmStatic
     fun withArchitect(architect: Architect): Kolumbus {
         this.architect = architect
 
