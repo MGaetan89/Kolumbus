@@ -33,25 +33,20 @@ class TableLayoutManager : LinearLayoutManager {
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
         super.onLayoutChildren(recycler, state)
 
-        val firstPosition = 0
-        val lastPosition = state?.itemCount ?: 0
-        val sizes = mutableMapOf<Int, Point>()
+        val size = Point(0, 0)
 
         // Compute the biggest dimension from all the visible items
-        this.processChild(firstPosition, lastPosition) { index, child ->
+        this.processChild(0, this.itemCount) { index, child ->
             child.measure(0, 0)
 
-            val size = sizes.getOrPut(index, { Point(0, 0) })
             size.x = Math.max(size.x, child.measuredWidth)
             size.y = Math.max(size.y, child.measuredHeight)
         }
 
         // Set the proper size on all the visible items
-        this.processChild(firstPosition, lastPosition) { index, child ->
-            val size = sizes[index]
-
-            child.layoutParams.height = size?.y ?: 0
-            child.layoutParams.width = size?.x ?: 0
+        this.processChild(0, state?.itemCount ?: 0) { index, child ->
+            child.layoutParams.height = size.y
+            child.layoutParams.width = size.x
             child.post {
                 child.requestLayout()
             }
