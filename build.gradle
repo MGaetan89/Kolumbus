@@ -7,7 +7,7 @@ buildscript {
 
 	dependencies {
 		classpath 'com.android.tools.build:gradle:2.2.0-alpha5'
-		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.3'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
 		classpath 'io.realm:realm-gradle-plugin:1.0.1'
 		classpath 'org.jacoco:org.jacoco.core:0.7.7.201606060606'
 		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.3'
@@ -33,9 +33,9 @@ ext {
 
 	// Dependencies version
 	jUnitVersion = '4.12'
-	kolumbusVersionCode = 8
-	kolumbusVersionName = '0.8'
+	kolumbusVersionCode = 9
+	kolumbusVersionName = '0.9'
 	kotlinVersion = '1.0.3'
-	mockitoVersion = '2.0.84-beta'
+	mockitoVersion = '2.0.86-beta'
 	supportLibraryVersion = '24.0.0'
 }
