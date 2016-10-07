@@ -18,6 +18,7 @@ package io.kolumbus
 
 import android.content.Context
 import io.kolumbus.activity.TablesActivity
+import io.realm.RealmConfiguration
 import io.realm.RealmModel
 
 object Kolumbus {
@@ -29,14 +30,18 @@ object Kolumbus {
     @JvmStatic
     fun build() = this
 
-    fun explore(table: Class<out RealmModel>): Kolumbus {
-        this.tables.put(table.simpleName, table)
+    fun explore(configuration: RealmConfiguration): Kolumbus {
+        configuration.realmObjectClasses.forEach {
+            this.tables.put(it.simpleName, it)
+        }
 
         return this
     }
 
-    fun forget(table: Class<out RealmModel>): Kolumbus {
-        this.tables.remove(table.simpleName)
+    fun forget(configuration: RealmConfiguration): Kolumbus {
+        configuration.realmObjectClasses.forEach {
+            this.tables.remove(it.simpleName)
+        }
 
         return this
     }
