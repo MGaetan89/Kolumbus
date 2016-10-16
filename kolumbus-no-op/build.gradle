@@ -15,6 +15,7 @@ android {
 		targetSdkVersion rootProject.ext.targetSdkVersion
 		versionCode rootProject.ext.kolumbusVersionCode
 		versionName rootProject.ext.kolumbusVersionName
+		resConfigs rootProject.ext.supportedLocales
 	}
 
 	buildTypes {
