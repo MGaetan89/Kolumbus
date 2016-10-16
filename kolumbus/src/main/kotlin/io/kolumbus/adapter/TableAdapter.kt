@@ -115,11 +115,10 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
     }
 
     private fun getLayoutForViewType(viewType: Int): Int {
-        if (viewType == VIEW_TYPE_HEADER) {
-            return R.layout.kolumbus_adapter_table_header
+        return when (viewType) {
+            VIEW_TYPE_HEADER -> R.layout.kolumbus_adapter_table_header
+            else -> R.layout.kolumbus_adapter_table_text
         }
-
-        return R.layout.kolumbus_adapter_table_text
     }
 
     private fun processField(holder: ViewHolder?, callback: (fieldView: TextView, field: Field) -> Unit) {

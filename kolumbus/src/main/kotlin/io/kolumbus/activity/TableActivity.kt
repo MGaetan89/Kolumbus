@@ -41,7 +41,7 @@ import io.realm.RealmResults
 class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<RealmModel>> {
     private var empty: TextView? = null
     private var entries: List<RealmModel>? = null
-    private val realm = Realm.getDefaultInstance()
+    private val realm: Realm by lazy { Realm.getDefaultInstance() }
     private var recyclerView: RecyclerView? = null
     private var tableClass: Class<out RealmModel>? = null
 
@@ -58,6 +58,8 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
 
             if (items != null) {
                 Kolumbus.items.addAll(items)
+            } else {
+                Kolumbus.items.clear()
             }
 
             context.startActivity(intent)
@@ -78,7 +80,7 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
         this.empty = this.findViewById(android.R.id.empty) as TextView?
         this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
         this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>
-        this.title = (this.tableClass as Class<out RealmModel>).simpleName.prettify()
+        this.title = this.tableClass?.simpleName?.prettify() ?: ""
 
         this.recyclerView?.layoutManager = TableLayoutManager(this)
 
@@ -106,16 +108,6 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
         menu?.findItem(R.id.menu_view_all)?.isVisible = count - (this.entries?.size ?: 0) > 0
 
         return true
-    }
-
-    override fun onDestroy() {
-        if (this.entries is RealmResults<*>) {
-            (this.entries as RealmResults<*>).removeChangeListeners()
-        }
-
-        this.realm.close()
-
-        super.onDestroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -155,6 +147,16 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onStop() {
+        if (this.entries is RealmResults<*>) {
+            (this.entries as RealmResults<*>).removeChangeListeners()
+        }
+
+        this.realm.close()
+
+        super.onStop()
     }
 
     private fun displayTableContent() {

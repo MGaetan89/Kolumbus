@@ -51,13 +51,13 @@ class TablesActivity : AppCompatActivity() {
         val empty = this.findViewById(android.R.id.empty) as TextView?
         this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
 
-        if (empty != null) {
-            empty.visibility = if (Kolumbus.hasTables()) View.GONE else View.VISIBLE
+        empty?.let {
+            it.visibility = if (Kolumbus.hasTables()) View.GONE else View.VISIBLE
         }
 
-        if (this.recyclerView != null) {
-            (this.recyclerView as RecyclerView).layoutManager = LinearLayoutManager(this)
-            (this.recyclerView as RecyclerView).visibility = if (Kolumbus.hasTables()) View.VISIBLE else View.GONE
+        this.recyclerView?.let {
+            it.layoutManager = LinearLayoutManager(this)
+            it.visibility = if (Kolumbus.hasTables()) View.VISIBLE else View.GONE
         }
     }
 
@@ -80,9 +80,7 @@ class TablesActivity : AppCompatActivity() {
                             close()
                         }
 
-                        if (this.recyclerView != null) {
-                            (this.recyclerView as RecyclerView).adapter = this.getAdapter()
-                        }
+                        this.recyclerView?.adapter = this.getAdapter()
                     })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()
@@ -96,9 +94,7 @@ class TablesActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if (this.recyclerView != null) {
-            (this.recyclerView as RecyclerView).adapter = this.getAdapter()
-        }
+        this.recyclerView?.adapter = this.getAdapter()
     }
 
     private fun getAdapter(): TablesAdapter {

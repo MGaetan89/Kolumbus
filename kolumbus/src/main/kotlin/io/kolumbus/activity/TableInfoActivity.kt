@@ -54,11 +54,11 @@ class TableInfoActivity : AppCompatActivity() {
 
         this.title = tableClass.simpleName.prettify()
 
-        if (recyclerView != null) {
+        recyclerView?.let {
             val fields = Analyzer.getRealmFields(tableClass)
 
-            recyclerView.adapter = TableInfoAdapter(fields, tableClass.newInstance())
-            recyclerView.layoutManager = LinearLayoutManager(this)
+            it.adapter = TableInfoAdapter(fields, tableClass.newInstance())
+            it.layoutManager = LinearLayoutManager(this)
         }
     }
 
