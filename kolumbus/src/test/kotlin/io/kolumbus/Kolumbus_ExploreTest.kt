@@ -16,20 +16,17 @@
 
 package io.kolumbus
 
-import io.kolumbus.model.Book
-import io.kolumbus.model.Genre
-import io.kolumbus.model.Library
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
-import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 
 class Kolumbus_ExploreTest {
     @Before
     fun before() {
         Kolumbus.forgetAll()
 
-        assertEquals(0, Kolumbus.tables.size)
+        assertFalse(Kolumbus.hasTables())
     }
 
     @Ignore("Needs Context")
@@ -39,9 +36,9 @@ class Kolumbus_ExploreTest {
 //                .explore(Book::class.java)
 //                .explore(Library::class.java)
 
-        assertEquals(2, Kolumbus.tables.size)
-        assertEquals(Book::class.java, Kolumbus.tables["Book"])
-        assertEquals(Library::class.java, Kolumbus.tables["Library"])
+//        assertEquals(2, Kolumbus.tables.size)
+//        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+//        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Ignore("Needs Context")
@@ -51,10 +48,10 @@ class Kolumbus_ExploreTest {
 //                .explore(Book::class.java)
 //                .explore(Library::class.java)
 
-        assertEquals(3, Kolumbus.tables.size)
-        assertEquals(Book::class.java, Kolumbus.tables["Book"])
-        assertEquals(Genre::class.java, Kolumbus.tables["Genre"])
-        assertEquals(Library::class.java, Kolumbus.tables["Library"])
+//        assertEquals(3, Kolumbus.tables.size)
+//        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+//        assertEquals(Genre::class.java, Kolumbus.tables["Genre"])
+//        assertEquals(Library::class.java, Kolumbus.tables["Library"])
     }
 
     @Ignore("Needs Context")
@@ -62,7 +59,7 @@ class Kolumbus_ExploreTest {
     fun exploreOneModel() {
 //        Kolumbus.explore(Book::class.java)
 
-        assertEquals(1, Kolumbus.tables.size)
-        assertEquals(Book::class.java, Kolumbus.tables["Book"])
+//        assertEquals(1, Kolumbus.tables.size)
+//        assertEquals(Book::class.java, Kolumbus.tables["Book"])
     }
 }

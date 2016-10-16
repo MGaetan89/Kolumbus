@@ -52,19 +52,19 @@ class TablesActivity : AppCompatActivity() {
         this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
 
         if (empty != null) {
-            empty.visibility = if (Kolumbus.tables.isEmpty()) View.VISIBLE else View.GONE
+            empty.visibility = if (Kolumbus.hasTables()) View.GONE else View.VISIBLE
         }
 
         if (this.recyclerView != null) {
             (this.recyclerView as RecyclerView).layoutManager = LinearLayoutManager(this)
-            (this.recyclerView as RecyclerView).visibility = if (Kolumbus.tables.isEmpty()) View.GONE else View.VISIBLE
+            (this.recyclerView as RecyclerView).visibility = if (Kolumbus.hasTables()) View.VISIBLE else View.GONE
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         this.menuInflater.inflate(R.menu.kolumbus_tables, menu)
 
-        return Kolumbus.tables.isNotEmpty()
+        return Kolumbus.hasTables()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -102,10 +102,11 @@ class TablesActivity : AppCompatActivity() {
     }
 
     private fun getAdapter(): TablesAdapter {
+        val tables = Kolumbus.getTables()
         val realm = Realm.getDefaultInstance()
-        val counts = Kolumbus.tables.values.map { realm.where(it).count() }
+        val counts = tables.map { realm.where(it).count() }
         realm.close()
 
-        return TablesAdapter(Kolumbus.tables.keys.toList(), counts)
+        return TablesAdapter(tables.toList(), counts)
     }
 }

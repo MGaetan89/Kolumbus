@@ -24,29 +24,25 @@ import io.realm.RealmModel
 object Kolumbus {
     internal var architect = Architect()
         private set
+    private val configurations = mutableSetOf<RealmConfiguration>()
     internal val items = mutableListOf<RealmModel>()
-    internal val tables = mutableMapOf<String, Class<out RealmModel>>().toSortedMap()
 
     @JvmStatic
     fun build() = this
 
     fun explore(configuration: RealmConfiguration): Kolumbus {
-        configuration.realmObjectClasses.forEach {
-            this.tables.put(it.simpleName, it)
-        }
+        this.configurations.add(configuration)
 
         return this
     }
 
     fun forget(configuration: RealmConfiguration): Kolumbus {
-        configuration.realmObjectClasses.forEach {
-            this.tables.remove(it.simpleName)
-        }
+        this.configurations.remove(configuration)
 
         return this
     }
 
-    fun forgetAll() = this.tables.clear()
+    fun forgetAll() = this.configurations.clear()
 
     fun navigate(context: Context) = TablesActivity.start(context)
 
@@ -54,5 +50,25 @@ object Kolumbus {
         this.architect = architect
 
         return this
+    }
+
+    internal fun getTables(): Set<Class<out RealmModel>> {
+        val tables = mutableSetOf<Class<out RealmModel>>()
+
+        this.configurations.forEach {
+            tables.addAll(it.realmObjectClasses)
+        }
+
+        return tables
+    }
+
+    internal fun hasTables(): Boolean {
+        this.configurations.forEach {
+            if (it.realmObjectClasses.isNotEmpty()) {
+                return true
+            }
+        }
+
+        return false
     }
 }
