@@ -151,7 +151,11 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
 
     override fun onStop() {
         if (this.entries is RealmResults<*>) {
-            (this.entries as RealmResults<*>).removeChangeListeners()
+            val entries = this.entries as RealmResults<*>
+
+            if (entries.isValid) {
+                entries.removeChangeListeners()
+            }
         }
 
         this.realm.close()

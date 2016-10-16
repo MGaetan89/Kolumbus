@@ -32,7 +32,7 @@ In your module `build.gradle` file, add the Kolumbus dependency:
 
 ```gradle
 dependencies {
-    compile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.8'
+    compile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.9'
 }
 ```
 
@@ -40,8 +40,8 @@ If you only want to use Kolumbus in your debug build, you can use the following 
 
 ```gradle
 dependencies {
-    debugCompile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.8'
-    releaseCompile 'com.github.MGaetan89.Kolumbus:kolumbus-no-op:v0.8'
+    debugCompile 'com.github.MGaetan89.Kolumbus:kolumbus:v0.9'
+    releaseCompile 'com.github.MGaetan89.Kolumbus:kolumbus-no-op:v0.9'
 }
 ```
 
@@ -154,6 +154,7 @@ The following table presents the compatibility matrix between Kolumbus versions 
 
 | Kolumbus version | Realm version |
 | ----- | ----- |
+| SNAPSHOT  | 2.0.0 - 2.0.2 |
 | 0.9       | 1.0.0 - 1.0.1 |
 | 0.7 - 0.8 | 0.89.0 - 1.0.0  |
 | 0.5 - 0.6 | 0.88.0 - 0.88.3 |

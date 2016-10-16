@@ -3,7 +3,6 @@ package io.kolumbus.demo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import io.kolumbus.Kolumbus
-import io.kolumbus.KolumbusModule
 import io.kolumbus.demo.model.Category
 import io.kolumbus.demo.model.Product
 import io.realm.Realm
@@ -19,9 +18,10 @@ class DemoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val realmConfiguration = RealmConfiguration.Builder(this)
+        Realm.init(this)
+
+        val realmConfiguration = RealmConfiguration.Builder()
                 .deleteRealmIfMigrationNeeded()
-                .modules(AppModule(), KolumbusModule())
                 .build()
         Realm.setDefaultConfiguration(realmConfiguration)
 
@@ -41,15 +41,14 @@ class DemoActivity : AppCompatActivity() {
                 val productsCount = this.where(Product::class.java).count()
 
                 for (i in 1..CATEGORIES_COUNT) {
-                    with(createObject(Category::class.java)) {
+                    with(createObject(Category::class.java, (categoriesCount + i).toInt())) {
                         color = random.nextColor()
-                        id = (categoriesCount + i).toInt()
                         name = "Category $id"
                     }
                 }
 
                 for (i in 1..PRODUCTS_COUNT) {
-                    with(createObject(Product::class.java)) {
+                    with(createObject(Product::class.java, (productsCount + i).toInt())) {
                         categories = RealmList<Category>()
 
                         for (j in 0..(random.nextInt(MAX_LINKED_CATEGORIES) - 1)) {
@@ -61,7 +60,6 @@ class DemoActivity : AppCompatActivity() {
                         }
 
                         description = "<b>Lorem ipsum</b> dolor sit amet, <i>consectetur adipiscing</i> elit. <b><u>Maecenas mollis</u></b> eget nibh et condimentum."
-                        id = (productsCount + i).toInt()
                         name = "Product $id"
                     }
                 }

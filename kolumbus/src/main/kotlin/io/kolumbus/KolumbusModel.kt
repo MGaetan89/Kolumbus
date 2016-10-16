@@ -16,8 +16,8 @@
 
 package io.kolumbus
 
-import io.realm.annotations.RealmModule
+import io.realm.RealmObject
 
-@RealmModule(library = true, classes = arrayOf(KolumbusModel::class))
-class KolumbusModule {
+open class KolumbusModel : RealmObject() {
+    open var int = 0
 }

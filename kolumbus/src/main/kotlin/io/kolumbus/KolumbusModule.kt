@@ -18,6 +18,6 @@ package io.kolumbus
 
 import io.realm.annotations.RealmModule
 
-@RealmModule(library = true, allClasses = true)
+@RealmModule(library = true, classes = arrayOf(KolumbusModel::class))
 class KolumbusModule {
 }
