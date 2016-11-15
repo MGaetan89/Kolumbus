@@ -6,12 +6,12 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.2.1'
+		classpath 'com.android.tools.build:gradle:2.3.0-alpha1'
 		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-		classpath 'io.realm:realm-gradle-plugin:2.0.2'
+		classpath 'io.realm:realm-gradle-plugin:2.2.0'
 		classpath 'org.jacoco:org.jacoco.core:0.7.7.201606060606'
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.4'
-		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3'
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.5-2'
+		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.7.1'
 	}
 }
 
@@ -26,17 +26,17 @@ task clean(type: Delete) {
 }
 
 ext {
-	buildToolsVersion = '24.0.3'
-	compileSdkVersion = 24
+	buildToolsVersion = '25.0.0'
+	compileSdkVersion = 25
 	minSdkVersion = 9
-	targetSdkVersion = 24
+	targetSdkVersion = 25
 	supportedLocales = ['en', 'fr']
 
 	// Dependencies version
 	jUnitVersion = '4.12'
 	kolumbusVersionCode = 9
 	kolumbusVersionName = '0.9'
-	kotlinVersion = '1.0.4'
-	mockitoVersion = '2.2.2'
-	supportLibraryVersion = '24.2.1'
+	kotlinVersion = '1.0.5-2'
+	mockitoVersion = '2.2.16'
+	supportLibraryVersion = '25.0.1'
 }
