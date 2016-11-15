@@ -131,6 +131,5 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
         }
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    }
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

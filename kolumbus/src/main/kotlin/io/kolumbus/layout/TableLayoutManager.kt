@@ -23,9 +23,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 
-class TableLayoutManager : LinearLayoutManager {
-    constructor(context: Context) : super(context)
-
+class TableLayoutManager(context: Context) : LinearLayoutManager(context) {
     override fun canScrollHorizontally() = true
 
     override fun canScrollVertically() = true
@@ -55,11 +53,7 @@ class TableLayoutManager : LinearLayoutManager {
 
     private fun processChild(from: Int, to: Int, callback: (index: Int, child: View) -> Unit) {
         for (rowIndex in from..to) {
-            val row = this.getChildAt(rowIndex)
-
-            if (row !is ViewGroup) {
-                continue
-            }
+            val row = this.getChildAt(rowIndex) as ViewGroup? ?: continue
 
             for (childIndex in 0..(row.childCount - 1)) {
                 val child = row.getChildAt(childIndex)
