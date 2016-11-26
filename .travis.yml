@@ -6,7 +6,7 @@ jdk:
 android:
   components:
     - android-25
-    - build-tools-25.0.0
+    - build-tools-25.0.1
     - extra-android-m2repository
     - platform-tools
     - tools
@@ -34,7 +34,7 @@ before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
 before_install:
-  - echo y | android update sdk --all --no-ui --force --filter build-tools-25.0.0
+  - echo y | android update sdk --all --no-ui --force --filter build-tools-25.0.1
   - echo y | android update sdk --all --no-ui --force --filter android-25
 
 script:
