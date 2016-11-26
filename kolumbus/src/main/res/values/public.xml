@@ -44,4 +44,7 @@
 	<public name="kolumbus_null" type="string" />
 	<public name="kolumbus_string_overflow" type="string" />
 	<public name="kolumbus_yes" type="string" />
+
+	<!-- Styles -->
+	<public name="kolumbus_Theme" type="style" />
 </resources>

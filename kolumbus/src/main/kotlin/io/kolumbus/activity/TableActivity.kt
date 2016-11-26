@@ -16,11 +16,12 @@
 
 package io.kolumbus.activity
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
@@ -38,7 +39,7 @@ import io.realm.RealmChangeListener
 import io.realm.RealmModel
 import io.realm.RealmResults
 
-class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<RealmModel>> {
+class TableActivity : Activity(), RealmChangeListener<RealmResults<RealmModel>> {
     private var empty: TextView? = null
     private var entries: List<RealmModel>? = null
     private val realm: Realm by lazy { Realm.getDefaultInstance() }
@@ -75,7 +76,9 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
 
         this.setContentView(R.layout.kolumbus_activity_table)
 
-        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            this.actionBar?.setDisplayHomeAsUpEnabled(true)
+        }
 
         this.empty = this.findViewById(android.R.id.empty) as TextView?
         this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
@@ -96,7 +99,9 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
             (this.entries as RealmResults).addChangeListener(this)
         }
 
-        this.invalidateOptionsMenu()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            this.invalidateOptionsMenu()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -126,7 +131,10 @@ class TableActivity : AppCompatActivity(), RealmChangeListener<RealmResults<Real
                         }
 
                         this.displayTableContent()
-                        this.invalidateOptionsMenu()
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                            this.invalidateOptionsMenu()
+                        }
                     })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show()

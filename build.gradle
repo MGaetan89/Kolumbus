@@ -6,7 +6,7 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.3.0-alpha1'
+		classpath 'com.android.tools.build:gradle:2.3.0-alpha2'
 		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 		classpath 'io.realm:realm-gradle-plugin:2.2.1'
 		classpath 'org.jacoco:org.jacoco.core:0.7.7.201606060606'
@@ -26,7 +26,7 @@ task clean(type: Delete) {
 }
 
 ext {
-	buildToolsVersion = '25.0.0'
+	buildToolsVersion = '25.0.1'
 	compileSdkVersion = 25
 	minSdkVersion = 9
 	targetSdkVersion = 25
@@ -37,6 +37,6 @@ ext {
 	kolumbusVersionCode = 9
 	kolumbusVersionName = '0.9'
 	kotlinVersion = '1.0.5-2'
-	mockitoVersion = '2.2.22'
+	mockitoVersion = '2.2.25'
 	supportLibraryVersion = '25.0.1'
 }

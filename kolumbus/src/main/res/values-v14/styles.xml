@@ -16,5 +16,5 @@
  -->
 <resources>
 
-	<style name="kolumbus_Theme" parent="android:Theme" />
+	<style name="kolumbus_Theme" parent="android:Theme.DeviceDefault" />
 </resources>

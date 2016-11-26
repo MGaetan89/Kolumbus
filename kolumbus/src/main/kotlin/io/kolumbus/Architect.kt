@@ -16,10 +16,10 @@
 
 package io.kolumbus
 
+import android.app.AlertDialog
 import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.widget.TextView

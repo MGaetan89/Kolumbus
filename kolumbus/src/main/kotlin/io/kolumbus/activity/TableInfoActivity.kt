@@ -16,10 +16,11 @@
 
 package io.kolumbus.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
@@ -30,7 +31,7 @@ import io.kolumbus.adapter.TableInfoAdapter
 import io.kolumbus.extension.prettify
 import io.realm.RealmModel
 
-class TableInfoActivity : AppCompatActivity() {
+class TableInfoActivity : Activity() {
     companion object {
         private val EXTRA_TABLE_CLASS = BuildConfig.APPLICATION_ID + ".extra.TABLE_CLASS"
 
@@ -47,7 +48,9 @@ class TableInfoActivity : AppCompatActivity() {
 
         this.setContentView(R.layout.kolumbus_activity_table_info)
 
-        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            this.actionBar?.setDisplayHomeAsUpEnabled(true)
+        }
 
         val recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
         val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>

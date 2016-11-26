@@ -16,11 +16,11 @@
 
 package io.kolumbus.activity
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
@@ -32,7 +32,7 @@ import io.kolumbus.R
 import io.kolumbus.adapter.TablesAdapter
 import io.realm.Realm
 
-class TablesActivity : AppCompatActivity() {
+class TablesActivity : Activity() {
     private var recyclerView: RecyclerView? = null
 
     companion object {

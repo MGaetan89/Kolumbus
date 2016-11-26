@@ -1,7 +1,7 @@
 package io.kolumbus.demo
 
+import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import io.kolumbus.Kolumbus
 import io.kolumbus.demo.model.Category
 import io.kolumbus.demo.model.Product
@@ -10,7 +10,7 @@ import io.realm.RealmConfiguration
 import io.realm.RealmList
 import java.util.*
 
-class DemoActivity : AppCompatActivity() {
+class DemoActivity : Activity() {
     private val CATEGORIES_COUNT = 100
     private val MAX_LINKED_CATEGORIES = 50
     private val PRODUCTS_COUNT = 1000

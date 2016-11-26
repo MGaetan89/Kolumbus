@@ -80,9 +80,6 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['test']) {
 }
 
 dependencies {
-	compile("com.android.support:appcompat-v7:${rootProject.ext.supportLibraryVersion}") {
-		exclude group: 'com.android.support', module: 'animated-vector-drawable'
-	}
 	compile "com.android.support:recyclerview-v7:${rootProject.ext.supportLibraryVersion}"
 	compile "org.jetbrains.kotlin:kotlin-stdlib:${rootProject.ext.kotlinVersion}"
 
