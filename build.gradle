@@ -6,12 +6,12 @@ buildscript {
 	}
 
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.3.0-beta1'
+		classpath 'com.android.tools.build:gradle:2.3.0'
 		classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-		classpath 'io.realm:realm-gradle-plugin:2.2.1'
-		classpath 'org.jacoco:org.jacoco.core:0.7.8'
-		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.6'
-		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.7.1'
+		classpath 'io.realm:realm-gradle-plugin:3.0.0'
+		classpath 'org.jacoco:org.jacoco.core:0.7.9'
+		classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.1.1'
+		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
 	}
 }
 
@@ -36,7 +36,7 @@ ext {
 	jUnitVersion = '4.12'
 	kolumbusVersionCode = 9
 	kolumbusVersionName = '0.9'
-	kotlinVersion = '1.0.6'
-	mockitoVersion = '2.5.4'
-	supportLibraryVersion = '25.1.0'
+	kotlinVersion = '1.1.1'
+	mockitoVersion = '2.7.17'
+	supportLibraryVersion = '25.3.0'
 }
