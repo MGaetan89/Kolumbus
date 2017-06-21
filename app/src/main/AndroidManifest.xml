@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-	package="io.kolumbus.demo"
+<manifest package="io.kolumbus.demo"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<application
@@ -9,9 +8,9 @@
 		android:theme="@style/kolumbus_Theme">
 		<activity android:name=".DemoActivity">
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
+				<action android:name="android.intent.action.MAIN" />
 
-				<category android:name="android.intent.category.LAUNCHER"/>
+				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 	</application>

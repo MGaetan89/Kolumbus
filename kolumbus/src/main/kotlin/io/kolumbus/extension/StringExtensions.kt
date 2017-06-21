@@ -26,11 +26,11 @@ fun String.prettify(): String = this.removeAccessorPrefixes().toCamelCase()
 internal fun String.removeAccessorPrefixes(): String = ACCESSOR_PREFIXES.replaceFirst(this, "")
 
 internal fun String.toCamelCase(): String {
-    val camelCased = CAMEL_CASE.replace(this, "$1 $2")
+	val camelCased = CAMEL_CASE.replace(this, "$1 $2")
 
-    return if (camelCased.isEmpty()) {
-        camelCased
-    } else {
-        camelCased.first().toUpperCase() + camelCased.drop(1)
-    }
+	return if (camelCased.isEmpty()) {
+		camelCased
+	} else {
+		camelCased.first().toUpperCase() + camelCased.drop(1)
+	}
 }

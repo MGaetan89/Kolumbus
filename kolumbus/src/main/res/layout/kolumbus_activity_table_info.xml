@@ -14,10 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<android.support.v7.widget.RecyclerView
-	android:id="@android:id/list"
+<android.support.v7.widget.RecyclerView android:id="@android:id/list"
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:listitem="@layout/kolumbus_adapter_table_info"/>
+	tools:listitem="@layout/kolumbus_adapter_table_info" />

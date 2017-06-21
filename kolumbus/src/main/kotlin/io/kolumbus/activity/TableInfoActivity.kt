@@ -32,46 +32,46 @@ import io.kolumbus.extension.prettify
 import io.realm.RealmModel
 
 class TableInfoActivity : Activity() {
-    companion object {
-        private val EXTRA_TABLE_CLASS = BuildConfig.APPLICATION_ID + ".extra.TABLE_CLASS"
+	companion object {
+		private val EXTRA_TABLE_CLASS = BuildConfig.APPLICATION_ID + ".extra.TABLE_CLASS"
 
-        fun start(context: Context, table: Class<out RealmModel>?) {
-            val intent = Intent(context, TableInfoActivity::class.java)
-            intent.putExtra(EXTRA_TABLE_CLASS, table)
+		fun start(context: Context, table: Class<out RealmModel>?) {
+			val intent = Intent(context, TableInfoActivity::class.java)
+			intent.putExtra(EXTRA_TABLE_CLASS, table)
 
-            context.startActivity(intent)
-        }
-    }
+			context.startActivity(intent)
+		}
+	}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 
-        this.setContentView(R.layout.kolumbus_activity_table_info)
+		this.setContentView(R.layout.kolumbus_activity_table_info)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            this.actionBar?.setDisplayHomeAsUpEnabled(true)
-        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			this.actionBar?.setDisplayHomeAsUpEnabled(true)
+		}
 
-        val recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
-        val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>
+		val recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
+		val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>
 
-        this.title = tableClass.simpleName.prettify()
+		this.title = tableClass.simpleName.prettify()
 
-        recyclerView?.let {
-            val fields = Analyzer.getRealmFields(tableClass)
+		recyclerView?.let {
+			val fields = Analyzer.getRealmFields(tableClass)
 
-            it.adapter = TableInfoAdapter(fields, tableClass.newInstance())
-            it.layoutManager = LinearLayoutManager(this)
-        }
-    }
+			it.adapter = TableInfoAdapter(fields, tableClass.newInstance())
+			it.layoutManager = LinearLayoutManager(this)
+		}
+	}
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            this.onBackPressed()
+	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+		if (item?.itemId == android.R.id.home) {
+			this.onBackPressed()
 
-            return true
-        }
+			return true
+		}
 
-        return super.onOptionsItemSelected(item)
-    }
+		return super.onOptionsItemSelected(item)
+	}
 }

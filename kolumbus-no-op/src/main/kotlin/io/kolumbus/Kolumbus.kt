@@ -20,16 +20,16 @@ import android.content.Context
 import io.realm.RealmConfiguration
 
 object Kolumbus {
-    @JvmStatic
-    fun build() = this
+	@JvmStatic
+	fun build() = this
 
-    fun explore(configuration: RealmConfiguration) = this
+	fun explore(configuration: RealmConfiguration) = this
 
-    fun forget(configuration: RealmConfiguration) = this
+	fun forget(configuration: RealmConfiguration) = this
 
-    fun forgetAll() = Unit
+	fun forgetAll() = Unit
 
-    fun navigate(context: Context) = Unit
+	fun navigate(context: Context) = Unit
 
-    fun withArchitect(architect: Architect) = this
+	fun withArchitect(architect: Architect) = this
 }

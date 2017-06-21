@@ -21,25 +21,25 @@ import io.realm.RealmList
 import io.realm.RealmModel
 
 open class Architect {
-    open fun displayAny(textView: TextView, value: Any) = Unit
+	open fun displayAny(textView: TextView, value: Any) = Unit
 
-    open fun displayBoolean(textView: TextView, value: Boolean) = Unit
+	open fun displayBoolean(textView: TextView, value: Boolean) = Unit
 
-    open fun displayColor(textView: TextView, value: String, color: Int) = Unit
+	open fun displayColor(textView: TextView, value: String, color: Int) = Unit
 
-    open fun displayEmpty(textView: TextView) = Unit
+	open fun displayEmpty(textView: TextView) = Unit
 
-    open fun displayFloat(textView: TextView, value: Float) = Unit
+	open fun displayFloat(textView: TextView, value: Float) = Unit
 
-    open fun displayInt(textView: TextView, value: Int) = Unit
+	open fun displayInt(textView: TextView, value: Int) = Unit
 
-    open fun displayNull(textView: TextView) = Unit
+	open fun displayNull(textView: TextView) = Unit
 
-    open fun <T : RealmModel> displayRealmList(textView: TextView, value: RealmList<T>, type: Class<out RealmModel>) = Unit
+	open fun <T : RealmModel> displayRealmList(textView: TextView, value: RealmList<T>, type: Class<out RealmModel>) = Unit
 
-    open fun <T : RealmModel> displayRealmModel(textView: TextView, value: T) = Unit
+	open fun <T : RealmModel> displayRealmModel(textView: TextView, value: T) = Unit
 
-    open fun displayString(textView: TextView, value: String) = Unit
+	open fun displayString(textView: TextView, value: String) = Unit
 
-    open fun displayUrl(textView: TextView, value: String) = Unit
+	open fun displayUrl(textView: TextView, value: String) = Unit
 }

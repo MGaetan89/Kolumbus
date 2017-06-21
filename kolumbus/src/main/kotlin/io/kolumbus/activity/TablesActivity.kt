@@ -33,76 +33,76 @@ import io.kolumbus.adapter.TablesAdapter
 import io.realm.Realm
 
 class TablesActivity : Activity() {
-    private var recyclerView: RecyclerView? = null
+	private var recyclerView: RecyclerView? = null
 
-    companion object {
-        fun start(context: Context) {
-            val intent = Intent(context, TablesActivity::class.java)
+	companion object {
+		fun start(context: Context) {
+			val intent = Intent(context, TablesActivity::class.java)
 
-            context.startActivity(intent)
-        }
-    }
+			context.startActivity(intent)
+		}
+	}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 
-        this.setContentView(R.layout.kolumbus_activity_tables)
+		this.setContentView(R.layout.kolumbus_activity_tables)
 
-        val empty = this.findViewById(android.R.id.empty) as TextView?
-        this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
+		val empty = this.findViewById(android.R.id.empty) as TextView?
+		this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
 
-        empty?.let {
-            it.visibility = if (Kolumbus.hasTables()) View.GONE else View.VISIBLE
-        }
+		empty?.let {
+			it.visibility = if (Kolumbus.hasTables()) View.GONE else View.VISIBLE
+		}
 
-        this.recyclerView?.let {
-            it.layoutManager = LinearLayoutManager(this)
-            it.visibility = if (Kolumbus.hasTables()) View.VISIBLE else View.GONE
-        }
-    }
+		this.recyclerView?.let {
+			it.layoutManager = LinearLayoutManager(this)
+			it.visibility = if (Kolumbus.hasTables()) View.VISIBLE else View.GONE
+		}
+	}
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        this.menuInflater.inflate(R.menu.kolumbus_tables, menu)
+	override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+		this.menuInflater.inflate(R.menu.kolumbus_tables, menu)
 
-        return Kolumbus.hasTables()
-    }
+		return Kolumbus.hasTables()
+	}
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == R.id.menu_clear_database) {
-            AlertDialog.Builder(this)
-                    .setMessage(R.string.kolumbus_clear_database_confirm)
-                    .setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
-                        with(Realm.getDefaultInstance()) {
-                            executeTransaction {
-                                it.deleteAll()
-                            }
+	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+		if (item?.itemId == R.id.menu_clear_database) {
+			AlertDialog.Builder(this)
+					.setMessage(R.string.kolumbus_clear_database_confirm)
+					.setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
+						with(Realm.getDefaultInstance()) {
+							executeTransaction {
+								it.deleteAll()
+							}
 
-                            close()
-                        }
+							close()
+						}
 
-                        this.recyclerView?.adapter = this.getAdapter()
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show()
+						this.recyclerView?.adapter = this.getAdapter()
+					})
+					.setNegativeButton(android.R.string.cancel, null)
+					.show()
 
-            return true
-        }
+			return true
+		}
 
-        return super.onOptionsItemSelected(item)
-    }
+		return super.onOptionsItemSelected(item)
+	}
 
-    override fun onResume() {
-        super.onResume()
+	override fun onResume() {
+		super.onResume()
 
-        this.recyclerView?.adapter = this.getAdapter()
-    }
+		this.recyclerView?.adapter = this.getAdapter()
+	}
 
-    private fun getAdapter(): TablesAdapter {
-        val tables = Kolumbus.getTables()
-        val realm = Realm.getDefaultInstance()
-        val counts = tables.map { realm.where(it).count() }
-        realm.close()
+	private fun getAdapter(): TablesAdapter {
+		val tables = Kolumbus.getTables()
+		val realm = Realm.getDefaultInstance()
+		val counts = tables.map { realm.where(it).count() }
+		realm.close()
 
-        return TablesAdapter(tables.toList(), counts)
-    }
+		return TablesAdapter(tables.toList(), counts)
+	}
 }

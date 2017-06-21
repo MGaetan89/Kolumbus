@@ -22,53 +22,53 @@ import io.realm.RealmConfiguration
 import io.realm.RealmModel
 
 object Kolumbus {
-    internal var architect = Architect()
-        private set
-    private val configurations = mutableSetOf<RealmConfiguration>()
-    internal val items = mutableListOf<RealmModel>()
+	internal var architect = Architect()
+		private set
+	private val configurations = mutableSetOf<RealmConfiguration>()
+	internal val items = mutableListOf<RealmModel>()
 
-    @JvmStatic
-    fun build() = this
+	@JvmStatic
+	fun build() = this
 
-    fun explore(configuration: RealmConfiguration): Kolumbus {
-        this.configurations.add(configuration)
+	fun explore(configuration: RealmConfiguration): Kolumbus {
+		this.configurations.add(configuration)
 
-        return this
-    }
+		return this
+	}
 
-    fun forget(configuration: RealmConfiguration): Kolumbus {
-        this.configurations.remove(configuration)
+	fun forget(configuration: RealmConfiguration): Kolumbus {
+		this.configurations.remove(configuration)
 
-        return this
-    }
+		return this
+	}
 
-    fun forgetAll() = this.configurations.clear()
+	fun forgetAll() = this.configurations.clear()
 
-    fun navigate(context: Context) = TablesActivity.start(context)
+	fun navigate(context: Context) = TablesActivity.start(context)
 
-    fun withArchitect(architect: Architect): Kolumbus {
-        this.architect = architect
+	fun withArchitect(architect: Architect): Kolumbus {
+		this.architect = architect
 
-        return this
-    }
+		return this
+	}
 
-    internal fun getTables(): Set<Class<out RealmModel>> {
-        val tables = mutableSetOf<Class<out RealmModel>>()
+	internal fun getTables(): Set<Class<out RealmModel>> {
+		val tables = mutableSetOf<Class<out RealmModel>>()
 
-        this.configurations.forEach {
-            tables.addAll(it.realmObjectClasses)
-        }
+		this.configurations.forEach {
+			tables.addAll(it.realmObjectClasses)
+		}
 
-        return tables
-    }
+		return tables
+	}
 
-    internal fun hasTables(): Boolean {
-        this.configurations.forEach {
-            if (it.realmObjectClasses.isNotEmpty()) {
-                return true
-            }
-        }
+	internal fun hasTables(): Boolean {
+		this.configurations.forEach {
+			if (it.realmObjectClasses.isNotEmpty()) {
+				return true
+			}
+		}
 
-        return false
-    }
+		return false
+	}
 }

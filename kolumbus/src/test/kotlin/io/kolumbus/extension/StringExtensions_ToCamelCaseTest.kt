@@ -23,24 +23,24 @@ import kotlin.test.assertEquals
 
 @RunWith(Parameterized::class)
 class StringExtensions_ToCamelCaseTest(val entry: String, val result: String) {
-    @Test
-    fun toCamelCase() {
-        assertEquals(this.result, this.entry.toCamelCase())
-    }
+	@Test
+	fun toCamelCase() {
+		assertEquals(this.result, this.entry.toCamelCase())
+	}
 
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun data(): Collection<Array<String>> {
-            return listOf(
-                    arrayOf("", ""),
-                    arrayOf("helloworld", "Helloworld"),
-                    arrayOf("helloWorld", "Hello World"),
-                    arrayOf("Helloworld", "Helloworld"),
-                    arrayOf("HelloWorld", "Hello World"),
-                    arrayOf("helloWorldMyNameIsJack", "Hello World My Name Is Jack"),
-                    arrayOf("HelloWorldMyNameIsJack", "Hello World My Name Is Jack")
-            )
-        }
-    }
+	companion object {
+		@JvmStatic
+		@Parameterized.Parameters
+		fun data(): Collection<Array<String>> {
+			return listOf(
+					arrayOf("", ""),
+					arrayOf("helloworld", "Helloworld"),
+					arrayOf("helloWorld", "Hello World"),
+					arrayOf("Helloworld", "Helloworld"),
+					arrayOf("HelloWorld", "Hello World"),
+					arrayOf("helloWorldMyNameIsJack", "Hello World My Name Is Jack"),
+					arrayOf("HelloWorldMyNameIsJack", "Hello World My Name Is Jack")
+			)
+		}
+	}
 }

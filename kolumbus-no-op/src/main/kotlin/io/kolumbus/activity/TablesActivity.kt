@@ -19,7 +19,7 @@ package io.kolumbus.activity
 import android.content.Context
 
 class TablesActivity {
-    companion object {
-        fun start(context: Context) = Unit
-    }
+	companion object {
+		fun start(context: Context) = Unit
+	}
 }

@@ -34,102 +34,102 @@ import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 
 class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val methods: Map<String, Method?>) : RecyclerView.Adapter<TableAdapter.ViewHolder>() {
-    private val VIEW_TYPE_HEADER = 0
-    private val VIEW_TYPE_FIELD = 1
+	private val VIEW_TYPE_HEADER = 0
+	private val VIEW_TYPE_FIELD = 1
 
-    override fun getItemCount() = this.entries.size + 1
+	override fun getItemCount() = this.entries.size + 1
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_FIELD
-    }
+	override fun getItemViewType(position: Int): Int {
+		return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_FIELD
+	}
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        when (this.getItemViewType(position)) {
-            VIEW_TYPE_FIELD -> this.bindFieldRow(this.entries[position - 1], holder)
-            VIEW_TYPE_HEADER -> this.bindHeaderRow(holder)
-        }
-    }
+	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+		when (this.getItemViewType(position)) {
+			VIEW_TYPE_FIELD -> this.bindFieldRow(this.entries[position - 1], holder)
+			VIEW_TYPE_HEADER -> this.bindHeaderRow(holder)
+		}
+	}
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
-        val childLayoutRes = this.getLayoutForViewType(viewType)
-        val layoutInflater = LayoutInflater.from(parent?.context)
-        val view = layoutInflater.inflate(R.layout.kolumbus_adapter_table, parent, false) as ViewGroup
+	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
+		val childLayoutRes = this.getLayoutForViewType(viewType)
+		val layoutInflater = LayoutInflater.from(parent?.context)
+		val view = layoutInflater.inflate(R.layout.kolumbus_adapter_table, parent, false) as ViewGroup
 
-        this.fields.forEach {
-            layoutInflater.inflate(childLayoutRes, view, true)
-        }
+		this.fields.forEach {
+			layoutInflater.inflate(childLayoutRes, view, true)
+		}
 
-        return ViewHolder(view)
-    }
+		return ViewHolder(view)
+	}
 
-    private fun bindFieldRow(entry: RealmModel, holder: ViewHolder?) {
-        this.processField(holder) { fieldView, field ->
-            val result = this.methods[field.name]?.invoke(entry)
+	private fun bindFieldRow(entry: RealmModel, holder: ViewHolder?) {
+		this.processField(holder) { fieldView, field ->
+			val result = this.methods[field.name]?.invoke(entry)
 
-            if (result is Boolean) {
-                Kolumbus.architect.displayBoolean(fieldView, result)
-            } else if (result is Float) {
-                Kolumbus.architect.displayFloat(fieldView, result)
-            } else if (result is Int) {
-                Kolumbus.architect.displayInt(fieldView, result)
-            } else if (result is RealmList<*>) {
-                val resultCasted = result as RealmList<RealmModel>
-                val returnType = field.genericType as ParameterizedType
-                val type = returnType.actualTypeArguments[0] as Class<RealmModel>
+			if (result is Boolean) {
+				Kolumbus.architect.displayBoolean(fieldView, result)
+			} else if (result is Float) {
+				Kolumbus.architect.displayFloat(fieldView, result)
+			} else if (result is Int) {
+				Kolumbus.architect.displayInt(fieldView, result)
+			} else if (result is RealmList<*>) {
+				val resultCasted = result as RealmList<RealmModel>
+				val returnType = field.genericType as ParameterizedType
+				val type = returnType.actualTypeArguments[0] as Class<RealmModel>
 
-                Kolumbus.architect.displayRealmList(fieldView, resultCasted, type)
-            } else if (result is RealmModel) {
-                Kolumbus.architect.displayRealmModel(fieldView, result)
-            } else if (result is String) {
-                if (result.isEmpty()) {
-                    Kolumbus.architect.displayEmpty(fieldView)
-                } else {
-                    if (Patterns.WEB_URL.matcher(result).matches()) {
-                        Kolumbus.architect.displayUrl(fieldView, result)
-                    } else {
-                        try {
-                            val color = Color.parseColor(result)
+				Kolumbus.architect.displayRealmList(fieldView, resultCasted, type)
+			} else if (result is RealmModel) {
+				Kolumbus.architect.displayRealmModel(fieldView, result)
+			} else if (result is String) {
+				if (result.isEmpty()) {
+					Kolumbus.architect.displayEmpty(fieldView)
+				} else {
+					if (Patterns.WEB_URL.matcher(result).matches()) {
+						Kolumbus.architect.displayUrl(fieldView, result)
+					} else {
+						try {
+							val color = Color.parseColor(result)
 
-                            Kolumbus.architect.displayColor(fieldView, result, color)
-                        } catch (exception: IllegalArgumentException) {
-                            Kolumbus.architect.displayString(fieldView, result)
-                        }
-                    }
-                }
-            } else if (result != null) {
-                Kolumbus.architect.displayAny(fieldView, result)
-            } else {
-                Kolumbus.architect.displayNull(fieldView)
-            }
-        }
-    }
+							Kolumbus.architect.displayColor(fieldView, result, color)
+						} catch (exception: IllegalArgumentException) {
+							Kolumbus.architect.displayString(fieldView, result)
+						}
+					}
+				}
+			} else if (result != null) {
+				Kolumbus.architect.displayAny(fieldView, result)
+			} else {
+				Kolumbus.architect.displayNull(fieldView)
+			}
+		}
+	}
 
-    private fun bindHeaderRow(holder: ViewHolder?) {
-        this.processField(holder) { fieldView, field ->
-            fieldView.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
-                "#${field.name.prettify()}"
-            } else {
-                field.name.prettify()
-            }
-        }
-    }
+	private fun bindHeaderRow(holder: ViewHolder?) {
+		this.processField(holder) { fieldView, field ->
+			fieldView.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
+				"#${field.name.prettify()}"
+			} else {
+				field.name.prettify()
+			}
+		}
+	}
 
-    private fun getLayoutForViewType(viewType: Int): Int {
-        return when (viewType) {
-            VIEW_TYPE_HEADER -> R.layout.kolumbus_adapter_table_header
-            else -> R.layout.kolumbus_adapter_table_text
-        }
-    }
+	private fun getLayoutForViewType(viewType: Int): Int {
+		return when (viewType) {
+			VIEW_TYPE_HEADER -> R.layout.kolumbus_adapter_table_header
+			else -> R.layout.kolumbus_adapter_table_text
+		}
+	}
 
-    private fun processField(holder: ViewHolder?, callback: (fieldView: TextView, field: Field) -> Unit) {
-        val parent = holder?.itemView as ViewGroup? ?: return
+	private fun processField(holder: ViewHolder?, callback: (fieldView: TextView, field: Field) -> Unit) {
+		val parent = holder?.itemView as ViewGroup? ?: return
 
-        this.fields.forEachIndexed { index, field ->
-            val fieldView = parent.getChildAt(index) as TextView
+		this.fields.forEachIndexed { index, field ->
+			val fieldView = parent.getChildAt(index) as TextView
 
-            callback(fieldView, field)
-        }
-    }
+			callback(fieldView, field)
+		}
+	}
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+	class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

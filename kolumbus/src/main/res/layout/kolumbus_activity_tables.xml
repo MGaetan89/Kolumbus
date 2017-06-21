@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<FrameLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -27,7 +26,7 @@
 		android:layout_height="match_parent"
 		android:visibility="gone"
 		tools:listitem="@layout/kolumbus_adapter_tables"
-		tools:visibility="visible"/>
+		tools:visibility="visible" />
 
 	<TextView
 		android:id="@android:id/empty"
@@ -37,5 +36,5 @@
 		android:layout_gravity="center"
 		android:text="@string/kolumbus_no_tables"
 		android:visibility="gone"
-		tools:visibility="visible"/>
+		tools:visibility="visible" />
 </FrameLayout>

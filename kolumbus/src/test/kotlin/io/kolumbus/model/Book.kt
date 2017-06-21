@@ -22,17 +22,17 @@ import io.realm.annotations.Ignore
 import io.realm.annotations.PrimaryKey
 
 open class Book : RealmObject() {
-    private var available = true
-    @Ignore
-    open var author = ""
-    open var description = ""
-    open var genre: RealmList<Genre>? = null
-    @PrimaryKey
-    open var name = ""
+	private var available = true
+	@Ignore
+	open var author = ""
+	open var description = ""
+	open var genre: RealmList<Genre>? = null
+	@PrimaryKey
+	open var name = ""
 
-    open fun isAvailable() = this.available
+	open fun isAvailable() = this.available
 
-    open fun setAvailable(available: Boolean) {
-        this.available = available
-    }
+	open fun setAvailable(available: Boolean) {
+		this.available = available
+	}
 }

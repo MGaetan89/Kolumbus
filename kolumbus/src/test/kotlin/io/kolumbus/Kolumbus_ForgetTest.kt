@@ -22,8 +22,8 @@ import org.junit.Ignore
 import org.junit.Test
 
 class Kolumbus_ForgetTest {
-    @Before
-    fun before() {
+	@Before
+	fun before() {
 //        Kolumbus.explore(Genre::class.java)
 //                .explore(Book::class.java)
 //                .explore(Library::class.java)
@@ -32,29 +32,29 @@ class Kolumbus_ForgetTest {
 //        assertEquals(Book::class.java, Kolumbus.tables["Book"])
 //        assertEquals(Genre::class.java, Kolumbus.tables["Genre"])
 //        assertEquals(Library::class.java, Kolumbus.tables["Library"])
-    }
+	}
 
-    @Test
-    fun forgetAll() {
-        Kolumbus.forgetAll()
+	@Test
+	fun forgetAll() {
+		Kolumbus.forgetAll()
 
 //        assertEquals(0, Kolumbus.tables.size)
-    }
+	}
 
-    @Ignore("Needs Context")
-    @Test
-    fun forgetDuplicatedModels() {
+	@Ignore("Needs Context")
+	@Test
+	fun forgetDuplicatedModels() {
 //        Kolumbus.forget(Genre::class.java)
 //                .forget(Genre::class.java)
 
 //        assertEquals(2, Kolumbus.tables.size)
 //        assertEquals(Book::class.java, Kolumbus.tables["Book"])
 //        assertEquals(Library::class.java, Kolumbus.tables["Library"])
-    }
+	}
 
-    @Ignore("Needs Context")
-    @Test
-    fun forgetInexistant() {
+	@Ignore("Needs Context")
+	@Test
+	fun forgetInexistant() {
 //        Kolumbus.forget(Genre::class.java)
 
 //        assertEquals(2, Kolumbus.tables.size)
@@ -66,32 +66,32 @@ class Kolumbus_ForgetTest {
 //        assertEquals(2, Kolumbus.tables.size)
 //        assertEquals(Book::class.java, Kolumbus.tables["Book"])
 //        assertEquals(Library::class.java, Kolumbus.tables["Library"])
-    }
+	}
 
-    @Ignore("Needs Context")
-    @Test
-    fun forgetMultipleModels() {
+	@Ignore("Needs Context")
+	@Test
+	fun forgetMultipleModels() {
 //        Kolumbus.forget(Genre::class.java)
 //                .forget(Book::class.java)
 
 //        assertEquals(1, Kolumbus.tables.size)
 //        assertEquals(Library::class.java, Kolumbus.tables["Library"])
-    }
+	}
 
-    @Ignore("Needs Context")
-    @Test
-    fun forgetOneModel() {
+	@Ignore("Needs Context")
+	@Test
+	fun forgetOneModel() {
 //        Kolumbus.forget(Genre::class.java)
 
 //        assertEquals(2, Kolumbus.tables.size)
 //        assertEquals(Book::class.java, Kolumbus.tables["Book"])
 //        assertEquals(Library::class.java, Kolumbus.tables["Library"])
-    }
+	}
 
-    @After
-    fun after() {
-        Kolumbus.forgetAll()
+	@After
+	fun after() {
+		Kolumbus.forgetAll()
 
 //        assertEquals(0, Kolumbus.tables.size)
-    }
+	}
 }

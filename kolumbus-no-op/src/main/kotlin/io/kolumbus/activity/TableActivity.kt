@@ -20,9 +20,9 @@ import android.content.Context
 import io.realm.RealmModel
 
 class TableActivity {
-    companion object {
-        fun start(context: Context, table: Class<out RealmModel>?) = Unit
+	companion object {
+		fun start(context: Context, table: Class<out RealmModel>?) = Unit
 
-        fun <T : RealmModel> start(context: Context, table: Class<out T>?, items: Array<out T>?) = Unit
-    }
+		fun <T : RealmModel> start(context: Context, table: Class<out T>?, items: Array<out T>?) = Unit
+	}
 }

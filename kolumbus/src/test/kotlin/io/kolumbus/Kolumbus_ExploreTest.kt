@@ -22,16 +22,16 @@ import org.junit.Test
 import kotlin.test.assertFalse
 
 class Kolumbus_ExploreTest {
-    @Before
-    fun before() {
-        Kolumbus.forgetAll()
+	@Before
+	fun before() {
+		Kolumbus.forgetAll()
 
-        assertFalse(Kolumbus.hasTables())
-    }
+		assertFalse(Kolumbus.hasTables())
+	}
 
-    @Ignore("Needs Context")
-    @Test
-    fun exploreDuplicatedModels() {
+	@Ignore("Needs Context")
+	@Test
+	fun exploreDuplicatedModels() {
 //        Kolumbus.explore(Library::class.java)
 //                .explore(Book::class.java)
 //                .explore(Library::class.java)
@@ -39,11 +39,11 @@ class Kolumbus_ExploreTest {
 //        assertEquals(2, Kolumbus.tables.size)
 //        assertEquals(Book::class.java, Kolumbus.tables["Book"])
 //        assertEquals(Library::class.java, Kolumbus.tables["Library"])
-    }
+	}
 
-    @Ignore("Needs Context")
-    @Test
-    fun exploreMultipleModels() {
+	@Ignore("Needs Context")
+	@Test
+	fun exploreMultipleModels() {
 //        Kolumbus.explore(Genre::class.java)
 //                .explore(Book::class.java)
 //                .explore(Library::class.java)
@@ -52,14 +52,14 @@ class Kolumbus_ExploreTest {
 //        assertEquals(Book::class.java, Kolumbus.tables["Book"])
 //        assertEquals(Genre::class.java, Kolumbus.tables["Genre"])
 //        assertEquals(Library::class.java, Kolumbus.tables["Library"])
-    }
+	}
 
-    @Ignore("Needs Context")
-    @Test
-    fun exploreOneModel() {
+	@Ignore("Needs Context")
+	@Test
+	fun exploreOneModel() {
 //        Kolumbus.explore(Book::class.java)
 
 //        assertEquals(1, Kolumbus.tables.size)
 //        assertEquals(Book::class.java, Kolumbus.tables["Book"])
-    }
+	}
 }

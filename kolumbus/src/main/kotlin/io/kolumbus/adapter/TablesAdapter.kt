@@ -28,36 +28,36 @@ import io.kolumbus.extension.prettify
 import io.realm.RealmModel
 
 class TablesAdapter(val tables: List<Class<out RealmModel>>, val counts: List<Long>) : RecyclerView.Adapter<TablesAdapter.ViewHolder>() {
-    override fun getItemCount() = this.tables.size
+	override fun getItemCount() = this.tables.size
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        if (holder?.entriesCount != null) {
-            val count = this.counts[position]
-            val countString = count.format()
+	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+		if (holder?.entriesCount != null) {
+			val count = this.counts[position]
+			val countString = count.format()
 
-            holder?.entriesCount.text = holder?.entriesCount.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
-        }
+			holder?.entriesCount.text = holder?.entriesCount.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
+		}
 
-        holder?.tableName?.text = this.tables[position].simpleName.prettify()
-    }
+		holder?.tableName?.text = this.tables[position].simpleName.prettify()
+	}
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.kolumbus_adapter_tables, parent, false)
+	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
+		val view = LayoutInflater.from(parent?.context).inflate(R.layout.kolumbus_adapter_tables, parent, false)
 
-        return ViewHolder(view)
-    }
+		return ViewHolder(view)
+	}
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val entriesCount: TextView?
-        val tableName: TextView?
+	inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+		val entriesCount: TextView?
+		val tableName: TextView?
 
-        init {
-            this.entriesCount = view.findViewById(android.R.id.text2) as TextView?
-            this.tableName = view.findViewById(android.R.id.text1) as TextView?
+		init {
+			this.entriesCount = view.findViewById(android.R.id.text2) as TextView?
+			this.tableName = view.findViewById(android.R.id.text1) as TextView?
 
-            view.setOnClickListener {
-                TableActivity.start(it.context!!, tables[this.adapterPosition])
-            }
-        }
-    }
+			view.setOnClickListener {
+				TableActivity.start(it.context!!, tables[this.adapterPosition])
+			}
+		}
+	}
 }

@@ -21,9 +21,9 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
 open class Library : RealmObject() {
-    open var books: RealmList<Book>? = null
-    @PrimaryKey
-    open var phoneNumber = ""
-    open var name = ""
-    open var ownerName = ""
+	open var books: RealmList<Book>? = null
+	@PrimaryKey
+	open var phoneNumber = ""
+	open var name = ""
+	open var ownerName = ""
 }

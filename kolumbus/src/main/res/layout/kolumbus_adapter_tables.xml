@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="?android:listPreferredItemHeight"
@@ -31,12 +30,12 @@
 		style="@android:style/TextAppearance.Medium"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		tools:text="Table Name"/>
+		tools:text="Table Name" />
 
 	<TextView
 		android:id="@android:id/text2"
 		style="@android:style/TextAppearance"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		tools:text="@plurals/kolumbus_entries_count"/>
+		tools:text="@plurals/kolumbus_entries_count" />
 </LinearLayout>

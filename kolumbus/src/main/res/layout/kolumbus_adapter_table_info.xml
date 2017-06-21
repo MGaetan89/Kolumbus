@@ -14,8 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="?android:listPreferredItemHeight"
@@ -32,7 +31,7 @@
 		style="@android:style/TextAppearance.Medium"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		tools:text="Field Name"/>
+		tools:text="Field Name" />
 
 	<TextView
 		style="@android:style/TextAppearance.Small"
@@ -41,14 +40,14 @@
 		android:layout_marginEnd="@dimen/kolumbus_padding_small"
 		android:layout_marginRight="@dimen/kolumbus_padding_small"
 		android:text=":"
-		tools:ignore="HardcodedText"/>
+		tools:ignore="HardcodedText" />
 
 	<TextView
 		android:id="@+id/field_type"
 		style="@android:style/TextAppearance"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		tools:text="Field Type"/>
+		tools:text="Field Type" />
 
 	<TextView
 		style="@android:style/TextAppearance.Small"
@@ -59,12 +58,12 @@
 		android:layout_marginRight="@dimen/kolumbus_padding_small"
 		android:layout_marginStart="@dimen/kolumbus_padding_small"
 		android:text="="
-		tools:ignore="HardcodedText"/>
+		tools:ignore="HardcodedText" />
 
 	<TextView
 		android:id="@+id/field_default_value"
 		style="@android:style/TextAppearance"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		tools:text="Field Default Value"/>
+		tools:text="Field Default Value" />
 </LinearLayout>

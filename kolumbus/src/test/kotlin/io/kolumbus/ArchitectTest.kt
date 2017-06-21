@@ -24,135 +24,135 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
 class ArchitectTest {
-    private lateinit var architect: Architect
-    private lateinit var textView: TextView
+	private lateinit var architect: Architect
+	private lateinit var textView: TextView
 
-    @Before
-    fun before() {
-        this.architect = Architect()
-        this.textView = mock(TextView::class.java)
-    }
+	@Before
+	fun before() {
+		this.architect = Architect()
+		this.textView = mock(TextView::class.java)
+	}
 
-    @Test
-    fun displayAny_Float() {
-        this.architect.displayAny(this.textView, 4.2f)
+	@Test
+	fun displayAny_Float() {
+		this.architect.displayAny(this.textView, 4.2f)
 
-        verify(this.textView).text = "4.2"
-    }
+		verify(this.textView).text = "4.2"
+	}
 
-    @Test
-    fun displayAny_Int() {
-        this.architect.displayAny(this.textView, 42)
+	@Test
+	fun displayAny_Int() {
+		this.architect.displayAny(this.textView, 42)
 
-        verify(this.textView).text = "42"
-    }
+		verify(this.textView).text = "42"
+	}
 
-    @Test
-    fun displayAny_Long() {
-        this.architect.displayAny(this.textView, 42L)
+	@Test
+	fun displayAny_Long() {
+		this.architect.displayAny(this.textView, 42L)
 
-        verify(this.textView).text = "42"
-    }
+		verify(this.textView).text = "42"
+	}
 
-    @Test
-    fun displayAny_Object() {
-        val book = Book()
+	@Test
+	fun displayAny_Object() {
+		val book = Book()
 
-        this.architect.displayAny(this.textView, book)
+		this.architect.displayAny(this.textView, book)
 
-        verify(this.textView).text = book.toString()
-    }
+		verify(this.textView).text = book.toString()
+	}
 
-    @Test
-    fun displayAny_StringEmpty() {
-        this.architect.displayAny(this.textView, "")
+	@Test
+	fun displayAny_StringEmpty() {
+		this.architect.displayAny(this.textView, "")
 
-        verify(this.textView).text = ""
-    }
+		verify(this.textView).text = ""
+	}
 
-    @Test
-    fun displayAny_StringNotEmpty() {
-        this.architect.displayAny(this.textView, "Hello, World!")
+	@Test
+	fun displayAny_StringNotEmpty() {
+		this.architect.displayAny(this.textView, "Hello, World!")
 
-        verify(this.textView).text = "Hello, World!"
-    }
+		verify(this.textView).text = "Hello, World!"
+	}
 
-    @Test
-    fun displayBoolean_False() {
-        this.architect.displayBoolean(this.textView, false)
+	@Test
+	fun displayBoolean_False() {
+		this.architect.displayBoolean(this.textView, false)
 
-        verify(this.textView).setText(R.string.kolumbus_no)
-    }
+		verify(this.textView).setText(R.string.kolumbus_no)
+	}
 
-    @Test
-    fun displayBoolean_True() {
-        this.architect.displayBoolean(this.textView, true)
+	@Test
+	fun displayBoolean_True() {
+		this.architect.displayBoolean(this.textView, true)
 
-        verify(this.textView).setText(R.string.kolumbus_yes)
-    }
+		verify(this.textView).setText(R.string.kolumbus_yes)
+	}
 
-    @Test
-    fun displayEmpty() {
-        this.architect.displayEmpty(this.textView)
+	@Test
+	fun displayEmpty() {
+		this.architect.displayEmpty(this.textView)
 
-        verify(this.textView).setText(R.string.kolumbus_empty)
-    }
+		verify(this.textView).setText(R.string.kolumbus_empty)
+	}
 
-    @Test
-    fun displayFloat_Negative() {
-        this.architect.displayFloat(this.textView, -4.2f)
+	@Test
+	fun displayFloat_Negative() {
+		this.architect.displayFloat(this.textView, -4.2f)
 
-        verify(this.textView).text = "-4.2"
-    }
+		verify(this.textView).text = "-4.2"
+	}
 
-    @Test
-    fun displayFloat_Positive() {
-        this.architect.displayFloat(this.textView, 4.2f)
+	@Test
+	fun displayFloat_Positive() {
+		this.architect.displayFloat(this.textView, 4.2f)
 
-        verify(this.textView).text = "4.2"
-    }
+		verify(this.textView).text = "4.2"
+	}
 
-    @Test
-    fun displayFloat_Zero() {
-        this.architect.displayFloat(this.textView, 0f)
+	@Test
+	fun displayFloat_Zero() {
+		this.architect.displayFloat(this.textView, 0f)
 
-        verify(this.textView).text = "0.0"
-    }
+		verify(this.textView).text = "0.0"
+	}
 
-    @Test
-    fun displayInt_Negative() {
-        this.architect.displayInt(this.textView, -42)
+	@Test
+	fun displayInt_Negative() {
+		this.architect.displayInt(this.textView, -42)
 
-        verify(this.textView).text = "-42"
-    }
+		verify(this.textView).text = "-42"
+	}
 
-    @Test
-    fun displayInt_Positive() {
-        this.architect.displayInt(this.textView, 42)
+	@Test
+	fun displayInt_Positive() {
+		this.architect.displayInt(this.textView, 42)
 
-        verify(this.textView).text = "42"
-    }
+		verify(this.textView).text = "42"
+	}
 
-    @Test
-    fun displayInt_Zero() {
-        this.architect.displayInt(this.textView, 0)
+	@Test
+	fun displayInt_Zero() {
+		this.architect.displayInt(this.textView, 0)
 
-        verify(this.textView).text = "0"
-    }
+		verify(this.textView).text = "0"
+	}
 
-    @Test
-    fun displayNull() {
-        this.architect.displayNull(this.textView)
+	@Test
+	fun displayNull() {
+		this.architect.displayNull(this.textView)
 
-        verify(this.textView).setText(R.string.kolumbus_null)
-    }
+		verify(this.textView).setText(R.string.kolumbus_null)
+	}
 
-    @Test
-    fun displayRealmModel() {
-        val book = Book()
+	@Test
+	fun displayRealmModel() {
+		val book = Book()
 
-        this.architect.displayRealmModel(this.textView, book)
+		this.architect.displayRealmModel(this.textView, book)
 
-        verify(this.textView).text = book.toString()
-    }
+		verify(this.textView).text = book.toString()
+	}
 }

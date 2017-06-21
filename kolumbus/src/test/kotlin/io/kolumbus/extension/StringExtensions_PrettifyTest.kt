@@ -23,44 +23,44 @@ import kotlin.test.assertEquals
 
 @RunWith(Parameterized::class)
 class StringExtensions_PrettifyTest(val entry: String, val result: String) {
-    @Test
-    fun prettify() {
-        assertEquals(this.result, this.entry.prettify())
-    }
+	@Test
+	fun prettify() {
+		assertEquals(this.result, this.entry.prettify())
+	}
 
-    companion object {
-        @JvmStatic
-        @Parameterized.Parameters
-        fun data(): Collection<Array<String>> {
-            return listOf(
-                    // StringExtensions_RemoveAccessorPrefixesTest
-                    arrayOf("", ""),
-                    arrayOf("some text", "Some text"),
-                    arrayOf("get text", " text"),
-                    arrayOf("Get text", "Get text"),
-                    arrayOf("getText", "Text"),
-                    arrayOf("text getter", "Text getter"),
-                    arrayOf("is text", " text"),
-                    arrayOf("Is text", "Is text"),
-                    arrayOf("isText", "Text"),
-                    arrayOf("text is", "Text is"),
+	companion object {
+		@JvmStatic
+		@Parameterized.Parameters
+		fun data(): Collection<Array<String>> {
+			return listOf(
+					// StringExtensions_RemoveAccessorPrefixesTest
+					arrayOf("", ""),
+					arrayOf("some text", "Some text"),
+					arrayOf("get text", " text"),
+					arrayOf("Get text", "Get text"),
+					arrayOf("getText", "Text"),
+					arrayOf("text getter", "Text getter"),
+					arrayOf("is text", " text"),
+					arrayOf("Is text", "Is text"),
+					arrayOf("isText", "Text"),
+					arrayOf("text is", "Text is"),
 
-                    // StringExtensions_ToCamelCaseTest
-                    arrayOf("helloworld", "Helloworld"),
-                    arrayOf("helloWorld", "Hello World"),
-                    arrayOf("Helloworld", "Helloworld"),
-                    arrayOf("HelloWorld", "Hello World"),
-                    arrayOf("helloWorldMyNameIsJack", "Hello World My Name Is Jack"),
-                    arrayOf("HelloWorldMyNameIsJack", "Hello World My Name Is Jack"),
+					// StringExtensions_ToCamelCaseTest
+					arrayOf("helloworld", "Helloworld"),
+					arrayOf("helloWorld", "Hello World"),
+					arrayOf("Helloworld", "Helloworld"),
+					arrayOf("HelloWorld", "Hello World"),
+					arrayOf("helloWorldMyNameIsJack", "Hello World My Name Is Jack"),
+					arrayOf("HelloWorldMyNameIsJack", "Hello World My Name Is Jack"),
 
-                    // Extras
-                    arrayOf("gethelloworld", "Helloworld"),
-                    arrayOf("getHelloworld", "Helloworld"),
-                    arrayOf("getHelloWorld", "Hello World"),
-                    arrayOf("ishelloworld", "Helloworld"),
-                    arrayOf("isHelloworld", "Helloworld"),
-                    arrayOf("isHelloWorld", "Hello World")
-            )
-        }
-    }
+					// Extras
+					arrayOf("gethelloworld", "Helloworld"),
+					arrayOf("getHelloworld", "Helloworld"),
+					arrayOf("getHelloWorld", "Hello World"),
+					arrayOf("ishelloworld", "Helloworld"),
+					arrayOf("isHelloworld", "Helloworld"),
+					arrayOf("isHelloWorld", "Hello World")
+			)
+		}
+	}
 }

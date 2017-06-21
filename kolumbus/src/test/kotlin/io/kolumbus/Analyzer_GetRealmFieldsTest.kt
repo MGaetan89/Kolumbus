@@ -23,34 +23,34 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class Analyzer_GetRealmFieldsTest {
-    @Ignore
-    @Test
-    fun getRealmFields_Mixed() {
-        val fields = Analyzer.getRealmFields(Book::class.java)
+	@Ignore
+	@Test
+	fun getRealmFields_Mixed() {
+		val fields = Analyzer.getRealmFields(Book::class.java)
 
-        assertEquals(4, fields.size)
-        assertEquals("name", fields[0].name)
-        assertEquals("available", fields[1].name)
-        assertEquals("description", fields[2].name)
-        assertEquals("genre", fields[3].name)
-    }
+		assertEquals(4, fields.size)
+		assertEquals("name", fields[0].name)
+		assertEquals("available", fields[1].name)
+		assertEquals("description", fields[2].name)
+		assertEquals("genre", fields[3].name)
+	}
 
-    @Ignore
-    @Test
-    fun getRealmFields_MultiplePrimaryKeys() {
-        val fields = Analyzer.getRealmFields(Library::class.java)
+	@Ignore
+	@Test
+	fun getRealmFields_MultiplePrimaryKeys() {
+		val fields = Analyzer.getRealmFields(Library::class.java)
 
-        assertEquals(4, fields.size)
-        assertEquals("name", fields[0].name)
-        assertEquals("phoneNumber", fields[1].name)
-        assertEquals("books", fields[2].name)
-        assertEquals("ownerName", fields[3].name)
-    }
+		assertEquals(4, fields.size)
+		assertEquals("name", fields[0].name)
+		assertEquals("phoneNumber", fields[1].name)
+		assertEquals("books", fields[2].name)
+		assertEquals("ownerName", fields[3].name)
+	}
 
-    @Test
-    fun getRealmFields_Null() {
-        val fields = Analyzer.getRealmFields(null)
+	@Test
+	fun getRealmFields_Null() {
+		val fields = Analyzer.getRealmFields(null)
 
-        assertEquals(0, fields.size)
-    }
+		assertEquals(0, fields.size)
+	}
 }

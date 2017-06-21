@@ -24,42 +24,42 @@ import android.view.View
 import android.view.ViewGroup
 
 class TableLayoutManager(context: Context) : LinearLayoutManager(context) {
-    override fun canScrollHorizontally() = true
+	override fun canScrollHorizontally() = true
 
-    override fun canScrollVertically() = true
+	override fun canScrollVertically() = true
 
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
-        super.onLayoutChildren(recycler, state)
+	override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
+		super.onLayoutChildren(recycler, state)
 
-        val size = Point(0, 0)
+		val size = Point(0, 0)
 
-        // Compute the biggest dimension from all the visible items
-        this.processChild(0, this.itemCount) { index, child ->
-            child.measure(0, 0)
+		// Compute the biggest dimension from all the visible items
+		this.processChild(0, this.itemCount) { index, child ->
+			child.measure(0, 0)
 
-            size.x = Math.max(size.x, child.measuredWidth)
-            size.y = Math.max(size.y, child.measuredHeight)
-        }
+			size.x = Math.max(size.x, child.measuredWidth)
+			size.y = Math.max(size.y, child.measuredHeight)
+		}
 
-        // Set the proper size on all the visible items
-        this.processChild(0, state?.itemCount ?: 0) { index, child ->
-            child.layoutParams.height = size.y
-            child.layoutParams.width = size.x
-            child.post {
-                child.requestLayout()
-            }
-        }
-    }
+		// Set the proper size on all the visible items
+		this.processChild(0, state?.itemCount ?: 0) { index, child ->
+			child.layoutParams.height = size.y
+			child.layoutParams.width = size.x
+			child.post {
+				child.requestLayout()
+			}
+		}
+	}
 
-    private fun processChild(from: Int, to: Int, callback: (index: Int, child: View) -> Unit) {
-        for (rowIndex in from..to) {
-            val row = this.getChildAt(rowIndex) as ViewGroup? ?: continue
+	private fun processChild(from: Int, to: Int, callback: (index: Int, child: View) -> Unit) {
+		for (rowIndex in from..to) {
+			val row = this.getChildAt(rowIndex) as ViewGroup? ?: continue
 
-            for (childIndex in 0..(row.childCount - 1)) {
-                val child = row.getChildAt(childIndex)
+			for (childIndex in 0..(row.childCount - 1)) {
+				val child = row.getChildAt(childIndex)
 
-                callback(childIndex, child)
-            }
-        }
-    }
+				callback(childIndex, child)
+			}
+		}
+	}
 }

@@ -22,68 +22,68 @@ import org.junit.Test
 import kotlin.test.assertEquals
 
 class Analyzer_GetAccessorsTest {
-    @Test
-    fun getAccessors_NotNullTableAllFields() {
-        val table = Library::class.java
-        val methods = Analyzer.getAccessors(table, Analyzer.getRealmFields(table))
+	@Test
+	fun getAccessors_NotNullTableAllFields() {
+		val table = Library::class.java
+		val methods = Analyzer.getAccessors(table, Analyzer.getRealmFields(table))
 
-        assertEquals(4, methods.size)
-        assertEquals(table.getMethod("getBooks"), methods["books"])
-        assertEquals(table.getMethod("getName"), methods["name"])
-        assertEquals(table.getMethod("getOwnerName"), methods["ownerName"])
-        assertEquals(table.getMethod("getPhoneNumber"), methods["phoneNumber"])
-    }
+		assertEquals(4, methods.size)
+		assertEquals(table.getMethod("getBooks"), methods["books"])
+		assertEquals(table.getMethod("getName"), methods["name"])
+		assertEquals(table.getMethod("getOwnerName"), methods["ownerName"])
+		assertEquals(table.getMethod("getPhoneNumber"), methods["phoneNumber"])
+	}
 
-    @Test
-    fun getAccessors_NotNullTableAllFieldsWithBoolean() {
-        val table = Book::class.java
-        val methods = Analyzer.getAccessors(table, Analyzer.getRealmFields(table))
+	@Test
+	fun getAccessors_NotNullTableAllFieldsWithBoolean() {
+		val table = Book::class.java
+		val methods = Analyzer.getAccessors(table, Analyzer.getRealmFields(table))
 
-        assertEquals(5, methods.size) // TODO Should be 4
-        assertEquals(table.getMethod("getDescription"), methods["description"])
-        assertEquals(table.getMethod("getGenre"), methods["genre"])
-        assertEquals(table.getMethod("getName"), methods["name"])
-        assertEquals(table.getMethod("isAvailable"), methods["available"])
-    }
+		assertEquals(5, methods.size) // TODO Should be 4
+		assertEquals(table.getMethod("getDescription"), methods["description"])
+		assertEquals(table.getMethod("getGenre"), methods["genre"])
+		assertEquals(table.getMethod("getName"), methods["name"])
+		assertEquals(table.getMethod("isAvailable"), methods["available"])
+	}
 
-    @Test
-    fun getAccessors_NotNullTableEmptyFields() {
-        val methods = Analyzer.getAccessors(Library::class.java, emptyList())
+	@Test
+	fun getAccessors_NotNullTableEmptyFields() {
+		val methods = Analyzer.getAccessors(Library::class.java, emptyList())
 
-        assertEquals(0, methods.size)
-    }
+		assertEquals(0, methods.size)
+	}
 
-    @Test
-    fun getAccessors_NotNullTableInvalidFields() {
-        val table = Library::class.java
-        val methods = Analyzer.getAccessors(table, listOf(
-                table.getDeclaredField("books"),
-                Book::class.java.getDeclaredField("description"),
-                table.getDeclaredField("ownerName")
-        ))
+	@Test
+	fun getAccessors_NotNullTableInvalidFields() {
+		val table = Library::class.java
+		val methods = Analyzer.getAccessors(table, listOf(
+				table.getDeclaredField("books"),
+				Book::class.java.getDeclaredField("description"),
+				table.getDeclaredField("ownerName")
+		))
 
-        assertEquals(2, methods.size)
-        assertEquals(table.getMethod("getBooks"), methods["books"])
-        assertEquals(table.getMethod("getOwnerName"), methods["ownerName"])
-    }
+		assertEquals(2, methods.size)
+		assertEquals(table.getMethod("getBooks"), methods["books"])
+		assertEquals(table.getMethod("getOwnerName"), methods["ownerName"])
+	}
 
-    @Test
-    fun getAccessors_NotNullTableMissingFields() {
-        val table = Library::class.java
-        val methods = Analyzer.getAccessors(table, listOf(
-                table.getDeclaredField("books"),
-                table.getDeclaredField("ownerName")
-        ))
+	@Test
+	fun getAccessors_NotNullTableMissingFields() {
+		val table = Library::class.java
+		val methods = Analyzer.getAccessors(table, listOf(
+				table.getDeclaredField("books"),
+				table.getDeclaredField("ownerName")
+		))
 
-        assertEquals(2, methods.size)
-        assertEquals(table.getMethod("getBooks"), methods["books"])
-        assertEquals(table.getMethod("getOwnerName"), methods["ownerName"])
-    }
+		assertEquals(2, methods.size)
+		assertEquals(table.getMethod("getBooks"), methods["books"])
+		assertEquals(table.getMethod("getOwnerName"), methods["ownerName"])
+	}
 
-    @Test
-    fun getAccessors_NullTableEmptyFields() {
-        val methods = Analyzer.getAccessors(null, emptyList())
+	@Test
+	fun getAccessors_NullTableEmptyFields() {
+		val methods = Analyzer.getAccessors(null, emptyList())
 
-        assertEquals(0, methods.size)
-    }
+		assertEquals(0, methods.size)
+	}
 }

@@ -20,7 +20,7 @@ import android.content.Context
 import io.realm.RealmModel
 
 class TableInfoActivity {
-    companion object {
-        fun start(context: Context, table: Class<out RealmModel>?) = Unit
-    }
+	companion object {
+		fun start(context: Context, table: Class<out RealmModel>?) = Unit
+	}
 }
