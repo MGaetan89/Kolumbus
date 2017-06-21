@@ -35,11 +35,7 @@ class TableInfoAdapter(val fields: List<Field>, val instance: RealmModel) : Recy
 		val genericType = field.genericType
 		val value = field.get(this.instance)
 
-		holder.name.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
-			"#${field.name}"
-		} else {
-			field.name
-		}
+		holder.name.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) "#${field.name}" else field.name
 
 		holder.type.text = if (genericType is ParameterizedType) {
 			val subType = genericType.actualTypeArguments[0] as Class<Any>

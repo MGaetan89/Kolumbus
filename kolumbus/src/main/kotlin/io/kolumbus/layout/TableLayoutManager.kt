@@ -34,32 +34,30 @@ class TableLayoutManager(context: Context) : LinearLayoutManager(context) {
 		val size = Point(0, 0)
 
 		// Compute the biggest dimension from all the visible items
-		this.processChild(0, this.itemCount) { index, child ->
-			child.measure(0, 0)
+		this.processChild(0, this.itemCount) {
+			it.measure(0, 0)
 
-			size.x = Math.max(size.x, child.measuredWidth)
-			size.y = Math.max(size.y, child.measuredHeight)
+			size.x = Math.max(size.x, it.measuredWidth)
+			size.y = Math.max(size.y, it.measuredHeight)
 		}
 
 		// Set the proper size on all the visible items
-		this.processChild(0, state?.itemCount ?: 0) { index, child ->
-			child.layoutParams.height = size.y
-			child.layoutParams.width = size.x
-			child.post {
-				child.requestLayout()
+		this.processChild(0, state?.itemCount ?: 0) {
+			it.layoutParams.height = size.y
+			it.layoutParams.width = size.x
+			it.post {
+				it.requestLayout()
 			}
 		}
 	}
 
-	private fun processChild(from: Int, to: Int, callback: (index: Int, child: View) -> Unit) {
-		for (rowIndex in from..to) {
-			val row = this.getChildAt(rowIndex) as ViewGroup? ?: continue
-
-			for (childIndex in 0..(row.childCount - 1)) {
-				val child = row.getChildAt(childIndex)
-
-				callback(childIndex, child)
-			}
-		}
+	private fun processChild(from: Int, to: Int, callback: (child: View) -> Unit) {
+		(from..to)
+				.mapNotNull { this.getChildAt(it) as ViewGroup? }
+				.forEach {
+					(0 until it.childCount)
+							.map(it::getChildAt)
+							.forEach(callback)
+				}
 	}
 }

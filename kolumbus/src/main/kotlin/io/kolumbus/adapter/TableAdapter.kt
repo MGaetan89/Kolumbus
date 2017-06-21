@@ -66,22 +66,19 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
 		this.processField(holder) { fieldView, field ->
 			val result = this.methods[field.name]?.invoke(entry)
 
-			if (result is Boolean) {
-				Kolumbus.architect.displayBoolean(fieldView, result)
-			} else if (result is Float) {
-				Kolumbus.architect.displayFloat(fieldView, result)
-			} else if (result is Int) {
-				Kolumbus.architect.displayInt(fieldView, result)
-			} else if (result is RealmList<*>) {
-				val resultCasted = result as RealmList<RealmModel>
-				val returnType = field.genericType as ParameterizedType
-				val type = returnType.actualTypeArguments[0] as Class<RealmModel>
+			when {
+				result is Boolean -> Kolumbus.architect.displayBoolean(fieldView, result)
+				result is Float -> Kolumbus.architect.displayFloat(fieldView, result)
+				result is Int -> Kolumbus.architect.displayInt(fieldView, result)
+				result is RealmList<*> -> {
+					val resultCasted = result as RealmList<RealmModel>
+					val returnType = field.genericType as ParameterizedType
+					val type = returnType.actualTypeArguments[0] as Class<RealmModel>
 
-				Kolumbus.architect.displayRealmList(fieldView, resultCasted, type)
-			} else if (result is RealmModel) {
-				Kolumbus.architect.displayRealmModel(fieldView, result)
-			} else if (result is String) {
-				if (result.isEmpty()) {
+					Kolumbus.architect.displayRealmList(fieldView, resultCasted, type)
+				}
+				result is RealmModel -> Kolumbus.architect.displayRealmModel(fieldView, result)
+				result is String -> if (result.isEmpty()) {
 					Kolumbus.architect.displayEmpty(fieldView)
 				} else {
 					if (Patterns.WEB_URL.matcher(result).matches()) {
@@ -96,20 +93,17 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
 						}
 					}
 				}
-			} else if (result != null) {
-				Kolumbus.architect.displayAny(fieldView, result)
-			} else {
-				Kolumbus.architect.displayNull(fieldView)
+				result != null -> Kolumbus.architect.displayAny(fieldView, result)
+				else -> Kolumbus.architect.displayNull(fieldView)
 			}
 		}
 	}
 
 	private fun bindHeaderRow(holder: ViewHolder) {
 		this.processField(holder) { fieldView, field ->
-			fieldView.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
-				"#${field.name.prettify()}"
-			} else {
-				field.name.prettify()
+			fieldView.text = when {
+				field.isAnnotationPresent(PrimaryKey::class.java) -> "#${field.name.prettify()}"
+				else -> field.name.prettify()
 			}
 		}
 	}

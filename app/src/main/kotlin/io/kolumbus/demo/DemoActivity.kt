@@ -51,7 +51,7 @@ class DemoActivity : Activity() {
 					with(createObject(Product::class.java, (productsCount + i).toInt())) {
 						categories = RealmList<Category>()
 
-						for (j in 0..(random.nextInt(MAX_LINKED_CATEGORIES) - 1)) {
+						for (j in 0 until random.nextInt(MAX_LINKED_CATEGORIES)) {
 							val category = where(Category::class.java).equalTo("id", random.nextInt(CATEGORIES_COUNT - 1) + 1).findFirst()
 
 							if (!(categories as RealmList<Category>).contains(category)) {
