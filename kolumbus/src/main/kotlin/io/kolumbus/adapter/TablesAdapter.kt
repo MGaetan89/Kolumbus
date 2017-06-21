@@ -30,15 +30,12 @@ import io.realm.RealmModel
 class TablesAdapter(val tables: List<Class<out RealmModel>>, val counts: List<Long>) : RecyclerView.Adapter<TablesAdapter.ViewHolder>() {
 	override fun getItemCount() = this.tables.size
 
-	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-		if (holder?.entriesCount != null) {
-			val count = this.counts[position]
-			val countString = count.format()
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+		val count = this.counts[position]
+		val countString = count.format()
 
-			holder?.entriesCount.text = holder?.entriesCount.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
-		}
-
-		holder?.tableName?.text = this.tables[position].simpleName.prettify()
+		holder.entriesCount.text = holder.entriesCount.resources.getQuantityString(R.plurals.kolumbus_entries_count, count.toInt(), countString)
+		holder.tableName.text = this.tables[position].simpleName.prettify()
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
@@ -48,13 +45,10 @@ class TablesAdapter(val tables: List<Class<out RealmModel>>, val counts: List<Lo
 	}
 
 	inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-		val entriesCount: TextView?
-		val tableName: TextView?
+		val entriesCount = view.findViewById(android.R.id.text2) as TextView
+		val tableName = view.findViewById(android.R.id.text1) as TextView
 
 		init {
-			this.entriesCount = view.findViewById(android.R.id.text2) as TextView?
-			this.tableName = view.findViewById(android.R.id.text1) as TextView?
-
 			view.setOnClickListener {
 				TableActivity.start(it.context!!, tables[this.adapterPosition])
 			}

@@ -80,8 +80,8 @@ class TableActivity : Activity(), RealmChangeListener<RealmResults<RealmModel>> 
 			this.actionBar?.setDisplayHomeAsUpEnabled(true)
 		}
 
-		this.empty = this.findViewById(android.R.id.empty) as TextView?
-		this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
+		this.empty = this.findViewById(android.R.id.empty) as TextView
+		this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView
 		this.tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>
 		this.title = this.tableClass?.simpleName?.prettify() ?: ""
 
@@ -125,7 +125,7 @@ class TableActivity : Activity(), RealmChangeListener<RealmResults<RealmModel>> 
 		if (item?.itemId == R.id.menu_clear_table) {
 			AlertDialog.Builder(this)
 					.setMessage(this.getString(R.string.kolumbus_clear_table_confirm, this.tableClass?.simpleName))
-					.setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
+					.setPositiveButton(R.string.kolumbus_clear, { _, _ ->
 						realm.executeTransaction {
 							it.delete(tableClass)
 						}
@@ -162,7 +162,7 @@ class TableActivity : Activity(), RealmChangeListener<RealmResults<RealmModel>> 
 			val entries = this.entries as RealmResults<*>
 
 			if (entries.isValid) {
-				entries.removeChangeListeners()
+				entries.removeAllChangeListeners()
 			}
 		}
 

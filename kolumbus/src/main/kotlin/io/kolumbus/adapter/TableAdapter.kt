@@ -43,7 +43,7 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
 		return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_FIELD
 	}
 
-	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		when (this.getItemViewType(position)) {
 			VIEW_TYPE_FIELD -> this.bindFieldRow(this.entries[position - 1], holder)
 			VIEW_TYPE_HEADER -> this.bindHeaderRow(holder)
@@ -62,7 +62,7 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
 		return ViewHolder(view)
 	}
 
-	private fun bindFieldRow(entry: RealmModel, holder: ViewHolder?) {
+	private fun bindFieldRow(entry: RealmModel, holder: ViewHolder) {
 		this.processField(holder) { fieldView, field ->
 			val result = this.methods[field.name]?.invoke(entry)
 
@@ -104,7 +104,7 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
 		}
 	}
 
-	private fun bindHeaderRow(holder: ViewHolder?) {
+	private fun bindHeaderRow(holder: ViewHolder) {
 		this.processField(holder) { fieldView, field ->
 			fieldView.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
 				"#${field.name.prettify()}"
@@ -121,8 +121,8 @@ class TableAdapter(val entries: List<RealmModel>, val fields: List<Field>, val m
 		}
 	}
 
-	private fun processField(holder: ViewHolder?, callback: (fieldView: TextView, field: Field) -> Unit) {
-		val parent = holder?.itemView as ViewGroup? ?: return
+	private fun processField(holder: ViewHolder, callback: (fieldView: TextView, field: Field) -> Unit) {
+		val parent = holder.itemView as ViewGroup? ?: return
 
 		this.fields.forEachIndexed { index, field ->
 			val fieldView = parent.getChildAt(index) as TextView

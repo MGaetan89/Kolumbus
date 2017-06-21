@@ -48,13 +48,10 @@ class TablesActivity : Activity() {
 
 		this.setContentView(R.layout.kolumbus_activity_tables)
 
-		val empty = this.findViewById(android.R.id.empty) as TextView?
-		this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
+		val empty = this.findViewById(android.R.id.empty) as TextView
+		empty.visibility = if (Kolumbus.hasTables()) View.GONE else View.VISIBLE
 
-		empty?.let {
-			it.visibility = if (Kolumbus.hasTables()) View.GONE else View.VISIBLE
-		}
-
+		this.recyclerView = this.findViewById(android.R.id.list) as RecyclerView
 		this.recyclerView?.let {
 			it.layoutManager = LinearLayoutManager(this)
 			it.visibility = if (Kolumbus.hasTables()) View.VISIBLE else View.GONE
@@ -71,7 +68,7 @@ class TablesActivity : Activity() {
 		if (item?.itemId == R.id.menu_clear_database) {
 			AlertDialog.Builder(this)
 					.setMessage(R.string.kolumbus_clear_database_confirm)
-					.setPositiveButton(R.string.kolumbus_clear, { dialog, which ->
+					.setPositiveButton(R.string.kolumbus_clear, { _, _ ->
 						with(Realm.getDefaultInstance()) {
 							executeTransaction {
 								it.deleteAll()

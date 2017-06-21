@@ -52,17 +52,14 @@ class TableInfoActivity : Activity() {
 			this.actionBar?.setDisplayHomeAsUpEnabled(true)
 		}
 
-		val recyclerView = this.findViewById(android.R.id.list) as RecyclerView?
 		val tableClass = this.intent.getSerializableExtra(EXTRA_TABLE_CLASS) as Class<out RealmModel>
+		val fields = Analyzer.getRealmFields(tableClass)
 
 		this.title = tableClass.simpleName.prettify()
 
-		recyclerView?.let {
-			val fields = Analyzer.getRealmFields(tableClass)
-
-			it.adapter = TableInfoAdapter(fields, tableClass.newInstance())
-			it.layoutManager = LinearLayoutManager(this)
-		}
+		val recyclerView = this.findViewById(android.R.id.list) as RecyclerView
+		recyclerView.adapter = TableInfoAdapter(fields, tableClass.newInstance())
+		recyclerView.layoutManager = LinearLayoutManager(this)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {

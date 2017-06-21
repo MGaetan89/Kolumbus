@@ -30,26 +30,26 @@ import java.lang.reflect.ParameterizedType
 class TableInfoAdapter(val fields: List<Field>, val instance: RealmModel) : RecyclerView.Adapter<TableInfoAdapter.ViewHolder>() {
 	override fun getItemCount() = this.fields.size
 
-	override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val field = this.fields[position].apply { this.isAccessible = true }
 		val genericType = field.genericType
 		val value = field.get(this.instance)
 
-		holder?.name?.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
+		holder.name.text = if (field.isAnnotationPresent(PrimaryKey::class.java)) {
 			"#${field.name}"
 		} else {
 			field.name
 		}
 
-		if (genericType is ParameterizedType) {
+		holder.type.text = if (genericType is ParameterizedType) {
 			val subType = genericType.actualTypeArguments[0] as Class<Any>
 
-			holder?.type?.text = "${field.type.simpleName}<${subType.simpleName}>"
+			"${field.type.simpleName}<${subType.simpleName}>"
 		} else {
-			holder?.type?.text = field.type.simpleName
+			field.type.simpleName
 		}
 
-		holder?.value?.text = when (field.type) {
+		holder.value.text = when (field.type) {
 			String::class.java -> if (value != null) "\"$value\"" else "null"
 			else -> value?.toString() ?: "null"
 		}
@@ -62,14 +62,8 @@ class TableInfoAdapter(val fields: List<Field>, val instance: RealmModel) : Recy
 	}
 
 	class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-		val name: TextView?
-		val type: TextView?
-		val value: TextView?
-
-		init {
-			this.name = view.findViewById(R.id.field_name) as TextView?
-			this.type = view.findViewById(R.id.field_type) as TextView?
-			this.value = view.findViewById(R.id.field_default_value) as TextView?
-		}
+		val name = view.findViewById(R.id.field_name) as TextView
+		val type = view.findViewById(R.id.field_type) as TextView
+		val value = view.findViewById(R.id.field_default_value) as TextView
 	}
 }
