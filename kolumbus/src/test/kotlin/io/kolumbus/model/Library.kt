@@ -24,7 +24,6 @@ open class Library : RealmObject() {
     open var books: RealmList<Book>? = null
     @PrimaryKey
     open var phoneNumber = ""
-    @PrimaryKey
     open var name = ""
     open var ownerName = ""
 }

@@ -17,29 +17,12 @@
 package io.kolumbus
 
 import io.kolumbus.model.Book
-import io.kolumbus.model.Empty
-import io.kolumbus.model.Ignored
 import io.kolumbus.model.Library
 import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertEquals
 
 class Analyzer_GetRealmFieldsTest {
-    @Test
-    fun getRealmFields_Empty() {
-        val fields = Analyzer.getRealmFields(Empty::class.java)
-
-        assertEquals(0, fields.size)
-    }
-
-    @Ignore
-    @Test
-    fun getRealmFields_IgnoreOnly() {
-        val fields = Analyzer.getRealmFields(Ignored::class.java)
-
-        assertEquals(0, fields.size)
-    }
-
     @Ignore
     @Test
     fun getRealmFields_Mixed() {
